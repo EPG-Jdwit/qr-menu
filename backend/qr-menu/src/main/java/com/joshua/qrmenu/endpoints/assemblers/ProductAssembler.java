@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Assembling our internal data into JSON represensations.
+ */
 @Component
 public class ProductAssembler implements RepresentationModelAssembler<Product, EntityModel<Product>> {
 

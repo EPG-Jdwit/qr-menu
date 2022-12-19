@@ -17,6 +17,8 @@ public class ProductEntity {
 	private Long id;
 	private String name;
 
+	private double price;
+
 	protected ProductEntity() {}
 
 	public ProductEntity(String name) {

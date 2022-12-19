@@ -3,6 +3,9 @@ package com.joshua.qrmenu.models.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+/**
+ * Class that represents a Product with all it's fields.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +17,6 @@ public class Product {
     @JsonProperty("name")
     private String name;
 
-//    @JsonProperty("price")
-//    private double price;
+    @JsonProperty("price")
+    private double price;
 }
