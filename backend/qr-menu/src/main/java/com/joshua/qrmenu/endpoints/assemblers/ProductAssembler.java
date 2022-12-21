@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * Assembling our internal data into JSON represensations.
+ * Assembling our internal data into JSON representation.
  */
 @Component
 public class ProductAssembler implements RepresentationModelAssembler<Product, EntityModel<Product>> {
@@ -25,7 +25,7 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> products) {
         return CollectionModel.of(
                 StreamSupport.stream(products.spliterator(), false).map(this::toModel).collect(Collectors.toList())
-                );
+        );
     }
 
     /**

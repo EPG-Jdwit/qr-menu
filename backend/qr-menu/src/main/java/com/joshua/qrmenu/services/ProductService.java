@@ -6,7 +6,7 @@ import com.joshua.qrmenu.models.entities.ProductEntity;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.models.mappers.ProductMapper;
-import com.joshua.qrmenu.models.repositories.ProductRepository;
+import com.joshua.qrmenu.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,12 +61,24 @@ public class ProductService extends AbstractService {
     }
 
     /**
+     * Create a new product.
+     *
+     * @param newProduct : An object with all data to create the new product.
+     * @return : A Product representing the newly created product.
+     */
+    public Product createNewProduct(NewProduct newProduct) {
+        ProductEntity productEntity = productMapper.newJsonToEntity(newProduct);
+        productEntity = productRepository.save(productEntity);
+        return productMapper.entityToJson(productEntity);
+    }
+
+    /**
      * Delete a product with a specific ID if found.
      *
      * @param id : ID of the product to be deleted.
      * @throws NotFoundException : When the ID doesn't correspond to an existing product.
      */
-    public void deleteById(Long id) throws NotFoundException {
+    public void deleteProductById(Long id) throws NotFoundException {
         productRepository.deleteById(id);
     }
 
@@ -86,17 +98,5 @@ public class ProductService extends AbstractService {
         productRepository.save(originalEntity);
         return productMapper.entityToJson(originalEntity);
 
-    }
-
-    /**
-     * Create a new product.
-     *
-     * @param newProduct : An object with all data to create the new product.
-     * @return : A Product representing the newly created product.
-     */
-    public Product createNewProduct(NewProduct newProduct) {
-        ProductEntity productEntity = productMapper.newJsonToEntity(newProduct);
-        productEntity = productRepository.save(productEntity);
-        return productMapper.entityToJson(productEntity);
     }
 }

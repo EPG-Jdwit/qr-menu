@@ -77,7 +77,7 @@ public class ProductController extends BaseController {
     @DeleteMapping("/products/{productId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteProductById(@PathVariable Long productId) throws NotFoundException {
-        productService.deleteById(productId);
+        productService.deleteProductById(productId);
     }
 
     /**

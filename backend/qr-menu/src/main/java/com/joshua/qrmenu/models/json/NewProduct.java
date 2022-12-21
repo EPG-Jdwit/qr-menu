@@ -16,4 +16,7 @@ public class NewProduct {
 
     @JsonProperty("price")
     private double price;
+
+    @JsonProperty("description")
+    private String description;
 }
