@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,6 +14,9 @@ public class NewCategory {
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("products")
+    private Set<Long> products;
 
     // A newly made category has no products
 }

@@ -25,6 +25,10 @@ public class Product {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("categories")
-    private Set<Category> categories;
+    @Override
+    public String toString() {
+        return String.format(
+                "Product[id=%d, name='%s']",
+                productId, name);
+    }
 }

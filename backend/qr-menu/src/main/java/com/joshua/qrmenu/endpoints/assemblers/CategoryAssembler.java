@@ -1,5 +1,7 @@
 package com.joshua.qrmenu.endpoints.assemblers;
 
+import com.joshua.qrmenu.endpoints.CategoryController;
+import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 /**
  * Assembling our internal data into JSON representation.
  */
@@ -17,12 +22,20 @@ public class CategoryAssembler implements RepresentationModelAssembler<Category,
     @Override
     public CollectionModel<EntityModel<Category>> toCollectionModel(Iterable<? extends Category> categories) {
         return CollectionModel.of(
-                StreamSupport.stream(categories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
+                StreamSupport.stream(categories.spliterator(), false).map(this::toModel).collect(Collectors.toList()),
+                linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand()
         );
     }
 
     @Override
     public EntityModel<Category> toModel(Category category) {
-        return EntityModel.of(category);
+        try {
+            return EntityModel.of(category,
+                    linkTo(methodOn(CategoryController.class).getCategoryById(category.getCategoryId())).withSelfRel(),
+                    linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand()
+            );
+        } catch (NotFoundException ex) {
+            return null;
+        }
     }
 }

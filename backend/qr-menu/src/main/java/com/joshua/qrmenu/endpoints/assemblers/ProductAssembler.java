@@ -1,6 +1,9 @@
 package com.joshua.qrmenu.endpoints.assemblers;
 
+import com.joshua.qrmenu.endpoints.ProductController;
+import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Product;
+import lombok.SneakyThrows;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -8,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * Assembling our internal data into JSON representation.
@@ -24,7 +30,8 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
     @Override
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> products) {
         return CollectionModel.of(
-                StreamSupport.stream(products.spliterator(), false).map(this::toModel).collect(Collectors.toList())
+                StreamSupport.stream(products.spliterator(), false).map(this::toModel).collect(Collectors.toList()),
+                linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand()
         );
     }
 
@@ -34,8 +41,14 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
      * @param product : the product to convert.
      * @return : EntityModel of the product.
      */
-    @Override
     public EntityModel<Product> toModel(Product product) {
-        return EntityModel.of(product);
+        try {
+            return EntityModel.of(product,
+                    linkTo(methodOn(ProductController.class).getProductById(product.getProductId())).withSelfRel(),
+                    linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand()
+            );
+        } catch (NotFoundException ex) {
+            return null;
+        }
     }
 }

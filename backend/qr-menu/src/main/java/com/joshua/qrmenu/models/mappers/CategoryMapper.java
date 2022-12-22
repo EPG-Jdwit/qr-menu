@@ -6,8 +6,9 @@ import com.joshua.qrmenu.models.json.NewCategory;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 public class CategoryMapper implements Mapper<CategoryEntity, Category, NewCategory> {

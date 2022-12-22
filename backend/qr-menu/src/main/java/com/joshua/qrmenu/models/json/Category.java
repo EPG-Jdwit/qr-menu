@@ -18,6 +18,4 @@ public class Category {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty
-    private Set<Product> products;
 }
