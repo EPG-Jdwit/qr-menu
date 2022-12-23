@@ -7,6 +7,7 @@ import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.models.mappers.ProductMapper;
 import com.joshua.qrmenu.repositories.ProductRepository;
+import com.joshua.qrmenu.services.util.AbstractService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

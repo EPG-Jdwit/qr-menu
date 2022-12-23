@@ -24,7 +24,14 @@ public class ProductEntity {
 
 	private String description;
 
-	@ManyToMany(mappedBy = "products")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+	@JoinTable(
+			name = "category_product",
+			inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"),
+			joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
+			foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+			inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+	)
 	private Set<CategoryEntity> categories;
 
 	protected ProductEntity() {}
@@ -33,6 +40,22 @@ public class ProductEntity {
 		this.name = name;
 		this.price = price;
 		this.description = description;
+	}
+
+	public void preAddCategoryEntity(CategoryEntity categoryEntity) {
+		categories.add(categoryEntity);
+	}
+	public void addCategoryEntity(CategoryEntity categoryEntity) {
+		preAddCategoryEntity(categoryEntity);
+		categoryEntity.preAddProductEntity(this);
+	}
+
+	public void preRemoveCategoryEntity(CategoryEntity categoryEntity) {
+		categories.remove(categoryEntity);
+	}
+	public void removeCategoryEntity(CategoryEntity categoryEntity) {
+		preRemoveCategoryEntity(categoryEntity);
+		categoryEntity.preRemoveProductEntity(this);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.models.mappers.CategoryMapper;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
+import com.joshua.qrmenu.services.util.AbstractService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

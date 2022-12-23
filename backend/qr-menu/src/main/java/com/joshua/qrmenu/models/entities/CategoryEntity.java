@@ -21,11 +21,13 @@ public class CategoryEntity {
 
     private String name;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(
             name = "category_product",
             joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
     private Set<ProductEntity> products;
 
@@ -40,6 +42,24 @@ public class CategoryEntity {
         return String.format(
                 "Category[id=%d, name='%s']",
                 categoryId, name);
+    }
+
+    public void preAddProductEntity(ProductEntity productEntity) {
+        products.add(productEntity);
+    }
+
+    public void addProductEntity(ProductEntity productEntity) {
+        preAddProductEntity(productEntity);
+        productEntity.preAddCategoryEntity(this);
+    }
+
+    public void preRemoveProductEntity(ProductEntity productEntity) {
+        products.remove(productEntity);
+    }
+
+    public void removeProductEntity(ProductEntity productEntity) {
+        preRemoveProductEntity(productEntity);
+        productEntity.preRemoveCategoryEntity(this);
     }
 
 }

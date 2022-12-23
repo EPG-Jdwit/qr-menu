@@ -1,4 +1,4 @@
-package com.joshua.qrmenu.services;
+package com.joshua.qrmenu.services.util;
 
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 
