@@ -3,12 +3,17 @@ package com.joshua.qrmenu.models.entities;
 import jakarta.persistence.*;
 
 import java.util.Set;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductEntity {
 
 	@Id
@@ -20,7 +25,7 @@ public class ProductEntity {
 	private Long productId;
 	private String name;
 
-	private double price;
+	private Double price;
 
 	private String description;
 
@@ -33,8 +38,6 @@ public class ProductEntity {
 			inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
 	)
 	private Set<CategoryEntity> categories;
-
-	protected ProductEntity() {}
 
 	public ProductEntity(String name, Double price, String description) {
 		this.name = name;
