@@ -45,21 +45,21 @@ public class ProductEntity {
 		this.description = description;
 	}
 
-	public void preAddCategoryEntity(CategoryEntity categoryEntity) {
-		categories.add(categoryEntity);
-	}
-	public void addCategoryEntity(CategoryEntity categoryEntity) {
-		preAddCategoryEntity(categoryEntity);
-		categoryEntity.preAddProductEntity(this);
-	}
-
-	public void preRemoveCategoryEntity(CategoryEntity categoryEntity) {
-		categories.remove(categoryEntity);
-	}
-	public void removeCategoryEntity(CategoryEntity categoryEntity) {
-		preRemoveCategoryEntity(categoryEntity);
-		categoryEntity.preRemoveProductEntity(this);
-	}
+//	public void preAddCategoryEntity(CategoryEntity categoryEntity) {
+//		categories.add(categoryEntity);
+//	}
+//	public void addCategoryEntity(CategoryEntity categoryEntity) {
+//		preAddCategoryEntity(categoryEntity);
+//		categoryEntity.preAddProductEntity(this);
+//	}
+//
+//	public void preRemoveCategoryEntity(CategoryEntity categoryEntity) {
+//		categories.remove(categoryEntity);
+//	}
+//	public void removeCategoryEntity(CategoryEntity categoryEntity) {
+//		preRemoveCategoryEntity(categoryEntity);
+//		categoryEntity.preRemoveProductEntity(this);
+//	}
 
 	@Override
 	public String toString() {

@@ -7,7 +7,7 @@ import com.joshua.qrmenu.services.ProductService;
 import com.joshua.qrmenu.util.mocker.ProductMocker;
 import org.junit.jupiter.api.Test;
 
-import static com.joshua.qrmenu.product.service.Conditions.productListContainsNewProduct;
+import static com.joshua.qrmenu.util.Conditions.productListContainsNewProduct;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class CreateNewProductTest {

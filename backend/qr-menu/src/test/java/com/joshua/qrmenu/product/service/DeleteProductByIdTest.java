@@ -30,9 +30,6 @@ public class DeleteProductByIdTest {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
-        System.out.println("productID:");
-        System.out.println(product.getProductId());
-
         assertThat(productService.getAll().size()).isEqualTo(1);
         productService.deleteProductById(product.getProductId());
         assertThat(productService.getAll().size()).isEqualTo(0);
@@ -51,5 +48,4 @@ public class DeleteProductByIdTest {
         assertThat(productService.getAll().contains(product1)).isFalse();
         assertThat(productService.getAll().contains(product2)).isTrue();
     }
-
 }

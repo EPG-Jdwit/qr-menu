@@ -42,9 +42,6 @@ public class ProductRepositoryMocker {
         doAnswer(args -> {
             Long id = args.getArgument(0);
             Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
-            System.out.println("PRESENT");
-            System.out.println(id);
-            System.out.println(optionalProductEntity.isPresent());
             if (optionalProductEntity.isPresent()) {
                 ProductEntity productEntity = optionalProductEntity.get();
                 if (productEntity.getProductId() != null) {

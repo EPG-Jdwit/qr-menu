@@ -8,12 +8,13 @@ import java.util.Set;
 /**
  * Class that represents a Product with all it's fields.
  */
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
 
-    @JsonProperty
+    @JsonProperty("id")
     private Long productId;
 
     @JsonProperty("name")
@@ -30,5 +31,19 @@ public class Product {
         return String.format(
                 "Product[id=%d, name='%s']",
                 productId, name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Product product)) {
+            return false;
+        }
+        return productId.equals(product.getProductId()) &&
+                name.equals(product.getName()) &&
+                Double.compare(price, product.getPrice()) == 0 &&
+                description.equals(product.getDescription());
     }
 }

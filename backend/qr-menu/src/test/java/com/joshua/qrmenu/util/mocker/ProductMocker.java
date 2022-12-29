@@ -14,7 +14,7 @@ public class ProductMocker {
 
     public ProductMocker() {}
 
-    private static long createdCounter = 0L;
+    private static Long createdCounter = 0L;
 
     private static final ProductNameMocker productNameMocker = new ProductNameMocker();
 

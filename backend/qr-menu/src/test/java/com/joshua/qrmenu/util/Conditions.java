@@ -1,4 +1,4 @@
-package com.joshua.qrmenu.product.service;
+package com.joshua.qrmenu.util;
 
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
