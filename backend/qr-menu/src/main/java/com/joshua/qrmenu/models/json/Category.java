@@ -28,6 +28,5 @@ public class Category {
         }
         return categoryId.equals(category.getCategoryId()) &&
                 name.equals(category.getName());
-        // TODO: products
     }
 }

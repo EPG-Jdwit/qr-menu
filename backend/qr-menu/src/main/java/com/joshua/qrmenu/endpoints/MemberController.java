@@ -4,6 +4,7 @@ import com.joshua.qrmenu.endpoints.assemblers.CategoryAssembler;
 import com.joshua.qrmenu.endpoints.assemblers.ProductAssembler;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
+import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.services.MemberService;
 import org.springframework.hateoas.CollectionModel;
@@ -28,6 +29,11 @@ public class MemberController extends BaseController {
         @GetMapping("/categories/{categoryId}/categoryProducts")
         public CollectionModel<EntityModel<Product>> getCategoryProducts(@PathVariable Long categoryId) throws NotFoundException {
             return productAssembler.toCollectionModel(memberService.getCategoryProducts(categoryId));
+        }
+
+        @GetMapping("/products/{productId}/productCategories")
+        public CollectionModel<EntityModel<Category>> getProductCategories(@PathVariable Long productId) throws NotFoundException {
+            return categoryAssembler.toCollectionModel(memberService.getProductCategories(productId));
         }
 
 }

@@ -3,6 +3,7 @@ package com.joshua.qrmenu.services;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.entities.CategoryEntity;
 import com.joshua.qrmenu.models.entities.ProductEntity;
+import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.models.mappers.CategoryMapper;
 import com.joshua.qrmenu.models.mappers.ProductMapper;
@@ -36,6 +37,15 @@ public class MemberService extends AbstractService {
         List<Product> results = new ArrayList<>();
         for (ProductEntity productEntity : categoryEntity.getProducts()) {
             results.add(productMapper.entityToJson(productEntity));
+        }
+        return results;
+    }
+
+    public List<Category> getProductCategories(Long productId) throws NotFoundException {
+        ProductEntity productEntity = parseOptional(productRepository.findById(productId));
+        List<Category> results = new ArrayList<>();
+        for (CategoryEntity categoryEntity : productEntity.getCategories()) {
+            results.add(categoryMapper.entityToJson(categoryEntity));
         }
         return results;
     }
