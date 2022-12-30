@@ -8,6 +8,7 @@ import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.services.CategoryService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,16 +36,19 @@ public class CategoryController extends BaseController {
     }
 
     @PostMapping("/categories")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) {
         return categoryAssembler.toModel(categoryService.createNewCategory(newCategory));
     }
 
     @DeleteMapping("/categories/{categoryId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteCategoryById(@PathVariable Long categoryId) throws NotFoundException {
         categoryService.deleteCategoryById(categoryId);
     }
 
     @PatchMapping("/categories/{categoryId}")
+    @ResponseStatus(value = HttpStatus.OK)
     public EntityModel<Category> patchCategoryById(@PathVariable Long categoryId, @RequestBody NewCategory newCategory) throws  NotFoundException {
         Category category = categoryService.patchCategoryById(categoryId, newCategory);
         return categoryAssembler.toModel(category);

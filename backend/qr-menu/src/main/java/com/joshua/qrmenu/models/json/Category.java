@@ -12,10 +12,22 @@ import java.util.Set;
 @NoArgsConstructor
 public class Category {
 
-    @JsonProperty
+    @JsonProperty("id")
     private Long categoryId;
 
     @JsonProperty("name")
     private String name;
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Category category)) {
+            return false;
+        }
+        return categoryId.equals(category.getCategoryId()) &&
+                name.equals(category.getName());
+        // TODO: products
+    }
 }

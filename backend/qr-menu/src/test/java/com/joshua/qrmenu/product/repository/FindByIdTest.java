@@ -18,7 +18,7 @@ public class FindByIdTest {
     private final ProductMocker productMocker = new ProductMocker();
 
     private ProductEntity createProductEntity() {
-        ProductEntity productEntity = productMocker.productEntity();
+        ProductEntity productEntity = productMocker.generateProductEntity();
         productEntity.setProductId(null);
         productEntity = productRepository.save(productEntity);
         return productEntity;
@@ -30,7 +30,11 @@ public class FindByIdTest {
         ProductEntity productEntity = createProductEntity();
         assertThat(productEntity.getProductId()).isNotNull();
         assertThat(productRepository.existsById(productEntity.getProductId())).isTrue();
+        assertThat(productRepository.findById(productEntity.getProductId()).get()).isEqualTo(productEntity);
     }
+
+    // TODO: Use findById instead of exists in following
+
 
     @Test
     public void notPresentAfterDelete() {

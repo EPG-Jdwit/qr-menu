@@ -80,7 +80,11 @@ public class ProductService extends AbstractService {
      * @throws NotFoundException : When the ID doesn't correspond to an existing product.
      */
     public void deleteProductById(Long id) throws NotFoundException {
-        productRepository.deleteById(id);
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        } else {
+            throw new NotFoundException();
+        }
     }
 
     /**

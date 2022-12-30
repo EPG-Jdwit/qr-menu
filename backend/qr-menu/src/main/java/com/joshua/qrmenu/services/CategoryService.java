@@ -53,7 +53,11 @@ public class CategoryService extends AbstractService {
     }
 
     public void deleteCategoryById(Long id) throws NotFoundException {
-        categoryRepository.deleteById(id);
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        } else {
+            throw new NotFoundException();
+        }
     }
 
     public Category patchCategoryById(Long id, NewCategory newCategory) throws NotFoundException {

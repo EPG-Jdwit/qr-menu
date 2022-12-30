@@ -22,7 +22,7 @@ public class DeleteProductByIdTest {
     @Test
     public void deleteThrowsNotFoundException() {
         assertThrows(NotFoundException.class,
-                () -> productService.getProductById(0L));
+                () -> productService.deleteProductById(0L));
     }
 
     @Test

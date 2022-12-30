@@ -2,6 +2,7 @@ package com.joshua.qrmenu.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.Product;
 
 import java.util.*;
@@ -32,6 +33,30 @@ public class JSONParser {
                 (String) map.get("name"),
                 (double) map.get("price"),
                 (String) map.get("description")
+        );
+    }
+
+    public List<Category> embeddedObjectToCategoryList(Object object) {
+        Map<String, Map<String, List<Map<String, Object>>>> json = (Map<String, Map<String, List<Map<String, Object>>>>) object;
+        List<Category> categories = new ArrayList<>();
+        if (json.get("_embedded") != null) { // TODO: Force _embedded for empty lists?
+            List<Map<String, Object>> categoryList = json.get("_embedded").get("categoryList");
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (Map<String, Object> categoryMap : categoryList) {
+                Category category = objectMapper
+                        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                        .convertValue(categoryMap, Category.class);
+                categories.add(category);
+            }
+        }
+        return categories;
+    }
+
+    public Category jsonMapToCategory(Object object) {
+        Map<String, Object> map = (Map<String, Object>) object;
+        return new Category(
+                ((Integer) map.get("id")).longValue(), // TODO: Solve this hack. For some reason output is Long but when JSON is read it's an Integer
+                (String) map.get("name")
         );
     }
 }

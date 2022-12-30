@@ -33,6 +33,7 @@ public class UpdateProductTest {
         Product product = productService.createNewProduct(newProduct);
 
         productService.patchProductById(product.getProductId(), newProduct);
+        assertThat(productService.getProductById(product.getProductId())).isEqualTo(product);
     }
 
     @Test
@@ -41,22 +42,22 @@ public class UpdateProductTest {
         Product product = productService.createNewProduct(newProduct);
 
         NewProduct nullProduct = productMocker.generateNullNewProduct();
-        productService.patchProductById(product.getProductId(), nullProduct);
+        Product updatedProduct = productService.patchProductById(product.getProductId(), nullProduct);
 
-        assertThat(productService.getProductById(product.getProductId()).getProductId()).isEqualTo(product.getProductId());
-        assertThat(productService.getProductById(product.getProductId()).getName()).isEqualTo(product.getName());
-        assertThat(productService.getProductById(product.getProductId()).getPrice()).isEqualTo(product.getPrice());
-        assertThat(productService.getProductById(product.getProductId()).getDescription()).isEqualTo(product.getDescription());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getProductId()).isEqualTo(product.getProductId());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getName()).isEqualTo(product.getName());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getPrice()).isEqualTo(product.getPrice());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getDescription()).isEqualTo(product.getDescription());
     }
 
     @Test
     public void checkUpdateNoIdChange() throws NotFoundException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
-        NewProduct updateProduct = productMocker.generateNewProduct();
+        NewProduct updateNewProduct = productMocker.generateNewProduct();
 
-        productService.patchProductById(product.getProductId(), updateProduct);
-        assertThat(productService.getProductById(product.getProductId()).getProductId()).isEqualTo(product.getProductId());
+        Product updatedProduct = productService.patchProductById(product.getProductId(), updateNewProduct);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getProductId()).isEqualTo(product.getProductId());
     }
 
     @Test
@@ -66,10 +67,12 @@ public class UpdateProductTest {
 
         String newName = "new name";
         newProduct.setName(newName);
-        productService.patchProductById(product.getProductId(), newProduct);
-        assertThat(productService.getProductById(product.getProductId()).getName()).isEqualTo(newName);
-        assertThat(productService.getProductById(product.getProductId()).getPrice()).isEqualTo(product.getPrice());
-        assertThat(productService.getProductById(product.getProductId()).getDescription()).isEqualTo(product.getDescription());
+        Product updatedProduct = productService.patchProductById(product.getProductId(), newProduct);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getProductId()).isEqualTo(product.getProductId());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getName()).isNotEqualTo(product.getName());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getName()).isEqualTo(newName);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getPrice()).isEqualTo(product.getPrice());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getDescription()).isEqualTo(product.getDescription());
     }
 
     @Test
@@ -79,10 +82,12 @@ public class UpdateProductTest {
 
         double newPrice = 5.00;
         newProduct.setPrice(newPrice);
-        productService.patchProductById(product.getProductId(), newProduct);
-        assertThat(productService.getProductById(product.getProductId()).getName()).isEqualTo(product.getName());
-        assertThat(productService.getProductById(product.getProductId()).getPrice()).isEqualTo(newPrice);
-        assertThat(productService.getProductById(product.getProductId()).getDescription()).isEqualTo(product.getDescription());
+        Product updatedProduct = productService.patchProductById(product.getProductId(), newProduct);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getProductId()).isEqualTo(product.getProductId());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getName()).isEqualTo(product.getName());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getPrice()).isNotEqualTo(product.getPrice());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getPrice()).isEqualTo(newPrice);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getDescription()).isEqualTo(product.getDescription());
     }
 
     @Test
@@ -92,10 +97,12 @@ public class UpdateProductTest {
 
         String newDescription = "new description";
         newProduct.setDescription(newDescription);
-        productService.patchProductById(product.getProductId(), newProduct);
-        assertThat(productService.getProductById(product.getProductId()).getName()).isEqualTo(product.getName());
-        assertThat(productService.getProductById(product.getProductId()).getPrice()).isEqualTo(product.getPrice());
-        assertThat(productService.getProductById(product.getProductId()).getDescription()).isEqualTo(newDescription);
+        Product updatedProduct = productService.patchProductById(product.getProductId(), newProduct);
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getProductId()).isEqualTo(product.getProductId());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getName()).isEqualTo(product.getName());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getPrice()).isEqualTo(product.getPrice());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getDescription()).isNotEqualTo(product.getDescription());
+        assertThat(productService.getProductById(updatedProduct.getProductId()).getDescription()).isEqualTo(newDescription);
     }
 
 }

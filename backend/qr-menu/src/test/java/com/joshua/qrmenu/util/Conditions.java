@@ -1,5 +1,7 @@
 package com.joshua.qrmenu.util;
 
+import com.joshua.qrmenu.models.json.Category;
+import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import org.assertj.core.api.Condition;
@@ -36,5 +38,30 @@ public class Conditions {
         return Objects.equals(product.getName(), newProduct.getName()) &&
                 Objects.equals(product.getPrice(), newProduct.getPrice()) &&
                 Objects.equals(product.getDescription(), newProduct.getDescription());
+    }
+
+    private static boolean categoryEqualsNewCategory(Category category, NewCategory newCategory) {
+        return Objects.equals(category.getName(), newCategory.getName());
+    }
+
+    public static Condition<? super List<Category>> categoryListContainsNewCategory(NewCategory newCategory) {
+        return new Condition<>(
+                categoryList -> {
+                    for (Category category : categoryList) {
+                        if (categoryEqualsNewCategory(category, newCategory)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
+                "Product list should contain " + newCategory.toString()
+        );
+    }
+
+    public static Condition<Category> categoryEqualsNewCategory(NewCategory newCategory) {
+        return new Condition<>(
+                category -> categoryEqualsNewCategory(category, newCategory),
+                "Product should have the same data as " + newCategory.toString()
+        );
     }
 }

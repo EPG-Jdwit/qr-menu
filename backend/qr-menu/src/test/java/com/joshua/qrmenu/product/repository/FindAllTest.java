@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -18,7 +20,7 @@ public class FindAllTest {
     private final ProductMocker productMocker = new ProductMocker();
 
     private ProductEntity createProductEntity() {
-        ProductEntity productEntity = productMocker.productEntity();
+        ProductEntity productEntity = productMocker.generateProductEntity();
         productEntity.setProductId(null);
         productEntity = productRepository.save(productEntity);
         return productEntity;
@@ -42,8 +44,7 @@ public class FindAllTest {
         ProductEntity productEntity1 = createProductEntity();
         ProductEntity productEntity2 = createProductEntity();
         assertThat(productRepository.findAll().size()).isEqualTo(2);
-        assertThat(productRepository.findAll().contains(productEntity1)).isTrue();
-        assertThat(productRepository.findAll().contains(productEntity2)).isTrue();
+        assertThat(productRepository.findAll().containsAll(Arrays.asList(productEntity1, productEntity2))).isTrue();
     }
 
     @Test
@@ -54,6 +55,7 @@ public class FindAllTest {
         assertThat(productRepository.findAll().size()).isEqualTo(10);
     }
 
+    //TODO: make own test suite
     @Test
     public void notPresentAfterDelete() {
         assertThat(productRepository.findAll().size()).isEqualTo(0);

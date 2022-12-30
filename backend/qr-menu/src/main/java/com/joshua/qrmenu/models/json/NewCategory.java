@@ -17,6 +17,4 @@ public class NewCategory {
 
     @JsonProperty("products")
     private Set<Long> products;
-
-    // A newly made category has no products
 }

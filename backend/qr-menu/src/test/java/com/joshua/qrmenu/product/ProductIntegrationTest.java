@@ -51,7 +51,7 @@ public class ProductIntegrationTest {
 
     @Test
     @Order(1)
-    void getProductsAtStart() throws Exception {
+    public void getProductsAtStart() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                 MockMvcRequestBuilders
                         .get("/products")
@@ -76,8 +76,8 @@ public class ProductIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
         product1 = JSON_PARSER.jsonMapToProduct(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
-        System.out.println(product1.getProductId());
         assertThat(product1).satisfies(productEqualsNewProduct(newProduct));
+        assertThat(product1.getProductId()).isNotEqualTo(null);
     }
 
     @Test
@@ -95,6 +95,7 @@ public class ProductIntegrationTest {
                 .andReturn().getResponse();
         product2 = JSON_PARSER.jsonMapToProduct(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
         assertThat(product2).satisfies(productEqualsNewProduct(newProduct));
+        assertThat(product2).isNotEqualTo(product1);
     }
 
     @Test
@@ -124,6 +125,7 @@ public class ProductIntegrationTest {
                 .andReturn().getResponse();
         Product result = JSON_PARSER.jsonMapToProduct(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
         assertThat(result).isEqualTo(product1);
+        assertThat(result).isNotEqualTo(product2);
     }
 
     @Test
@@ -141,6 +143,7 @@ public class ProductIntegrationTest {
                 .andReturn().getResponse();
         Product result = JSON_PARSER.jsonMapToProduct(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
         assertThat(result).isNotEqualTo(product1);
+        assertThat(result.getProductId()).isEqualTo(product1.getProductId());
         product1 = result;
     }
 
@@ -184,7 +187,7 @@ public class ProductIntegrationTest {
         assertThat(result.getName()).isNotEqualTo(product1.getName());
         assertThat(result.getPrice()).isEqualTo(product1.getPrice());
         assertThat(result.getDescription()).isEqualTo(product1.getDescription());
-
+        product1 = result;
     }
 
     @Test
@@ -209,6 +212,7 @@ public class ProductIntegrationTest {
         assertThat(result.getName()).isEqualTo(product1.getName());
         assertThat(result.getPrice()).isNotEqualTo(product1.getPrice());
         assertThat(result.getDescription()).isEqualTo(product1.getDescription());
+        product1 = result;
     }
 
     @Test
@@ -233,6 +237,7 @@ public class ProductIntegrationTest {
         assertThat(result.getName()).isEqualTo(product1.getName());
         assertThat(result.getPrice()).isEqualTo(product1.getPrice());
         assertThat(result.getDescription()).isNotEqualTo(product1.getDescription());
+        product1 = result;
     }
 
     @Test
@@ -267,5 +272,16 @@ public class ProductIntegrationTest {
         List<Product> productList = JSON_PARSER.embeddedObjectToProductList(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
         assertThat(productList.size()).isEqualTo(1);
         assertThat(productList.contains(product2)).isTrue();
+    }
+
+    @Test
+    @Order(21)
+    public void deleteByIdNotFound() throws Exception {
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .delete("/products/" + product1.getProductId())
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound());
     }
 }

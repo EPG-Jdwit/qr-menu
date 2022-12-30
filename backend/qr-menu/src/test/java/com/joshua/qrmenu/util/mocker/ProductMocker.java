@@ -22,7 +22,7 @@ public class ProductMocker {
 
     private static final ProductDescriptionMocker productDescriptionMocker = new ProductDescriptionMocker();
 
-    public ProductEntity productEntity() {
+    public ProductEntity generateProductEntity() {
         createdCounter += 1;
         String productName = productNameMocker.productName();
         Double productPrice = productPriceMocker.productPrice();
@@ -33,7 +33,7 @@ public class ProductMocker {
     public List<ProductEntity> generateProductEntities(int number) {
         List<ProductEntity> list = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            list.add(productEntity());
+            list.add(generateProductEntity());
         }
         return list;
     }
