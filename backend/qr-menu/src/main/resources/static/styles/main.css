@@ -1,0 +1,33 @@
+:root {
+    --theme-dark-color: #333;
+    --theme-light-color: burlywood;
+    --banner-title-color: blanchedalmond;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-size: 100%;
+
+    background-color: var(--theme-light-color);
+}
+
+#center-window {
+    clear: left;
+    height: auto;
+    display: flex;
+    margin: 0;
+}
+
+#footer {
+    width: 100%;
+
+    bottom: 0;
+
+    color: var(--banner-title-color);
+    background-color: var(--theme-dark-color);
+}

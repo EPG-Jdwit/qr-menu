@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Character set -->
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="stylesheet.css"/>
-    <title>JS tutorial project</title>
-    <script src="scripts.js"></script>
+    <!-- External CSS stylesheets -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="stylesheet" href="styles/main_window.css">
+
+    <title>QR-Menukaart De Barkentijn</title>
   </head>
   <body>
-    <h1> test </h1>
-    <button id="populateButton" onClick="populate()">Populate</button>
-    <button id="btn" onClick="getProducts()">Click me!</button>
-    <div id="container">
-      <div id="demo">placeholder</div>
+    <div id="header">
+      <div id="title-container">
+        <img src="images/tafel8.jpg" id="top-banner" alt="Barkentijn ODK Banner">
+        <div id="banner-text">De Barkentijn Oostduinkerke</div>
+      </div>
+      <div id="nav-container">
+        <div class="header-item1">
+
+        </div>
+        <div class="header-item2">
+
+        </div>
+      </div>
     </div>
-    <form name="newProductForm" action="" return="false">
-      <label>Name:</label>
-      <input type="text" id="nname" required/><br>
-      <label>Price:</label>
-      <input type="text" id="nprice"/><br>
-      <label>Description:</label>
-      <input type="text" id="ndescription"/><br>
-      <input type="button" value="Submit" onclick="addNewProduct()">
-    </form>
-    <div id="resultNew">result</div>
+    <div id="center-window">
+      Center
+    </div>
+    <div id="footer">
+      Footer
+    </div>
   </body>
 </html>
