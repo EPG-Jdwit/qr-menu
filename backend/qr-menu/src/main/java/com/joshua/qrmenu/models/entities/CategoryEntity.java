@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
 
@@ -13,10 +14,18 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        name = "categories",
+        schema = "public"
+)
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(generator = "cat_generator")
+    @GenericGenerator(
+            name = "cat_generator",
+            strategy = "com.joshua.qrmenu.repositories.util.IdGenerator"
+    )
     @Column(
             name = "category_id",
             updatable = false

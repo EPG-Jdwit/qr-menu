@@ -8,16 +8,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+		name = "products",
+		schema = "public"
+)
 public class ProductEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator = "prod_generator")
+	@GenericGenerator(
+			name = "prod_generator",
+			strategy = "com.joshua.qrmenu.repositories.util.IdGenerator"
+	)
 	@Column(
 			name = "product_id",
 			updatable = false
