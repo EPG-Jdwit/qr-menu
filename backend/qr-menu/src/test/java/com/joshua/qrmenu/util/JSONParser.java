@@ -29,7 +29,7 @@ public class JSONParser {
     public Product jsonMapToProduct(Object object) {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Product(
-                ((Integer) map.get("id")).longValue(), // TODO: Solve this hack. For some reason output is Long but when JSON is read it's an Integer
+                (Long) map.get("id"),
                 (String) map.get("name"),
                 (double) map.get("price"),
                 (String) map.get("description")
@@ -55,7 +55,7 @@ public class JSONParser {
     public Category jsonMapToCategory(Object object) {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Category(
-                ((Integer) map.get("id")).longValue(), // TODO: Solve this hack. For some reason output is Long but when JSON is read it's an Integer
+                (Long) map.get("id"),
                 (String) map.get("name")
         );
     }

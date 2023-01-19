@@ -17,4 +17,8 @@ public class NewCategory {
 
     @JsonProperty("products")
     private Set<Long> products;
+
+    public NewCategory(String name) {
+        this.name = name;
+    }
 }
