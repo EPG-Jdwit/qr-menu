@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <title>JS tutorial project</title>
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <h1> test </h1>
+    <button id="populateButton" onClick="populate()">Populate</button>
+    <button id="btn" onClick="getProducts()">Click me!</button>
+    <div id="container">
+      <div id="demo">placeholder</div>
+    </div>
+    <form name="newProductForm" action="" return="false">
+      <label>Name:</label>
+      <input type="text" id="nname" required/><br>
+      <label>Price:</label>
+      <input type="text" id="nprice"/><br>
+      <label>Description:</label>
+      <input type="text" id="ndescription"/><br>
+      <input type="button" value="Submit" onclick="addNewProduct()">
+    </form>
+    <div id="resultNew">result</div>
+  </body>
+</html>
