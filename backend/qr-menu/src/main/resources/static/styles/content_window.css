@@ -62,29 +62,38 @@
 .center-panel {
     margin-left: 0;
     margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-bottom: 5vh;
     margin: 1vw 0 0 0;
     max-width: 70%;
     min-width: 70%;
 }
 
+/* TODO: content title leaving background on resize */
 .content-title {
-    width: 25vw;
-    max-width: 25vw;
+    width: auto;
+    max-width: 40vw;
 
     margin-left: auto;
     margin-right: auto;
-    padding: 0.195vw 0.975vw;
+    margin-bottom: 2vh;
+    padding: 0.195vh 0.975vw;
 
     display: block;
 
-    font-size: 4vw;
+    font-size: var(--responsive-font-size-large);
     font-weight: bold;
     text-align: center;
-
     color: blanchedalmond;
+    text-shadow: 0.217vw 0.217vw 0.217vw black;
+
+
     background-color: rgba(51, 51, 51, 0.7);
-    text-shadow: 0.117vw 0.117vw 0.117vw black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20%;
+}
+
+#categories-container {
+    margin-top: 3vh;
 }

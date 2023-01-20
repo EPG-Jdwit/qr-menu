@@ -28,7 +28,7 @@
 
     display: block;
 
-    font-size: 5vmin;
+    font-size: var(--responsive-font-size-medium);
 
     color: var(--banner-title-color);
     background-color: rgba(3, 3, 3, 0.7);           /*TODO: box adapting to 1 or 2 lines */

@@ -5,12 +5,15 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- External CSS stylesheets -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/navigation.css">
-    <link rel="stylesheet" href="styles/content_window.css">
+    <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/header.css"/>
+    <link rel="stylesheet" href="styles/navigation.css"/>
+    <link rel="stylesheet" href="styles/content_window.css"/>
+    <link rel="stylesheet" href="styles/category_table.css"/>
 
     <title>QR-Menukaart De Barkentijn</title>
+
+    <script src="categories.js"></script>
   </head>
   <body>
     <!-- <div id="header"> -->
@@ -35,13 +38,11 @@
         <img src="images/duinenwandeling-koksijde-oostduinkerke.jpg" id="left-panel-image" alt="Duinen Oostduinkerke"/>
       </div>
       <div class="center-panel">
+        <div class="content-title">
+          Categorieën 
+        </div>
+          <div id="categories-container"></div>
         <div>
-          <div class="content-title">
-            Categorieën 
-          </div>
-          <div>
-
-          </div>
         </div>
       </div>
       <div class="right-panel">
@@ -49,7 +50,7 @@
       </div>
     </div>
     <footer>
-      Footer
+      footer info
     </footer>
   </body>
 </html>
