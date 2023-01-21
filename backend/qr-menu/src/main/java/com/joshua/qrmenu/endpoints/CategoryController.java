@@ -35,6 +35,12 @@ public class CategoryController extends BaseController {
         return categoryAssembler.toModel(categoryService.getCategoryById(categoryId));
     }
 
+    //TODO: producs get added to category, but another category gets created with diff ID
+    @GetMapping("/categories/category")
+    public EntityModel<Category> getCategoryByName(@RequestParam String name) throws NotFoundException {
+        return categoryAssembler.toModel(categoryService.getCategoryByName(name));
+    }
+
     @PostMapping("/categories")
     @ResponseStatus(value = HttpStatus.CREATED)
     public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) {

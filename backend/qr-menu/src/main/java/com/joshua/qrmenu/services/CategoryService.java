@@ -45,6 +45,11 @@ public class CategoryService extends AbstractService {
         return categoryMapper.entityToJson(categoryEntity);
     }
 
+    public Category getCategoryByName(String name) throws NotFoundException {
+        CategoryEntity categoryEntity = parseOptional(categoryRepository.findByName(name));
+        return categoryMapper.entityToJson(categoryEntity);
+    }
+
     // No products when creating
     public Category createNewCategory(NewCategory newCategory) {
         CategoryEntity categoryEntity = categoryMapper.newJsonToEntity(newCategory);

@@ -81,6 +81,30 @@ public class CategoryIntegrationTest {
 
     @Test
     @Order(3)
+    public void getCategoryByIdNotFound() throws Exception {
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/categories/" + (category1.getCategoryId() + 1))
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    @Order(3)
+    public void getCategoryByNameNotFound() throws Exception {
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/categories/category?name=" + category1.getName() + "a")
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    @Order(4)
     public void createCategory2() throws Exception{
         NewCategory newCategory = categoryMocker.generateNewCategory();
         MockHttpServletResponse response = mvc.perform(
@@ -99,7 +123,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     public void getAllCategories() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                 MockMvcRequestBuilders
@@ -119,6 +143,22 @@ public class CategoryIntegrationTest {
         MockHttpServletResponse response = mvc.perform(
                         MockMvcRequestBuilders
                                 .get("/categories/" + category1.getCategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        Category result = JSON_PARSER.jsonMapToCategory(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
+        assertThat(result).isEqualTo(category1);
+        assertThat(result).isNotEqualTo(category2);
+
+    }
+
+    @Test
+    @Order(5)
+    public void getCategoryByName() throws Exception {
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/categories/category?name=" + category1.getName())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())

@@ -18,9 +18,10 @@ public class MemberConfig {
         List<Category> categories = categoryService.getAll();
 
         // Add products to a first category
-        Category category1 = categories.get(0);
-        Set<Product> products1 = new HashSet<>(products.subList(0, 1));
+//        Category category1 = categories.get(0);
+        Category category1 = categories.stream().filter(c -> c.getName().equals("Bier")).toList().get(0);
+        Set<Product> products1 = new HashSet<>(products.subList(0, 6));
         NewCategory newCategory1 = new NewCategory(category1.getName(), products1.stream().map(Product::getProductId).collect(Collectors.toSet()));
-        categoryService.patchCategoryById(categories.get(0).getCategoryId(), newCategory1);
+        Category res = categoryService.patchCategoryById(category1.getCategoryId(), newCategory1);
     }
 }
