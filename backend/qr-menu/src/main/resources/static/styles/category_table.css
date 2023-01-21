@@ -16,12 +16,14 @@
     text-align: left;
     font-size: var(--responsive-font-size-small);
     font-weight: bold;
-    text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
+    text-shadow: var(--text-shadow-default);
     
 
     color: var(--theme-dark-color);
     /* color: #755139FF; */
     font-family: Arial, Helvetica, sans-serif;
+
+    cursor: pointer;
 
     /* border-bottom: 0.5vmin solid rgba(0, 0, 0, 0.2); */
 }

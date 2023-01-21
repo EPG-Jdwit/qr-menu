@@ -47,8 +47,11 @@ function getCategoryProducts(url) {
       let text = "<table id='product-table'>";
       for (let x in categories) {
         text += "<tr class='product-table-row'>";
-        text += "<td class='product-name-cell'>" + categories[x].name + "</td>";
-        text += "<td class='product-price-cell'>€" + categories[x].price + "</td>";
+        text += "<td class='product-cell product-name-cell'>";
+        text += "<div class='product-name'>" + categories[x].name + "</div>";
+        text += "<div class='product-description'>" + categories[x].description + "</div>";
+        text += "</td>";
+        text += "<td class='product-cell product-price-cell'>€" + categories[x].price.toFixed(2) + "</td>";
         text += "</tr>";
       }
       text += "</table>";
