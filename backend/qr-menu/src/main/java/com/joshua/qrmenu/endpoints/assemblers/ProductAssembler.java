@@ -1,10 +1,8 @@
 package com.joshua.qrmenu.endpoints.assemblers;
 
-import com.joshua.qrmenu.endpoints.MemberController;
 import com.joshua.qrmenu.endpoints.ProductController;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Product;
-import lombok.SneakyThrows;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -46,8 +44,8 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
         try {
             return EntityModel.of(product,
                     linkTo(methodOn(ProductController.class).getProductById(product.getProductId())).withSelfRel(),
-                    linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand(),
-                    linkTo(methodOn(MemberController.class).getProductCategories(product.getProductId())).withRel("productCategories").expand()
+                    linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand()
+//                    linkTo(methodOn(MemberController.class).getProductCategories(product.getProductId())).withRel("productCategories").expand()
             );
         } catch (NotFoundException ex) {
             return null;

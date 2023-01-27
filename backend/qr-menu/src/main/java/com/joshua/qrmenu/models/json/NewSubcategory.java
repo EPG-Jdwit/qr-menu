@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.models.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,15 +11,15 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewCategory {
+public class NewSubcategory {
 
     @JsonProperty("name")
     private String name;
 
-//    @JsonProperty("subcategories")
-//    private Set<Long> subcategories;
+    @JsonProperty("products")
+    private Set<Long> products;
 
-//    public NewCategory(String name) {
-//        this.name = name;
-//    }
+    public NewSubcategory(String name) {
+        this.name = name;
+    }
 }

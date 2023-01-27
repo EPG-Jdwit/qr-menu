@@ -40,35 +40,19 @@ public class ProductEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(
-			name = "category_product",
-			inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"),
+			name = "subcategory_product",
+			inverseJoinColumns = @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id"),
 			joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
 			foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
 			inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
 	)
-	private Set<CategoryEntity> categories;
+	private Set<SubcategoryEntity> subcategories;
 
 	public ProductEntity(String name, Double price, String description) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 	}
-
-//	public void preAddCategoryEntity(CategoryEntity categoryEntity) {
-//		categories.add(categoryEntity);
-//	}
-//	public void addCategoryEntity(CategoryEntity categoryEntity) {
-//		preAddCategoryEntity(categoryEntity);
-//		categoryEntity.preAddProductEntity(this);
-//	}
-//
-//	public void preRemoveCategoryEntity(CategoryEntity categoryEntity) {
-//		categories.remove(categoryEntity);
-//	}
-//	public void removeCategoryEntity(CategoryEntity categoryEntity) {
-//		preRemoveCategoryEntity(categoryEntity);
-//		categoryEntity.preRemoveProductEntity(this);
-//	}
 
 	@Override
 	public String toString() {

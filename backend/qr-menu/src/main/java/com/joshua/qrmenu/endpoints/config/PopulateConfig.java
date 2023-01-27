@@ -11,7 +11,7 @@ public class PopulateConfig {
         if (!metaDataRepository.existsByKey("populate")) {
             ProductConfig.populateProducts(productService);
             CategoryConfig.populateCategories(categoryService);
-            MemberConfig.populateMembers(productService, categoryService);
+//            MemberConfig.populateMembers(productService, categoryService);
             metaDataRepository.save(new MetadataEntity("populate", "true"));
         }
     }

@@ -26,14 +26,14 @@ public class MemberController extends BaseController {
             this.categoryAssembler = categoryAssembler;
         }
 
-        @GetMapping("/categories/{categoryId}/categoryProducts")
-        public CollectionModel<EntityModel<Product>> getCategoryProducts(@PathVariable Long categoryId) throws NotFoundException {
-            return productAssembler.toCollectionModel(memberService.getCategoryProducts(categoryId));
-        }
-
-        @GetMapping("/products/{productId}/productCategories")
-        public CollectionModel<EntityModel<Category>> getProductCategories(@PathVariable Long productId) throws NotFoundException {
-            return categoryAssembler.toCollectionModel(memberService.getProductCategories(productId));
-        }
+//        @GetMapping("/categories/{categoryId}/categoryProducts")
+//        public CollectionModel<EntityModel<Product>> getCategoryProducts(@PathVariable Long categoryId) throws NotFoundException {
+//            return productAssembler.toCollectionModel(memberService.getCategoryProducts(categoryId));
+//        }
+//
+//        @GetMapping("/products/{productId}/productCategories")
+//        public CollectionModel<EntityModel<Category>> getProductCategories(@PathVariable Long productId) throws NotFoundException {
+//            return categoryAssembler.toCollectionModel(memberService.getProductCategories(productId));
+//        }
 
 }

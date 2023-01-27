@@ -33,8 +33,8 @@ public class CategoryAssembler implements RepresentationModelAssembler<Category,
         try {
             return EntityModel.of(category,
                     linkTo(methodOn(CategoryController.class).getCategoryById(category.getCategoryId())).withSelfRel(),
-                    linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand(),
-                    linkTo(methodOn(MemberController.class).getCategoryProducts(category.getCategoryId())).withRel("categoryProducts").expand()
+                    linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand()
+//                    linkTo(methodOn(MemberController.class).getCategoryProducts(category.getCategoryId())).withRel("categoryProducts").expand()
             );
         } catch (NotFoundException ex) {
             return null;

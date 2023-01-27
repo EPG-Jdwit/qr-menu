@@ -21,11 +21,11 @@ public class CategoryMocker {
     public NewCategory generateNewCategory() {
         createdCounter += 1;
         String categoryName = categoryNameMocker.categoryName();
-        return new NewCategory(categoryName, null);
+        return new NewCategory(categoryName);
     }
 
     public NewCategory generateNullNewCategory() {
         createdCounter += 1;
-        return new NewCategory(null, null);
+        return new NewCategory(null);
     }
 }

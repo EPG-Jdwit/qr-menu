@@ -24,4 +24,6 @@ public class BaseController {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
+
+    //TODO: 405 Method not allowed
 }

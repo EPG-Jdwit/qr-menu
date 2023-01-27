@@ -32,21 +32,21 @@ public class MemberService extends AbstractService {
         this.categoryMapper = categoryMapper;
     }
 
-    public List<Product> getCategoryProducts(Long categoryId) throws NotFoundException {
-        CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
-        List<Product> results = new ArrayList<>();
-        for (ProductEntity productEntity : categoryEntity.getProducts()) {
-            results.add(productMapper.entityToJson(productEntity));
-        }
-        return results;
-    }
-
-    public List<Category> getProductCategories(Long productId) throws NotFoundException {
-        ProductEntity productEntity = parseOptional(productRepository.findById(productId));
-        List<Category> results = new ArrayList<>();
-        for (CategoryEntity categoryEntity : productEntity.getCategories()) {
-            results.add(categoryMapper.entityToJson(categoryEntity));
-        }
-        return results;
-    }
+//    public List<Product> getCategoryProducts(Long categoryId) throws NotFoundException {
+//        CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
+//        List<Product> results = new ArrayList<>();
+//        for (ProductEntity productEntity : categoryEntity.getProducts()) {
+//            results.add(productMapper.entityToJson(productEntity));
+//        }
+//        return results;
+//    }
+//
+//    public List<Category> getProductCategories(Long productId) throws NotFoundException {
+//        ProductEntity productEntity = parseOptional(productRepository.findById(productId));
+//        List<Category> results = new ArrayList<>();
+//        for (CategoryEntity categoryEntity : productEntity.getCategories()) {
+//            results.add(categoryMapper.entityToJson(categoryEntity));
+//        }
+//        return results;
+//    }
 }
