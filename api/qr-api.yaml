@@ -1,0 +1,922 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/JoshuaDeWit/QR-menu/1.0.0
+info:
+  description: API for the QR-menu project
+  version: "1.0.0"
+  title: QR-menu API
+  contact:
+    email: joshua.de.wit.1@gmail.com
+tags:
+  - name: root
+    description: API root
+  - name: categories
+    description: Category management calls
+  - name: subcategories
+    description: Subcategory management calls
+  - name: products
+    description: Product management calls
+paths:
+  # Root path
+  /:
+    get:
+      tags:
+        - root
+      description: Returns links to all resource endpoints in api.
+      summary: retrieves the root endpoint
+      operationId: getRoot
+      responses:
+        '200':
+          description: |
+            Links to all resource endpoints in api.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    type: object
+                    properties:
+                      self: 
+                        $ref: '#/components/schemas/rootLink'
+                      categories:
+                        $ref: '#/components/schemas/categoriesLink'
+                      subcategories:
+                        $ref: '#/components/schemas/subcategoriesLink'
+                      products:
+                        $ref: '#/components/schemas/productsLink'
+  # Category Pathing
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: retrieves all categories
+      operationId: getAllCategories
+      description: |
+        Retrieves all categories
+        Optionally: use attributes to filter resulting users.
+      parameters:
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Categories matching criteria.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      catergoriesList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/category'
+                      count:
+                        type: integer
+                        format: int32
+                        example: 10
+                      total:
+                        type: integer
+                        format: int32
+                        example: 50
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        $ref: '#/components/schemas/categoriesLink'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+    post:
+      tags:
+        - categories
+      summary: adds a category
+      operationId: addCategory
+      description: |
+        Adds a new category.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/newCategory'
+        required: true
+        description: Category to add.
+      responses:
+        '201':
+          description: Category created.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/category'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '409':
+          description: A category with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+  '/categories/{categoryId}':
+    parameters:
+        - $ref: '#/components/parameters/categoryId'
+    get:
+      tags:
+        - categories
+      summary: get a category
+      operationId: getCategoryById
+      description: |
+        Retrieves a category by id.
+      responses:
+        '200':
+          description: Category with the given id.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: No category with the given id.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    delete:
+      tags:
+        - categories
+      summary: delete a category
+      operationId: deleteCategoryById
+      description: |
+        Deletes a category by id.
+      responses:
+        '204':
+          description: Category deleted.
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: No category with the given id.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    patch:
+      tags:
+        - categories
+      summary: update a category
+      operationId: updateCategoryById
+      description: |
+        Updates a category by id.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/updatedCategory'
+        description: Category info to be modified.
+      responses:
+        '200':
+          description: Category updated.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/category'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: No category with the given id.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+        '409':
+          description: A category with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+  
+  # Subcategory Pathing
+  '/categories/{categoryId}/subcategories':
+    parameters:
+        - $ref: '#/components/parameters/categoryId'
+    get:
+      tags:
+        - subcategories
+      summary: retrieves all subcategories of a category
+      operationId: getAllCategorySubcategories
+      description: |
+        Retrieves all subcategories of a specified subcategory
+      parameters:
+        - $ref: '#/components/parameters/categoryId'
+      responses:
+        '200':
+          description: Subcategories of the category with the given categoryId.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      subCategoryList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/subcategory'
+                      count:
+                        type: integer
+                        format: int32
+                        example: 5
+                      total:
+                        type: integer
+                        format: int32
+                        example: 10
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        $ref: '#/components/schemas/subcategoriesLink'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Category with given categoryId does not exist.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    post:
+      tags:
+        - subcategories
+      summary: adds a subcategory to a category
+      operationId: addSubcategoryToCategory
+      description: |
+        Adds a new subcategory to a category.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/newSubcategory'
+        required: true
+        description: Subcategory to add to the category.
+      responses:
+        '201':
+          description: Subcategory created.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/subcategory'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: The category with the given id was not found.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+        '409':
+          description: A subcategory with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+  '/categories/{categoryId}/subcategories/{subcategoryId}':
+    parameters:
+        - $ref: '#/components/parameters/categoryId'
+        - $ref: '#/components/parameters/subcategoryId'
+    get:
+      tags:
+        - subcategories
+      summary: Retrieves a subcategory with a specific id of a specific category with given id.
+      operationId: getCategorySubcategoryById
+      description: |
+        Retrieves the subcategory with subcategoryId of a category with categoryId.
+      responses:
+        '200':
+          description: Subcategory with the given id.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/subcategory'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Either the category or the subcategory with given id weren't found.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    delete:
+      tags:
+        - subcategories
+      summary: delete a subcategory of a category
+      operationId: deleteSubcategoryById
+      description: |
+        Deletes a subcategory of a category by id.
+      responses:
+        '204':
+          description: Subcategory deleted.
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Category or subcategory with given id's weren't found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    patch:
+      tags:
+        - subcategories
+      summary: update a subcategory of a category
+      operationId: updateSubcategoryById
+      description: |
+        Updates a subcategory of a category by id.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/updatedSubcategory'
+        description: Subcategory info to be modified.
+      responses:
+        '200':
+          description: Subcategory updated.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/category'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Category or subcategory with given id's weren't found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+        '409':
+          description: A subcategory with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+  '/categories/{categoryId}/subcategories/{subcategoryId}/products':
+    parameters:
+      - $ref: '#/components/parameters/categoryId'
+      - $ref: '#/components/parameters/subcategoryId'
+    get:
+      tags:
+        - subcategories
+      summary: Retrieves products of a subcategory with given id.
+      operationId: getSubcategoryProducts
+      description: |
+        Retrieves the products of the category with categoryId.
+      responses:
+        '200':
+          description: Products of the subcategory.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  productList:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/product'
+                  count:
+                        type: integer
+                        format: int32
+                        example: 15
+                  total:
+                    type: integer
+                    format: int32
+                    example: 20
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Either the category or the subcategory with given id weren't found.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+  # Product pathing
+  /products:
+    get:
+      tags:
+        - products
+      summary: retrieves all products
+      operationId: getAllProducts
+      description: |
+        Retrieves all existing products.
+      responses:
+        '200':
+          description: All products. 
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/product'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+    post:
+      tags:
+        - products
+      summary: adds a product
+      operationId: addProduct
+      description: |
+        Adds a new product.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/newProduct'
+        required: true
+        description: Product to be added.
+      responses:
+        '201':
+          description: Product created.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/product'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '409':
+          description: A product with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+  '/products/{productId}':
+    parameters:
+        - $ref: '#/components/parameters/productId'
+    get:
+      tags:
+        - products
+      summary: retrieve a product with a specific id
+      operationId: getProductById
+      description: |
+        Retrieves the product with the given id.
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      responses:
+        '200':
+          description: Product with the given id.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/product'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Product with the given id was not found.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    delete:
+      tags:
+        - products
+      summary: delete a product
+      operationId: deleteProductById
+      description: |
+        Deletes a product by id.
+      responses:
+        '204':
+          description: Product deleted.
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Product with given id wasn't found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+    patch:
+      tags:
+        - products
+      summary: update an existing product
+      operationId: updateProductById
+      description: |
+        Updates a product by id.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/updatedProduct'
+        description: Product info to be modified.
+      responses:
+        '200':
+          description: Product updated.
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/product'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          description: Product with the given id wasn't found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+        '409':
+          description: A product with the same name already exists.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/409Conflict'
+components:
+  schemas:
+    baseCategory:
+      allOf:
+        - $ref: '#/components/schemas/idObject'
+        - type: object
+          properties:
+            name:
+              type: string
+              example: softdrinks
+    newCategory:
+      allOf:
+        - $ref: '#/components/schemas/categoryWithRequirements'
+    category:
+      allOf:
+        - $ref: '#/components/schemas/idObject'
+        - $ref: '#/components/schemas/categoryWithRequirements'
+        - type: object
+          required:
+            - _links
+          properties:
+            created:
+              type: string
+              format: date-time
+            lastUpdated:
+              type: string
+              format: date-time
+            _links:
+              type: object
+              required:
+                - self
+                - categories
+              properties:
+                self:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}'
+                categories:
+                  $ref: '#/components/schemas/categoriesLink'
+    categoryWithRequirements:
+      allOf:
+        - $ref: '#/components/schemas/updatedCategory'
+        - type: object
+          required:
+            - name
+    updatedCategory:
+      allOf:
+        - $ref: '#/components/schemas/baseCategory'
+
+    baseSubcategory:
+      allOf:
+        - $ref: '#/components/schemas/idObject'
+        - type: object
+          properties:
+            name:
+              type: string
+              example: Pasta's with fish
+            products:
+              type: array
+              description: Id's of the products in the subcategory.
+              items:
+                $ref: '#/components/schemas/idProperty'
+    newSubcategory:
+      allOf:
+        - $ref: '#/components/schemas/baseSubcategory'
+        - type: object
+          required:
+            - name
+    subcategory:
+      allOf:
+        - $ref: '#/components/schemas/newSubcategory'
+        - type: object
+          required:
+            - _links
+          properties:
+            created:
+              type: string
+              format: date-time
+            lastUpdated:
+              type: string
+              format: date-time
+            _links:
+              type: object
+              required:
+                - self
+                - subcategories
+                - category
+              properties:
+                self:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}/subcategories/{subcategoryId}'
+                subcategories:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}/subcategories'
+                category:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}'
+    updatedSubcategory:
+      $ref: '#/components/schemas/baseSubcategory'
+    baseProduct:
+      allOf:
+        - $ref: "#/components/schemas/idObject"
+        - type: object
+          properties:
+            name:
+              type: string
+              example: "Spaghetti Bolognaise"
+            price:
+              type: number
+              format: float
+              example: 13.50
+            description:
+              type: string
+              example: "Signature Italian dish with meat and tomato sauce"
+    newProduct:
+      allOf:
+        - $ref: "#/components/schemas/baseProduct"
+        - type: object
+          required:
+            - name
+            - price
+    product:
+      allOf:
+        - $ref: '#/components/schemas/newProduct'
+        - type: object
+          required:
+            - _links
+          properties:
+            created:
+              type: string
+              format: date-time
+            lastUpdated:
+              type: string
+              format: date-time
+            _links:
+              type: object
+              required:
+                - self
+                - products
+              properties:
+                self:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/products/{productId}'
+                products:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/products'      
+    updatedProduct:
+      $ref: '#/components/schemas/baseProduct'
+
+    # Util
+    idProperty:
+      type: integer
+      format: int64
+      example: 1234567890
+    idObject:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          # $ref: '#/components/schemas/idProperty'
+          type: integer
+          format: int64
+          example: 1234567890
+          readOnly: true
+
+    # Link schema's
+    rootLink:
+      type: object
+      properties:
+        href:
+          type: string
+          example: 'https://qr-menu.com/'
+    categoriesLink:
+      type: object
+      properties:
+        href:
+          type: string
+          example: 'https://qr-menu.com/categories'
+    subcategoriesLink:
+      type: object
+      properties:
+        href:
+          type: string
+          example: 'https://qr-menu.com/subcategories'
+    productsLink:
+      type: object
+      properties:
+        href:
+          type: string
+          example: 'https://qr-menu.com/products'
+    
+    # HTTP error codes
+    400BadRequest:
+      type: object
+      required:
+        - parameter
+      properties:
+        title: 
+          type: string
+          description: HTTP_STATUS_NAME
+          example: Bad Request
+        status:
+          type: integer
+          description: HTTP_STATUS_CODE
+          example: 400
+        detail:
+          type: string
+          example: Invalid Input
+        # errorous parameters
+    401Unauthorized:
+      type: object
+      properties:
+        title:
+          type: string
+          description: HTTP_STATUS_NAME
+        status:
+          type: string
+          description: HTTP_STATUS_CODE
+        detail:
+          type: string
+          example: Unauthaurized Access explanation.
+    403Forbidden:
+      type: object
+      properties:
+        title:
+          type: string
+          description: HTTP_STATUS_NAME
+        status:
+          type: integer
+          description: HTTP_STATUS_CODE
+        detail:
+          type: string
+          example: Access Forbiden explanation.
+    404NotFound:
+      type: object
+      properties:
+        title:
+          type: string
+          description: HTTP_STATUS_NAME
+          example: Not Found
+        status:
+          type: integer
+          description: HTTP_STATUS_CODE
+          example: 404
+        detail:
+          type: string
+          example: Not Found explanation.
+    409Conflict:
+      type: object
+      properties:
+        title:
+          type: string
+          description: HTTP_STATUS_NAME
+          example: Conflict
+        status:
+          type: integer
+          description: HTTP_STATUS_CODE
+          example: 409
+        detail:
+          type: string
+          example: Conflict explanation.
+  parameters:
+    name:
+      name: name
+      in: query
+      description: Filter by name (exact or substring match).
+      required: false
+      schema:
+        type: string
+    categoryId:
+      in: path
+      name: categoryId
+      description: ID of the category.
+      required: true
+      schema:
+        type: string
+    subcategoryId:
+      in: path
+      name: subcategoryId
+      description: ID of the subcategory.
+      required: true
+      schema:
+        type: string
+    productId:
+      in: path
+      name: productId
+      description: ID of the product.
+      required: true
+      schema:
+        type: string
+  responses:
+    400BadRequest:
+      description: The server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/400BadRequest'
+    401Unauthorized:
+      description: Access token is missing or invalid.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/401Unauthorized'
+    403Forbidden:
+      description: The server understood the request but refuses to authorize it.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/403Forbidden'
