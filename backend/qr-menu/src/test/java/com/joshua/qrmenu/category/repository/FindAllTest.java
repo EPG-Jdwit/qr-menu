@@ -11,20 +11,7 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest
-public class FindAllTest {
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    private final CategoryMocker categoryMocker = new CategoryMocker();
-
-    private CategoryEntity createCategoryEntity() {
-        CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
-        categoryEntity.setCategoryId(null);
-        categoryEntity = categoryRepository.save(categoryEntity);
-        return categoryEntity;
-    }
+public class FindAllTest extends BaseCategoryRepositoryTest {
 
     @Test
     public void emptyAtStart() {
@@ -67,6 +54,5 @@ public class FindAllTest {
         categoryRepository.deleteById(categoryEntity.getCategoryId());
         assertThat(categoryRepository.findAll().contains(categoryEntity)).isFalse();
         assertThat(categoryRepository.findAll().size()).isEqualTo(0);
-
     }
 }

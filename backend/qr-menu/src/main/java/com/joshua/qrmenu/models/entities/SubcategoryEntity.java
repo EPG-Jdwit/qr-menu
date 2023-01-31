@@ -60,4 +60,9 @@ public class SubcategoryEntity {
         this.name = name;
     }
 
+    public SubcategoryEntity(Long subcategoryId, String name) {
+        this.subcategoryId = subcategoryId;
+        this.name = name;
+    }
+
 }

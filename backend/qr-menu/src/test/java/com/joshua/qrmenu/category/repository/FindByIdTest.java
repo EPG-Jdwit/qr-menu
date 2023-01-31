@@ -9,20 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest
-public class FindByIdTest {
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    private final CategoryMocker categoryMocker = new CategoryMocker();
-
-    private CategoryEntity createCategoryEntity() {
-        CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
-        categoryEntity.setCategoryId(null);
-        categoryEntity = categoryRepository.save(categoryEntity);
-        return categoryEntity;
-    }
+public class FindByIdTest extends BaseCategoryRepositoryTest {
 
     @Test
     public void notPresentAtStart() {

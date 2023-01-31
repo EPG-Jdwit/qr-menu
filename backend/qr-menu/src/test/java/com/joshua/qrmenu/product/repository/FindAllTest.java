@@ -11,20 +11,7 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest
-public class FindAllTest {
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    private final ProductMocker productMocker = new ProductMocker();
-
-    private ProductEntity createProductEntity() {
-        ProductEntity productEntity = productMocker.generateProductEntity();
-        productEntity.setProductId(null);
-        productEntity = productRepository.save(productEntity);
-        return productEntity;
-    }
+public class FindAllTest extends BaseProductRepositoryTest {
 
     @Test
     public void emptyAtStart() {

@@ -9,20 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest(showSql = false)
-public class FindByIdTest {
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    private final ProductMocker productMocker = new ProductMocker();
-
-    private ProductEntity createProductEntity() {
-        ProductEntity productEntity = productMocker.generateProductEntity();
-        productEntity.setProductId(null);
-        productEntity = productRepository.save(productEntity);
-        return productEntity;
-    }
+public class FindByIdTest extends BaseProductRepositoryTest {
 
 
     @Test
