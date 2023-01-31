@@ -55,7 +55,7 @@ public class CategoryController extends BaseController {
 
     @PatchMapping("/categories/{categoryId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EntityModel<Category> patchCategoryById(@PathVariable Long categoryId, @RequestBody NewCategory newCategory) throws  NotFoundException {
+    public EntityModel<Category> updateCategoryById(@PathVariable Long categoryId, @RequestBody NewCategory newCategory) throws  NotFoundException {
         Category category = categoryService.patchCategoryById(categoryId, newCategory);
         return categoryAssembler.toModel(category);
     }

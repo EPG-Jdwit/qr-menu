@@ -90,7 +90,7 @@ public class ProductController extends BaseController {
      */
     @PatchMapping("/products/{productId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EntityModel<Product> patchProductById(@PathVariable Long productId, @RequestBody NewProduct newProduct) throws NotFoundException {
+    public EntityModel<Product> updateProductById(@PathVariable Long productId, @RequestBody NewProduct newProduct) throws NotFoundException {
         return productAssembler.toModel(productService.patchProductById(productId, newProduct));
     }
 }

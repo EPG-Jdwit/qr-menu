@@ -4,6 +4,7 @@ import com.joshua.qrmenu.endpoints.assemblers.SubcategoryAssembler;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
 import com.joshua.qrmenu.models.json.NewSubcategory;
+import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.models.json.Subcategory;
 import com.joshua.qrmenu.services.SubcategoryService;
 import org.springframework.hateoas.CollectionModel;
@@ -29,13 +30,13 @@ public class SubcategoryController extends BaseController {
     }
 
     @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}")
-    public EntityModel<Subcategory> getSubcategoryById(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
+    public EntityModel<Subcategory> getCategorySubcategoryById(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
         return subcategoryAssembler.toModel(subcategoryService.getSubcategoryById(categoryId, subcategoryId));
     }
 
     @PostMapping("/categories/{categoryId}/subcategories")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Subcategory> createNewSubcategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException {
+    public EntityModel<Subcategory> addSubcategoryToCategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException {
         return subcategoryAssembler.toModel(subcategoryService.createNewSubcategory(categoryId, newSubcategory));
     }
 
@@ -45,12 +46,11 @@ public class SubcategoryController extends BaseController {
     }
 
     @PatchMapping("/categories/{categoryId}/subcategories/{subcategoryId}")
-    public EntityModel<Subcategory> patchSubcategoryById(
+    public EntityModel<Subcategory> updateSubcategoryById(
             @PathVariable Long categoryId,
             @PathVariable Long subcategoryId,
             @RequestBody NewSubcategory newSubcategory
     ) throws NotFoundException {
         return subcategoryAssembler.toModel(subcategoryService.patchSubcategoryById(categoryId, subcategoryId, newSubcategory ));
     }
-
 }

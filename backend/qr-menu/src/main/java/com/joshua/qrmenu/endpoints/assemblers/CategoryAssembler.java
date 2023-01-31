@@ -1,7 +1,6 @@
 package com.joshua.qrmenu.endpoints.assemblers;
 
 import com.joshua.qrmenu.endpoints.CategoryController;
-import com.joshua.qrmenu.endpoints.MemberController;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
 import org.springframework.hateoas.CollectionModel;

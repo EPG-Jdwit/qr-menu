@@ -76,14 +76,9 @@ public class SubcategoryService extends AbstractService {
         // Set the CategoryEntity of the SubcategoryEntity
         subcategoryEntity.setCategoryEntity(categoryEntity);
         // Add the SubcategoryEntity to the CategoryEntity's SubcategoryEntities
-        Set<SubcategoryEntity> subcategoryEntities = categoryEntity.getSubcategoryEntities();
-        if (subcategoryEntities == null) {
-            categoryEntity.setSubcategoryEntities(new HashSet<>(Collections.singletonList(subcategoryEntity)));
-        } else {
-            Set<SubcategoryEntity> tmp = categoryEntity.getSubcategoryEntities();
-            tmp.add(subcategoryEntity);
-            categoryEntity.setSubcategoryEntities(tmp);
-        }
+        Set<SubcategoryEntity> tmp = categoryEntity.getSubcategoryEntities();
+        tmp.add(subcategoryEntity);
+        categoryEntity.setSubcategoryEntities(tmp);
 
         // Save the SubcategoryEntity and return a Subcategory object
         subcategoryEntity = subcategoryRepository.save(subcategoryEntity);

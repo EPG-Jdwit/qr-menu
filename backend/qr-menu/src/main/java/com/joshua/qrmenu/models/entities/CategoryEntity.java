@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -48,7 +49,7 @@ public class CategoryEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<SubcategoryEntity> subcategoryEntities;
+    private Set<SubcategoryEntity> subcategoryEntities = new HashSet<>();
 
     public CategoryEntity(String name) {
         this.name = name;
