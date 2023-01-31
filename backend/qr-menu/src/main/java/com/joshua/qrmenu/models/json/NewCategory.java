@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,10 +13,4 @@ public class NewCategory {
     @JsonProperty("name")
     private String name;
 
-//    @JsonProperty("subcategories")
-//    private Set<Long> subcategories;
-
-//    public NewCategory(String name) {
-//        this.name = name;
-//    }
 }

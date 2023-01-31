@@ -65,24 +65,12 @@ public class CategoryService extends AbstractService {
     public Category patchCategoryById(Long id, NewCategory newCategory) throws NotFoundException {
         CategoryEntity originalEntity = parseOptional(categoryRepository.findById(id));
         CategoryEntity newEntity = categoryMapper.newJsonToEntity(newCategory);
+        // TODO: Change this if allow NewCategory to contain subcategories in the future
+        newEntity.setSubcategoryEntities(originalEntity.getSubcategoryEntities());
 
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
 
-//        addProductsToCategory(newCategory, originalEntity);
         categoryRepository.save(originalEntity);
         return categoryMapper.entityToJson(originalEntity);
     }
-
-//    private void addProductsToCategory(NewCategory newCategory, CategoryEntity categoryEntity) throws NotFoundException {
-//        // Add products
-//        if (newCategory.getProducts() != null) {
-//            Set<ProductEntity> categoryProductEntities = new HashSet<>();
-//            for (Long productId : newCategory.getProducts()) {
-//                // Todo use ProductService
-//                ProductEntity productEntity = parseOptional(productRepository.findById(productId));
-//                categoryProductEntities.add(productEntity);
-//            }
-//            categoryEntity.setProducts(categoryProductEntities);
-//        }
-//    }
 }
