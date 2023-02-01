@@ -85,11 +85,11 @@ public class SubcategoryService extends AbstractService {
         return subcategoryMapper.entityToJson(subcategoryEntity);
     }
 
-    public void deleteSubcategoryById(Long categoryId, Long id) throws NotFoundException {
-        if (subcategoryRepository.existsById(id)) {
-            SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(categoryId));
+    public void deleteSubcategoryById(Long categoryId, Long subcategoryId) throws NotFoundException {
+        if (subcategoryRepository.existsById(subcategoryId)) {
+            SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
             verifyCategoryId(categoryId, subcategoryEntity);
-            categoryRepository.deleteById(id);
+            subcategoryRepository.deleteById(subcategoryId);
         } else {
             throw new NotFoundException();
         }
@@ -103,7 +103,6 @@ public class SubcategoryService extends AbstractService {
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
 
         addProductsToSubcategory(newSubcategory, originalEntity);
-//        addCategoriesToSubcategory(newSubcategory, originalEntity);
         subcategoryRepository.save(originalEntity);
         return subcategoryMapper.entityToJson(originalEntity);
     }
@@ -120,19 +119,4 @@ public class SubcategoryService extends AbstractService {
             subcategoryEntity.setProducts(subcategoryProductEntities);
         }
     }
-
-//    private void addCategoriesToSubcategory(NewSubcategory newSubcategory, SubcategoryEntity subcategoryEntity) throws NotFoundException {
-//        // Add products
-//        if (newSubcategory.getCategories() != null) {
-//            Set<CategoryEntity> subcategoryCategoryEntities = new HashSet<>();
-//            for (Long categoryId : newSubcategory.getCategories()) {
-//                // Todo use ProductService
-//                CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
-//                subcategoryCategoryEntities.add(categoryEntity);
-//            }
-//            subcategoryEntity.setCategories(subcategoryCategoryEntities);
-//        }
-//    }
-
-
 }

@@ -25,6 +25,7 @@ public class SubcategoryRepositoryMocker {
         when(subcategoryRepository.findById(nullable(Long.class))).thenReturn(Optional.empty());
         when(subcategoryRepository.findByName(nullable(String.class))).thenReturn(Optional.empty());
         when(subcategoryRepository.findAll()).thenReturn(new ArrayList<>());
+        when(subcategoryRepository.findAllOfCategory(nullable(Long.class))).thenReturn(new ArrayList<>());
 
         // Mock save
         when(subcategoryRepository.save(nullable(SubcategoryEntity.class))).then(args -> {
@@ -46,6 +47,7 @@ public class SubcategoryRepositoryMocker {
             Optional<SubcategoryEntity> optionalSubcategoryEntity = subcategoryRepository.findById(id);
             if (optionalSubcategoryEntity.isPresent()) {
                 SubcategoryEntity subcategoryEntity = optionalSubcategoryEntity.get();
+                Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
                 if (subcategoryEntity.getSubcategoryId() != null) {
                     when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
                     when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
@@ -53,6 +55,9 @@ public class SubcategoryRepositoryMocker {
                     List<SubcategoryEntity> allSubcategoryEntities = subcategoryRepository.findAll();
                     allSubcategoryEntities.remove(subcategoryEntity);
                     when(subcategoryRepository.findAll()).thenReturn(allSubcategoryEntities);
+                    allSubcategoryEntities = subcategoryRepository.findAllOfCategory(categoryId);
+                    allSubcategoryEntities.remove(subcategoryEntity);
+                    when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(allSubcategoryEntities);
                 }
             } else {
                 throw new NotFoundException();
@@ -63,23 +68,28 @@ public class SubcategoryRepositoryMocker {
         return subcategoryRepository;
     }
     public static void add(SubcategoryRepository subcategoryRepository, SubcategoryEntity subcategoryEntity) {
+        Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(true);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.of(subcategoryEntity));
         when(subcategoryRepository.findByName(subcategoryEntity.getName())).thenReturn(Optional.of(subcategoryEntity));
         List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
         currentFindAll.add(subcategoryEntity);
         when(subcategoryRepository.findAll()).thenReturn(currentFindAll);
+        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId));
+        findAllOfCategory.add(subcategoryEntity);
+        when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(findAllOfCategory);
     }
 
     public static void remove(SubcategoryRepository subcategoryRepository, SubcategoryEntity subcategoryEntity) throws NotFoundException {
-//        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(categoryEntity.getCategoryId());
-//        if (optionalCategoryEntity.isEmpty()) {
-//            throw new NotFoundException();
-//        }
+        Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
         when(subcategoryRepository.findByName(subcategoryEntity.getName())).thenReturn(Optional.empty());
-        List <SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
+        List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
+        // Use removeIf to guarantee removal is done based upon ID
         currentFindAll.removeIf( entity -> entity.getSubcategoryId().equals(subcategoryEntity.getSubcategoryId()));
+        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId));
+        findAllOfCategory.removeIf(entity -> entity.getSubcategoryId().equals(subcategoryEntity.getSubcategoryId()));
+        when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(findAllOfCategory);
     }
 }
