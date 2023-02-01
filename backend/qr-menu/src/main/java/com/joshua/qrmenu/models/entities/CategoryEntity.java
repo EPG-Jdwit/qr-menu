@@ -35,15 +35,6 @@ public class CategoryEntity {
 
     private String name;
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-//    @JoinTable(
-//            name = "category_subcategory",
-//            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"),
-//            inverseJoinColumns = @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id"),
-//            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-//            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
-//    )
-//    private Set<SubcategoryEntity> products;
     @OneToMany(
             mappedBy = "categoryEntity",
             cascade = CascadeType.ALL,

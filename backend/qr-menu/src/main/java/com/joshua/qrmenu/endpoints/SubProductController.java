@@ -24,18 +24,6 @@ public class SubProductController extends BaseController {
 
         @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}/products")
         public CollectionModel<EntityModel<Product>> getSubcategoryProducts(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
-            // TODO: categoryId
-            return productAssembler.toCollectionModel(subProductService.getSubcategoryProducts(subcategoryId));
+            return productAssembler.toCollectionModel(subProductService.getSubcategoryProducts(categoryId, subcategoryId));
         }
-
-//        @GetMapping("/categories/{categoryId}/categoryProducts")
-//        public CollectionModel<EntityModel<Product>> getCategoryProducts(@PathVariable Long categoryId) throws NotFoundException {
-//            return productAssembler.toCollectionModel(memberService.getCategoryProducts(categoryId));
-//        }
-//
-//        @GetMapping("/products/{productId}/productCategories")
-//        public CollectionModel<EntityModel<Category>> getProductCategories(@PathVariable Long productId) throws NotFoundException {
-//            return categoryAssembler.toCollectionModel(memberService.getProductCategories(productId));
-//        }
-
 }

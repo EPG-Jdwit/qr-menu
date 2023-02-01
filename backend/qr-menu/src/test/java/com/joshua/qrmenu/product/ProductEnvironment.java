@@ -5,7 +5,7 @@ import com.joshua.qrmenu.services.ProductService;
 import com.joshua.qrmenu.util.AbstractEnvironment;
 import com.joshua.qrmenu.util.mocker.repositories.ProductRepositoryMocker;
 
-public class ProductEnvironment extends AbstractEnvironment<ProductService, ProductMapper> {
+public class ProductEnvironment extends AbstractEnvironment<ProductService> {
 
     @Override
     public ProductService initService() {
@@ -13,10 +13,5 @@ public class ProductEnvironment extends AbstractEnvironment<ProductService, Prod
                 ProductRepositoryMocker.init(),
                 new ProductMapper()
         );
-    }
-
-    @Override
-    public ProductMapper initMapper() {
-        return new ProductMapper();
     }
 }

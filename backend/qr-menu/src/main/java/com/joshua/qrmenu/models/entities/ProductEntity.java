@@ -38,6 +38,12 @@ public class ProductEntity {
 
 	private String description;
 
+	public ProductEntity(String name, Double price, String description) {
+		this.name = name;
+		this.price = price;
+		this.description = description;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(
 			name = "subcategory_product",
@@ -47,12 +53,6 @@ public class ProductEntity {
 			inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
 	)
 	private Set<SubcategoryEntity> subcategories;
-
-	public ProductEntity(String name, Double price, String description) {
-		this.name = name;
-		this.price = price;
-		this.description = description;
-	}
 
 	@Override
 	public String toString() {

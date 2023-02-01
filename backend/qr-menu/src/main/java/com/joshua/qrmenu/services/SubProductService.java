@@ -9,13 +9,14 @@ import com.joshua.qrmenu.models.mappers.SubcategoryMapper;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
 import com.joshua.qrmenu.services.util.AbstractService;
+import com.joshua.qrmenu.services.util.AbstractSubcategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SubProductService extends AbstractService {
+public class SubProductService extends AbstractSubcategoryService {
 
     private final ProductRepository productRepository;
     private final SubcategoryRepository subcategoryRepository;
@@ -31,23 +32,13 @@ public class SubProductService extends AbstractService {
         this.subcategoryMapper = subcategoryMapper;
     }
 
-
-
-    public List<Product> getSubcategoryProducts(Long subcategoryId) throws NotFoundException {
+    public List<Product> getSubcategoryProducts(Long categoryId, Long subcategoryId) throws NotFoundException {
         SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
+        verifyCategoryId(categoryId, subcategoryEntity);
         List<Product> results = new ArrayList<>();
         for (ProductEntity productEntity : subcategoryEntity.getProducts()) {
             results.add(productMapper.entityToJson(productEntity));
         }
         return results;
     }
-//
-//    public List<Category> getProductCategories(Long productId) throws NotFoundException {
-//        ProductEntity productEntity = parseOptional(productRepository.findById(productId));
-//        List<Category> results = new ArrayList<>();
-//        for (CategoryEntity categoryEntity : productEntity.getCategories()) {
-//            results.add(categoryMapper.entityToJson(categoryEntity));
-//        }
-//        return results;
-//    }
 }

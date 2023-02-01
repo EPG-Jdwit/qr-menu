@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,17 +42,8 @@ public class SubcategoryEntity {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    private Set<ProductEntity> products;
+    private Set<ProductEntity> products = new HashSet<>();
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-//    @JoinTable(
-//            name = "category_subcategory",
-//            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "category_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"),
-//            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-//            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
-//    )
-//    private Set<CategoryEntity> categories;
     @ManyToOne
     @JoinColumn(name="category_id", nullable = false)
     private CategoryEntity categoryEntity;

@@ -6,7 +6,7 @@ import com.joshua.qrmenu.util.AbstractEnvironment;
 import com.joshua.qrmenu.util.mocker.repositories.CategoryRepositoryMocker;
 import com.joshua.qrmenu.util.mocker.repositories.ProductRepositoryMocker;
 
-public class CategoryEnvironment extends AbstractEnvironment<CategoryService, CategoryMapper> {
+public class CategoryEnvironment extends AbstractEnvironment<CategoryService> {
 
     @Override
     public CategoryService initService() {
@@ -16,10 +16,5 @@ public class CategoryEnvironment extends AbstractEnvironment<CategoryService, Ca
                 ProductRepositoryMocker.init(),
                 new CategoryMapper()
         );
-    }
-
-    @Override
-    public CategoryMapper initMapper() {
-        return new CategoryMapper();
     }
 }

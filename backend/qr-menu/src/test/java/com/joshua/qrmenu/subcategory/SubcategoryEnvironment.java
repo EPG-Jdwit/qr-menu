@@ -13,29 +13,20 @@ import com.joshua.qrmenu.util.mocker.repositories.ProductRepositoryMocker;
 import com.joshua.qrmenu.util.mocker.repositories.SubcategoryRepositoryMocker;
 
 
-public class SubcategoryEnvironment extends AbstractEnvironment<SubcategoryService, SubcategoryMapper> {
+public class SubcategoryEnvironment extends AbstractEnvironment<SubcategoryService> {
 
     private final SubcategoryRepository subcategoryRepository = SubcategoryRepositoryMocker.init();
     private final CategoryRepository categoryRepository = CategoryRepositoryMocker.init();
     private final ProductRepository productRepository = ProductRepositoryMocker.init();
 
-    private SubcategoryMapper subcategoryMapper;
     @Override
     public SubcategoryService initService() {
         return new SubcategoryService(
                 subcategoryRepository,
                 productRepository,
                 categoryRepository,
-                initMapper()
+                new SubcategoryMapper()
         );
-    }
-
-    @Override
-    public SubcategoryMapper initMapper() {
-        if (subcategoryMapper == null) {
-            subcategoryMapper = new SubcategoryMapper();
-        }
-        return subcategoryMapper;
     }
 
     public void addCategoryEntity(CategoryEntity categoryEntity) {

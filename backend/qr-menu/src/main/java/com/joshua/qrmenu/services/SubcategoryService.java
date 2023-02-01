@@ -11,10 +11,9 @@ import com.joshua.qrmenu.models.mappers.SubcategoryMapper;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
-import com.joshua.qrmenu.services.util.AbstractService;
+import com.joshua.qrmenu.services.util.AbstractSubcategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class SubcategoryService extends AbstractService {
+public class SubcategoryService extends AbstractSubcategoryService {
 
     private final SubcategoryRepository subcategoryRepository;
 
@@ -53,13 +52,6 @@ public class SubcategoryService extends AbstractService {
         SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
         verifyCategoryId(categoryId, subcategoryEntity);
         return subcategoryMapper.entityToJson(subcategoryEntity);
-    }
-
-    private void verifyCategoryId(Long categoryId, SubcategoryEntity subcategoryEntity) throws NotFoundException {
-        if  (!subcategoryEntity.getCategoryEntity().getCategoryId().equals(categoryId)) {
-            // TODO: Custom exception
-            throw new NotFoundException();
-        }
     }
 
     public Subcategory getSubcategoryByName(Long categoryId, String name) throws NotFoundException {
