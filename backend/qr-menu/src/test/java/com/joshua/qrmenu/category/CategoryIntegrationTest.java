@@ -190,7 +190,7 @@ public class CategoryIntegrationTest {
 
     @Test
     @Order(7)
-    public void PatchCategoryByIdNoFields() throws Exception {
+    public void patchCategoryByIdNoFields() throws Exception {
         NewCategory newCategory = categoryMocker.generateNullNewCategory();
         MockHttpServletResponse response = mvc.perform(
                         MockMvcRequestBuilders
@@ -257,6 +257,7 @@ public class CategoryIntegrationTest {
         List<Category> categoryList = JSON_PARSER.embeddedObjectToCategoryList(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
         assertThat(categoryList.size()).isEqualTo(1);
         assertThat(categoryList.contains(category2)).isTrue();
+        assertThat(categoryList.contains(category1)).isFalse();
     }
 
     @Test

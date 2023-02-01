@@ -24,9 +24,17 @@ public class SubcategoryNameMocker {
             "Pasta met vlees",
             "Pasta met vis",
             "Non-alcoholisch",
-            "Theeën",
+            // TODO:   Subcategory(subcategoryId=2504552591575445, name=TheeÃ«n)
+            // "Theeën",
             "Croques",
             "Kroketten",
-            "Fruitsap"
+            "Fruitsappen",
+            "Ijskoffie",
+            "Bruine bieren",
+            "Blonde bieren",
+            "Amber bieren",
+            "Witte wijnen",
+            "Rode wijnen",
+            "Rose wijnen"
     };
 }

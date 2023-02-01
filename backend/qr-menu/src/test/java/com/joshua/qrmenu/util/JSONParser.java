@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.Product;
+import com.joshua.qrmenu.models.json.Subcategory;
 
 import java.util.*;
 
@@ -55,6 +56,30 @@ public class JSONParser {
     public Category jsonMapToCategory(Object object) {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Category(
+                (Long) map.get("id"),
+                (String) map.get("name")
+        );
+    }
+
+    public List<Subcategory> embeddedObjectToSubcategoryList(Object object) {
+        Map<String, Map<String, List<Map<String, Object>>>> json = (Map<String, Map<String, List<Map<String, Object>>>>) object;
+        List<Subcategory> subcategories = new ArrayList<>();
+        if (json.get("_embedded") != null) { // TODO: Force _embedded for empty lists?
+            List<Map<String, Object>> subcategoryList = json.get("_embedded").get("subcategoryList");
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (Map<String, Object> subcategoryMap : subcategoryList) {
+                Subcategory subcategory = objectMapper
+                        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                        .convertValue(subcategoryMap, Subcategory.class);
+                subcategories.add(subcategory);
+            }
+        }
+        return subcategories;
+    }
+
+    public Subcategory jsonMapToSubcategory(Object object) {
+        Map<String, Object> map = (Map<String, Object>) object;
+        return new Subcategory(
                 (Long) map.get("id"),
                 (String) map.get("name")
         );

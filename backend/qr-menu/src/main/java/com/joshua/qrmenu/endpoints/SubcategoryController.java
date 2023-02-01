@@ -41,11 +41,13 @@ public class SubcategoryController extends BaseController {
     }
 
     @DeleteMapping("/categories/{categoryId}/subcategories/{subcategoryId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteSubcategoryById(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
         subcategoryService.deleteSubcategoryById(categoryId, subcategoryId);
     }
 
     @PatchMapping("/categories/{categoryId}/subcategories/{subcategoryId}")
+    @ResponseStatus(value = HttpStatus.OK)
     public EntityModel<Subcategory> updateSubcategoryById(
             @PathVariable Long categoryId,
             @PathVariable Long subcategoryId,
