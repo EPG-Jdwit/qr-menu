@@ -72,6 +72,7 @@ public class SubcategoryService extends AbstractSubcategoryService {
         tmp.add(subcategoryEntity);
         categoryEntity.setSubcategoryEntities(tmp);
 
+        addProductsToSubcategory(newSubcategory, subcategoryEntity);
         // Save the SubcategoryEntity and return a Subcategory object
         subcategoryEntity = subcategoryRepository.save(subcategoryEntity);
         return subcategoryMapper.entityToJson(subcategoryEntity);

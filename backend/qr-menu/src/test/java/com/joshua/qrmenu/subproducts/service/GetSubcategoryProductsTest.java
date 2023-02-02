@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,9 +36,9 @@ public class GetSubcategoryProductsTest {
     private final ProductMapper productMapper = new ProductMapper();
 
     // TODO: avoid code duplication at initialization
-    private CategoryEntity categoryEntity;
-    private SubcategoryEntity subcategoryEntity;
-    private ProductEntity productEntity;
+    private CategoryEntity categoryEntity1;
+    private SubcategoryEntity subcategoryEntity1;
+    private ProductEntity productEntity1;
 
     @Test
     public void notPresentAtStart() {
@@ -53,28 +52,36 @@ public class GetSubcategoryProductsTest {
     public class NoProductsTests {
         @BeforeEach
         public void initializeEnv() {
-            categoryEntity = categoryMocker.generateCategoryEntity();
-            env.addCategoryEntity(categoryEntity);
+            categoryEntity1 = categoryMocker.generateCategoryEntity();
+            env.addCategoryEntity(categoryEntity1);
 
-            subcategoryEntity = subcategoryMocker.generateSubcategoryEntity();
-            subcategoryEntity.setCategoryEntity(categoryEntity);
-            env.addSubcategoryEntity(subcategoryEntity);
+            subcategoryEntity1 = subcategoryMocker.generateSubcategoryEntity();
+            subcategoryEntity1.setCategoryEntity(categoryEntity1);
+            env.addSubcategoryEntity(subcategoryEntity1);
         }
 
         @Test
         public void NoExistingProducts() throws NotFoundException {
             assertThat(subProductService.getSubcategoryProducts(
-                    categoryEntity.getCategoryId(),
-                    subcategoryEntity.getSubcategoryId()
+                    categoryEntity1.getCategoryId(),
+                    subcategoryEntity1.getSubcategoryId()
             ).size()).isEqualTo(0);
         }
 
         @Test
         public void noProductsInSubcategory() throws NotFoundException {
             assertThat(subProductService.getSubcategoryProducts(
-                    categoryEntity.getCategoryId(),
-                    subcategoryEntity.getSubcategoryId()
+                    categoryEntity1.getCategoryId(),
+                    subcategoryEntity1.getSubcategoryId()
             ).size()).isEqualTo(0);
+        }
+
+        @Test
+        public void addNonExistingProductToSubcategory() throws NotFoundException {
+            // TODO: Can this be done on a repository level? Currently the service checks if a product exists
+//            productEntity = productMocker.generateProductEntity();
+//            subcategoryEntity.setProducts(new HashSet<>(Collections.singleton(productEntity)));
+//            env.addSubcategoryEntity(subcategoryEntity);
         }
     }
 
@@ -84,24 +91,24 @@ public class GetSubcategoryProductsTest {
 
         @BeforeEach
         public void initializeEnv() {
-            categoryEntity = categoryMocker.generateCategoryEntity();
-            env.addCategoryEntity(categoryEntity);
+            categoryEntity1 = categoryMocker.generateCategoryEntity();
+            env.addCategoryEntity(categoryEntity1);
 
-            productEntity = productMocker.generateProductEntity();
-            env.addProductEntity(productEntity);
+            productEntity1 = productMocker.generateProductEntity();
+            env.addProductEntity(productEntity1);
 
-            subcategoryEntity = subcategoryMocker.generateSubcategoryEntity();
-            subcategoryEntity.setCategoryEntity(categoryEntity);
-            subcategoryEntity.setProducts(new HashSet<>(Collections.singleton(productEntity)));
-            env.addSubcategoryEntity(subcategoryEntity);
+            subcategoryEntity1 = subcategoryMocker.generateSubcategoryEntity();
+            subcategoryEntity1.setCategoryEntity(categoryEntity1);
+            subcategoryEntity1.setProducts(new HashSet<>(Collections.singleton(productEntity1)));
+            env.addSubcategoryEntity(subcategoryEntity1);
         }
 
         @Test
         public void WrongCategoryId() {
             assertThrows(NotFoundException.class,
                     () -> subProductService.getSubcategoryProducts(
-                            categoryEntity.getCategoryId() + 1,
-                            subcategoryEntity.getSubcategoryId()
+                            categoryEntity1.getCategoryId() + 1,
+                            subcategoryEntity1.getSubcategoryId()
                     )
             );
         }
@@ -110,8 +117,8 @@ public class GetSubcategoryProductsTest {
         public void WrongSubcategoryId() {
             assertThrows(NotFoundException.class,
                     () -> subProductService.getSubcategoryProducts(
-                            categoryEntity.getCategoryId(),
-                            subcategoryEntity.getSubcategoryId() + 1
+                            categoryEntity1.getCategoryId(),
+                            subcategoryEntity1.getSubcategoryId() + 1
                     )
             );
         }
@@ -119,11 +126,11 @@ public class GetSubcategoryProductsTest {
         @Test
         public void oneProductInSubcategory() throws NotFoundException {
             List<Product> result = subProductService.getSubcategoryProducts(
-                    categoryEntity.getCategoryId(),
-                    subcategoryEntity.getSubcategoryId()
+                    categoryEntity1.getCategoryId(),
+                    subcategoryEntity1.getSubcategoryId()
             );
 
-            Product product = productMapper.entityToJson(productEntity);
+            Product product = productMapper.entityToJson(productEntity1);
 
             assertThat(result.size()).isEqualTo(1);
             assertThat(result.contains(product)).isTrue();
@@ -131,7 +138,7 @@ public class GetSubcategoryProductsTest {
     }
 
     @Nested
-    @DisplayName("Multiple products in one subcategory")
+    @DisplayName("Multiple products")
     public class MultipleProductTests {
 
         private Set<ProductEntity> productEntities = new HashSet<>();
@@ -140,21 +147,21 @@ public class GetSubcategoryProductsTest {
 
         @BeforeEach
         public void initializeEnv() {
-            categoryEntity = categoryMocker.generateCategoryEntity();
-            env.addCategoryEntity(categoryEntity);
+            categoryEntity1 = categoryMocker.generateCategoryEntity();
+            env.addCategoryEntity(categoryEntity1);
 
-            productEntity = productMocker.generateProductEntity();
-            env.addProductEntity(productEntity);
-            productEntities.add(productEntity);
+            productEntity1 = productMocker.generateProductEntity();
+            env.addProductEntity(productEntity1);
+            productEntities.add(productEntity1);
 
             productEntity2 = productMocker.generateProductEntity();
             env.addProductEntity(productEntity2);
             productEntities.add(productEntity2);
 
-            subcategoryEntity = subcategoryMocker.generateSubcategoryEntity();
-            subcategoryEntity.setCategoryEntity(categoryEntity);
-            subcategoryEntity.setProducts(productEntities);
-            env.addSubcategoryEntity(subcategoryEntity);
+            subcategoryEntity1 = subcategoryMocker.generateSubcategoryEntity();
+            subcategoryEntity1.setCategoryEntity(categoryEntity1);
+            subcategoryEntity1.setProducts(productEntities);
+            env.addSubcategoryEntity(subcategoryEntity1);
         }
 
         @Test
@@ -165,8 +172,8 @@ public class GetSubcategoryProductsTest {
                     .toList();
 
             List<Product> result = subProductService.getSubcategoryProducts(
-                    categoryEntity.getCategoryId(),
-                    subcategoryEntity.getSubcategoryId()
+                    categoryEntity1.getCategoryId(),
+                    subcategoryEntity1.getSubcategoryId()
             );
 
             assertThat(result.size()).isEqualTo(2);
@@ -174,7 +181,7 @@ public class GetSubcategoryProductsTest {
         }
 
         @Nested
-        @DisplayName("Multiple subcategories with products")
+        @DisplayName("Multiple subcategories with products same category")
         public class MultipleSubcategoriesTests {
 
             private SubcategoryEntity subcategoryEntity2;
@@ -202,7 +209,7 @@ public class GetSubcategoryProductsTest {
                 productEntities2.add(productEntity5);
 
                 subcategoryEntity2 = subcategoryMocker.generateSubcategoryEntity();
-                subcategoryEntity2.setCategoryEntity(categoryEntity);
+                subcategoryEntity2.setCategoryEntity(categoryEntity1);
                 subcategoryEntity2.setProducts(productEntities2);
                 env.addSubcategoryEntity(subcategoryEntity2);
             }
@@ -219,22 +226,90 @@ public class GetSubcategoryProductsTest {
                         .toList();
 
                 List<Product> result = subProductService.getSubcategoryProducts(
-                        categoryEntity.getCategoryId(),
-                        subcategoryEntity.getSubcategoryId()
+                        categoryEntity1.getCategoryId(),
+                        subcategoryEntity1.getSubcategoryId()
                 );
 
                 assertThat(result.size()).isEqualTo(2);
                 assertThat(result.containsAll(allProducts1)).isTrue();
 
                 result = subProductService.getSubcategoryProducts(
-                        categoryEntity.getCategoryId(),
+                        categoryEntity1.getCategoryId(),
                         subcategoryEntity2.getSubcategoryId()
                 );
 
                 assertThat(result.size()).isEqualTo(3);
                 assertThat(result.containsAll(allProducts2)).isTrue();
             }
+
+            @Test
+            public void addProductsToMultipleSubcategoriesSameCategory() throws NotFoundException {
+                SubcategoryEntity subcategoryEntity3 = subcategoryMocker.generateSubcategoryEntity();
+                subcategoryEntity3.setCategoryEntity(categoryEntity1);
+                subcategoryEntity3.setProducts(productEntities);
+                env.addSubcategoryEntity(subcategoryEntity3);
+
+                List<Product> allProducts = productEntities
+                        .stream()
+                        .map(productMapper::entityToJson)
+                        .toList();
+
+                List<Product> result = subProductService.getSubcategoryProducts(
+                        categoryEntity1.getCategoryId(),
+                        subcategoryEntity1.getSubcategoryId()
+                );
+                assertThat(result.size()).isEqualTo(2);
+                assertThat(result.containsAll(allProducts)).isTrue();
+
+                result = subProductService.getSubcategoryProducts(
+                        categoryEntity1.getCategoryId(),
+                        subcategoryEntity3.getSubcategoryId()
+                );
+                assertThat(result.size()).isEqualTo(2);
+                assertThat(result.containsAll(allProducts)).isTrue();
+            }
         }
 
+        @Nested
+        @DisplayName("Multiple categories with same products")
+        public class MultipleCategoriesTests {
+
+            private CategoryEntity categoryEntity2;
+            private SubcategoryEntity subcategoryEntity2;
+
+
+            @BeforeEach
+            public void initializeEnv() {
+                categoryEntity2 = categoryMocker.generateCategoryEntity();
+                env.addCategoryEntity(categoryEntity2);
+
+                subcategoryEntity2 = subcategoryMocker.generateSubcategoryEntity();
+                subcategoryEntity2.setCategoryEntity(categoryEntity2);
+                subcategoryEntity2.setProducts(productEntities);
+                env.addSubcategoryEntity(subcategoryEntity2);
+            }
+
+            @Test
+            public void sameProductsDifferentCategories() throws NotFoundException{
+                List<Product> allProducts = productEntities
+                        .stream()
+                        .map(productMapper::entityToJson)
+                        .toList();
+
+                List<Product> result = subProductService.getSubcategoryProducts(
+                        categoryEntity1.getCategoryId(),
+                        subcategoryEntity1.getSubcategoryId()
+                );
+                assertThat(result.size()).isEqualTo(2);
+                assertThat(result.containsAll(allProducts)).isTrue();
+
+                result = subProductService.getSubcategoryProducts(
+                        categoryEntity2.getCategoryId(),
+                        subcategoryEntity2.getSubcategoryId()
+                );
+                assertThat(result.size()).isEqualTo(2);
+                assertThat(result.containsAll(allProducts)).isTrue();
+            }
+        }
     }
 }

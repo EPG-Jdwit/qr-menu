@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureMockMvc
 public class SubcategoryIntegrationTest {
+
     @Autowired
     private MockMvc mvc;
 
@@ -42,16 +43,11 @@ public class SubcategoryIntegrationTest {
 
     private static final JSONParser JSON_PARSER = new JSONParser();
 
-    private static List<Subcategory> subcategories;
-
     private static Subcategory subcategory1;
-
     private static Subcategory subcategory2;
-
     private static Subcategory subcategory3;
 
     private static Category category1;
-
     private static Category category2;
 
 
