@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.ProductAssembler;
+import com.joshua.qrmenu.endpoints.assemblers.SubProductAssembler;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
 import com.joshua.qrmenu.models.json.Product;
@@ -15,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubProductController extends BaseController {
 
         private final SubProductService subProductService;
-        private final ProductAssembler productAssembler;
+        private final SubProductAssembler subProductAssembler;
 
-        public SubProductController(SubProductService subProductService, ProductAssembler productAssembler) {
+        public SubProductController(SubProductService subProductService, SubProductAssembler subProductAssembler) {
             this.subProductService = subProductService;
-            this.productAssembler = productAssembler;
+            this.subProductAssembler = subProductAssembler;
         }
 
         @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}/products")
         public CollectionModel<EntityModel<Product>> getSubcategoryProducts(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
-            return productAssembler.toCollectionModel(subProductService.getSubcategoryProducts(categoryId, subcategoryId));
+            return subProductAssembler.toCollectionModel(subProductService.getSubcategoryProducts(categoryId, subcategoryId), categoryId, subcategoryId);
         }
 }

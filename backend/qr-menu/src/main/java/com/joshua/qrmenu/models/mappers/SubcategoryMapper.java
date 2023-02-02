@@ -19,7 +19,10 @@ public class SubcategoryMapper implements Mapper<SubcategoryEntity, Subcategory,
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         subcategoryEntityToSubcategoryTypeMap = modelMapper
-                .typeMap(SubcategoryEntity.class, Subcategory.class);
+                .typeMap(SubcategoryEntity.class, Subcategory.class)
+                .addMappings(mapper ->
+                        mapper.map(subcategoryEntity -> subcategoryEntity.getCategoryEntity().getCategoryId(), Subcategory::setCategoryId)
+                );
         newSubcategoryToSubcategoryEntityTypeMap = modelMapper
                 .typeMap(NewSubcategory.class, SubcategoryEntity.class);
     }

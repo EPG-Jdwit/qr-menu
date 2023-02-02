@@ -82,9 +82,7 @@ public class SubProductIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory1 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory1 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
 
         // Create products
         NewProduct newProduct = productMocker.generateNewProduct();
@@ -193,9 +191,7 @@ public class SubProductIntegrationTest {
                 )
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        Subcategory result = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(result.getName()).isEqualTo(subcategory1.getName());
         assertThat(result.getSubcategoryId()).isEqualTo(subcategory1.getSubcategoryId());
 
@@ -252,9 +248,7 @@ public class SubProductIntegrationTest {
                 )
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        Subcategory result = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(result.getName()).isEqualTo(subcategory1.getName());
         assertThat(result.getSubcategoryId()).isEqualTo(subcategory1.getSubcategoryId());
 
@@ -296,9 +290,7 @@ public class SubProductIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory2 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory2 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         // Check if the products can be requested
         response = mvc.perform(
                         MockMvcRequestBuilders
@@ -336,9 +328,7 @@ public class SubProductIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory3 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory3 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         // Check if the products can be requested
         response = mvc.perform(
                         MockMvcRequestBuilders
@@ -389,9 +379,7 @@ public class SubProductIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory4 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory4 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
 
         // Check if both requests are correct
         // Category 1

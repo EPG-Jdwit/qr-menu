@@ -1,6 +1,8 @@
 package com.joshua.qrmenu.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.Product;
@@ -77,11 +79,19 @@ public class JSONParser {
         return subcategories;
     }
 
-    public Subcategory jsonMapToSubcategory(Object object) {
-        Map<String, Object> map = (Map<String, Object>) object;
-        return new Subcategory(
-                (Long) map.get("id"),
-                (String) map.get("name")
-        );
+    public Subcategory jsonMapToSubcategory(String string) {
+//        Map<String, Object> map = (Map<String, Object>) object;
+//        return new Subcategory(
+//                (Long) map.get("id"),
+//                (String) map.get("name")
+//        );
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper
+                    .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                    .readValue(string, Subcategory.class);
+        } catch (JsonProcessingException ex) {
+            return null;
+        }
     }
 }

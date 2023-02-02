@@ -124,9 +124,7 @@ public class SubcategoryIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory1 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory1 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
 
         assertThat(subcategory1).satisfies(subcategoryEqualsNewSubcategory(newSubcategory));
         assertThat(subcategory1.getSubcategoryId()).isNotEqualTo(null);
@@ -168,9 +166,7 @@ public class SubcategoryIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory2 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory2 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
 
         assertThat(subcategory2).satisfies(subcategoryEqualsNewSubcategory(newSubcategory));
         assertThat(subcategory2.getSubcategoryId()).isNotEqualTo(null);
@@ -220,9 +216,7 @@ public class SubcategoryIntegrationTest {
         )
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        Subcategory subcategory = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        Subcategory subcategory = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(subcategory).isEqualTo(subcategory1);
         assertThat(subcategory).isNotEqualTo(subcategory2);
     }
@@ -241,9 +235,7 @@ public class SubcategoryIntegrationTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        subcategory3 = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        subcategory3 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
 
         assertThat(subcategory3).satisfies(subcategoryEqualsNewSubcategory(newSubcategory));
         assertThat(subcategory3.getSubcategoryId()).isNotEqualTo(null);
@@ -302,9 +294,7 @@ public class SubcategoryIntegrationTest {
                 )
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        Subcategory result = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(result.getSubcategoryId()).isEqualTo(subcategory1.getSubcategoryId());
         assertThat(result.getName()).isNotEqualTo(subcategory1.getName());
         subcategory1 = result;
@@ -324,9 +314,7 @@ public class SubcategoryIntegrationTest {
                 )
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        Subcategory result = JSON_PARSER.jsonMapToSubcategory(
-                new ObjectMapper().readValue(response.getContentAsString(), Map.class)
-        );
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(result.getSubcategoryId()).isEqualTo(subcategory1.getSubcategoryId());
     }
 

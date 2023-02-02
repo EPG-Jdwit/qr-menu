@@ -26,7 +26,7 @@ public class SubcategoryController extends BaseController {
 
     @GetMapping("/categories/{categoryId}/subcategories")
     public CollectionModel<EntityModel<Subcategory>> getAllCategorySubcategories(@PathVariable Long categoryId) throws NotFoundException {
-        return subcategoryAssembler.toCollectionModel(subcategoryService.getAllCategorySubcategories(categoryId));
+        return subcategoryAssembler.toCollectionModel(subcategoryService.getAllCategorySubcategories(categoryId), categoryId);
     }
 
     @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}")

@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints.assemblers;
 
 import com.joshua.qrmenu.endpoints.CategoryController;
+import com.joshua.qrmenu.endpoints.SubcategoryController;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
 import org.springframework.hateoas.CollectionModel;
@@ -23,7 +24,7 @@ public class CategoryAssembler implements RepresentationModelAssembler<Category,
     public CollectionModel<EntityModel<Category>> toCollectionModel(Iterable<? extends Category> categories) {
         return CollectionModel.of(
                 StreamSupport.stream(categories.spliterator(), false).map(this::toModel).collect(Collectors.toList()),
-                linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand()
+                linkTo(methodOn(CategoryController.class).getAllCategories()).withSelfRel()
         );
     }
 
@@ -32,8 +33,8 @@ public class CategoryAssembler implements RepresentationModelAssembler<Category,
         try {
             return EntityModel.of(category,
                     linkTo(methodOn(CategoryController.class).getCategoryById(category.getCategoryId())).withSelfRel(),
+                    linkTo(methodOn(SubcategoryController.class).getAllCategorySubcategories(category.getCategoryId())).withRel("subcategories").expand(),
                     linkTo(methodOn(CategoryController.class).getAllCategories()).withRel("categories").expand()
-//                    linkTo(methodOn(MemberController.class).getCategoryProducts(category.getCategoryId())).withRel("categoryProducts").expand()
             );
         } catch (NotFoundException ex) {
             return null;

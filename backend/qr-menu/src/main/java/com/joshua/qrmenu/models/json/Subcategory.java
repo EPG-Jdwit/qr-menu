@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.models.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,9 @@ public class Subcategory {
 
     @JsonProperty("name")
     private String name;
+
+    @JsonIgnore
+    private Long categoryId;
 
     @Override
     public boolean equals(Object o) {

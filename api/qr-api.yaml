@@ -70,7 +70,7 @@ paths:
                   _embedded:
                     type: object
                     properties:
-                      categoriesList:
+                      categoryList:
                         type: array
                         items:
                           $ref: '#/components/schemas/category'
@@ -240,7 +240,7 @@ paths:
                   _embedded:
                     type: object
                     properties:
-                      subCategoryList:
+                      subcategoryList:
                         type: array
                         items:
                           $ref: '#/components/schemas/subcategory'
@@ -481,7 +481,7 @@ paths:
                   _embedded:
                     type: object
                     properties:
-                      categoriesList:
+                      productList:
                         type: array
                         items:
                           $ref: '#/components/schemas/product'

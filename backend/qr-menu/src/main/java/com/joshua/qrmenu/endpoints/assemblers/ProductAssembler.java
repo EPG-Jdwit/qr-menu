@@ -30,7 +30,7 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> products) {
         return CollectionModel.of(
                 StreamSupport.stream(products.spliterator(), false).map(this::toModel).collect(Collectors.toList()),
-                linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand()
+                linkTo(methodOn(ProductController.class).getAllProducts()).withSelfRel()
         );
     }
 
@@ -45,7 +45,6 @@ public class ProductAssembler implements RepresentationModelAssembler<Product, E
             return EntityModel.of(product,
                     linkTo(methodOn(ProductController.class).getProductById(product.getProductId())).withSelfRel(),
                     linkTo(methodOn(ProductController.class).getAllProducts()).withRel("products").expand()
-//                    linkTo(methodOn(MemberController.class).getProductCategories(product.getProductId())).withRel("productCategories").expand()
             );
         } catch (NotFoundException ex) {
             return null;

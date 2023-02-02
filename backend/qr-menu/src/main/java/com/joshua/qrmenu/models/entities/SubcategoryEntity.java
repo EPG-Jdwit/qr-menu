@@ -56,5 +56,4 @@ public class SubcategoryEntity {
         this.subcategoryId = subcategoryId;
         this.name = name;
     }
-
 }
