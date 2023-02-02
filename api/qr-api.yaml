@@ -667,6 +667,14 @@ components:
                     href:
                       type: string
                       example: 'https://qr-menu.com/categories/{categoryId}'
+                subcategories:
+                  type: object
+                  required:
+                    - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}/subcategories'
                 categories:
                   $ref: '#/components/schemas/categoriesLink'
     categoryWithRequirements:
@@ -701,7 +709,7 @@ components:
                 $ref: '#/components/schemas/idProperty'
     subcategory:
       allOf:
-        - $ref: '#/components/schemas/newSubcategory'
+        - $ref: '#/components/schemas/baseSubcategory'
         - type: object
           required:
             - _links
