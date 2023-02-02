@@ -415,18 +415,42 @@ paths:
               schema:
                 type: object
                 properties:
-                  productList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/product'
-                  count:
+                  _embedded:
+                    type: object
+                    properties:
+                      productList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/product'
+                      count:
+                            type: integer
+                            format: int32
+                            example: 15
+                      total:
                         type: integer
                         format: int32
-                        example: 15
-                  total:
-                    type: integer
-                    format: int32
-                    example: 20
+                        example: 20
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            example: 'https://qr-menu.com/categories/{categoryId}/subcategories/{subcategoryId}/products'
+                      subcategory:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            example: 'https://qr-menu.com/categories/{categoryId}/subcategories/{subcategoryId}'
+                      category:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            example: 'https://qr-menu.com/categories/{categoryId}'
         '401':
           $ref: '#/components/responses/401Unauthorized'
         '403':
@@ -448,11 +472,32 @@ paths:
         Retrieves all existing products.
       responses:
         '200':
-          description: All products. 
+          description: All products.
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/product'
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      catergoriesList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/product'
+                      count:
+                        type: integer
+                        format: int32
+                        example: 10
+                      total:
+                        type: integer
+                        format: int32
+                        example: 50
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        $ref: '#/components/schemas/productsLink'
         '401':
           $ref: '#/components/responses/401Unauthorized'
         '403':
@@ -642,17 +687,18 @@ components:
             name:
               type: string
               example: Pasta's with fish
-            products:
-              type: array
-              description: Id's of the products in the subcategory.
-              items:
-                $ref: '#/components/schemas/idProperty'
     newSubcategory:
       allOf:
         - $ref: '#/components/schemas/baseSubcategory'
         - type: object
           required:
             - name
+          properties:
+            products:
+              type: array
+              description: Id's of the products in the subcategory.
+              items:
+                $ref: '#/components/schemas/idProperty'
     subcategory:
       allOf:
         - $ref: '#/components/schemas/newSubcategory'
@@ -672,6 +718,7 @@ components:
                 - self
                 - subcategories
                 - category
+                - products
               properties:
                 self:
                   type: object
@@ -681,6 +728,14 @@ components:
                     href:
                       type: string
                       example: 'https://qr-menu.com/categories/{categoryId}/subcategories/{subcategoryId}'
+                products:
+                  type: object
+                  required:
+                   - href
+                  properties:
+                    href:
+                      type: string
+                      example: 'https://qr-menu.com/categories/{categoryId}/subcategories/{subcategoryId}/products'
                 subcategories:
                   type: object
                   required:
@@ -698,7 +753,15 @@ components:
                       type: string
                       example: 'https://qr-menu.com/categories/{categoryId}'
     updatedSubcategory:
-      $ref: '#/components/schemas/baseSubcategory'
+      allOf:
+        - $ref: '#/components/schemas/baseSubcategory'
+        - type: object
+          properties:
+            products:
+              type: array
+              description: Id's of the products in the subcategory.
+              items:
+                $ref: '#/components/schemas/idProperty'
     baseProduct:
       allOf:
         - $ref: "#/components/schemas/idObject"
@@ -794,7 +857,7 @@ components:
       properties:
         href:
           type: string
-          example: 'https://qr-menu.com/subcategories'
+          example: 'https://qr-menu.com/categories/{categoryId}/subcategories'
     productsLink:
       type: object
       properties:
