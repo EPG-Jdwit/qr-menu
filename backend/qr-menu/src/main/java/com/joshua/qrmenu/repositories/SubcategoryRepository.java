@@ -13,6 +13,6 @@ public interface SubcategoryRepository extends JpaRepository<SubcategoryEntity, 
     @Query("SELECT sc FROM SubcategoryEntity sc WHERE sc.categoryEntity.categoryId = :categoryId")
     List<SubcategoryEntity> findAllOfCategory(@Param("categoryId") Long categoryId);
 
-    @Query("SELECT sc FROM SubcategoryEntity sc WHERE sc.name = :name")
-    Optional<SubcategoryEntity> findByName(@Param("name") String name);
+    @Query("SELECT sc FROM SubcategoryEntity sc WHERE sc.categoryEntity.categoryId = :categoryId AND sc.name = :name")
+    Optional<SubcategoryEntity> findByName(@Param("name") String name, @Param("categoryId") Long categoryId);
 }

@@ -23,7 +23,7 @@ public class SubcategoryRepositoryMocker {
         SubcategoryRepository subcategoryRepository = Mockito.mock(SubcategoryRepository.class);
         when(subcategoryRepository.existsById(nullable(Long.class))).thenReturn(false);
         when(subcategoryRepository.findById(nullable(Long.class))).thenReturn(Optional.empty());
-        when(subcategoryRepository.findByName(nullable(String.class))).thenReturn(Optional.empty());
+        when(subcategoryRepository.findByName(nullable(String.class), nullable(Long.class))).thenReturn(Optional.empty());
         when(subcategoryRepository.findAll()).thenReturn(new ArrayList<>());
         when(subcategoryRepository.findAllOfCategory(nullable(Long.class))).thenReturn(new ArrayList<>());
 
@@ -51,7 +51,7 @@ public class SubcategoryRepositoryMocker {
                 if (subcategoryEntity.getSubcategoryId() != null) {
                     when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
                     when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
-                    when(subcategoryRepository.findByName(nullable(String.class))).thenReturn(Optional.empty());
+                    when(subcategoryRepository.findByName(nullable(String.class), nullable(Long.class))).thenReturn(Optional.empty());
                     List<SubcategoryEntity> allSubcategoryEntities = subcategoryRepository.findAll();
                     allSubcategoryEntities.remove(subcategoryEntity);
                     when(subcategoryRepository.findAll()).thenReturn(allSubcategoryEntities);
@@ -71,7 +71,7 @@ public class SubcategoryRepositoryMocker {
         Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(true);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.of(subcategoryEntity));
-        when(subcategoryRepository.findByName(subcategoryEntity.getName())).thenReturn(Optional.of(subcategoryEntity));
+        when(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryId)).thenReturn(Optional.of(subcategoryEntity));
         List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
         currentFindAll.add(subcategoryEntity);
         when(subcategoryRepository.findAll()).thenReturn(currentFindAll);
@@ -84,7 +84,7 @@ public class SubcategoryRepositoryMocker {
         Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
-        when(subcategoryRepository.findByName(subcategoryEntity.getName())).thenReturn(Optional.empty());
+        when(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryId)).thenReturn(Optional.empty());
         List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
         // Use removeIf to guarantee removal is done based upon ID
         currentFindAll.removeIf( entity -> entity.getSubcategoryId().equals(subcategoryEntity.getSubcategoryId()));

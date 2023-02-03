@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.NewProduct;
@@ -29,7 +30,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateWithNoChanges() throws NotFoundException, InputException {
+    public void canUpdateWithNoChanges() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -38,7 +39,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateWithNullFields() throws NotFoundException, InputException {
+    public void canUpdateWithNullFields() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -52,7 +53,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void checkUpdateNoIdChange() throws NotFoundException, InputException {
+    public void checkUpdateNoIdChange() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         NewProduct updateNewProduct = productMocker.generateNewProduct();
@@ -62,7 +63,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductName() throws NotFoundException, InputException {
+    public void canUpdateProductName() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -77,7 +78,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductPrice() throws NotFoundException, InputException {
+    public void canUpdateProductPrice() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -92,7 +93,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductDescription() throws NotFoundException, InputException {
+    public void canUpdateProductDescription() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 

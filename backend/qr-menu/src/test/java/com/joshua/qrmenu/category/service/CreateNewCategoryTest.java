@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
@@ -22,7 +23,7 @@ public class CreateNewCategoryTest {
     private final CategoryMocker categoryMocker = new CategoryMocker();
 
     @Test
-    public void canCreateCategory() throws InputException {
+    public void canCreateCategory() throws InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
         assertThat(category.getCategoryId()).isNotNull();
@@ -30,10 +31,21 @@ public class CreateNewCategoryTest {
     }
 
     @Test
-    public void createCategoryWithoutName() throws InputException {
+    public void createCategoryWithoutName() {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         newCategory.setName(null);
         assertThrows(InputException.class,
                 () -> categoryService.createNewCategory(newCategory));
+    }
+
+    @Test
+    public void createCategoryWithNameConflict() throws InputException, AlreadyExistsException {
+        NewCategory newCategory = categoryMocker.generateNewCategory();
+        Category category = categoryService.createNewCategory(newCategory);
+
+        NewCategory duplicateNamed = categoryMocker.generateNewCategory();
+        duplicateNamed.setName(category.getName());
+        assertThrows(AlreadyExistsException.class,
+                () -> categoryService.createNewCategory(duplicateNamed));
     }
 }

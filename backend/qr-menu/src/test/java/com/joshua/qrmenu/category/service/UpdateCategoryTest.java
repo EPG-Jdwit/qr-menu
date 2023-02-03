@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
@@ -28,7 +29,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateWithNoChanges() throws NotFoundException, InputException {
+    public void canUpdateWithNoChanges() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -38,7 +39,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateWithNullFields() throws NotFoundException, InputException {
+    public void canUpdateWithNullFields() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -50,7 +51,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void checkUpdateNoIDChange() throws NotFoundException, InputException {
+    public void checkUpdateNoIDChange() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
         NewCategory updatedNewCategory = categoryMocker.generateNewCategory();
@@ -60,7 +61,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateCategoryName() throws NotFoundException, InputException {
+    public void canUpdateCategoryName() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -70,6 +71,17 @@ public class UpdateCategoryTest {
         assertThat(categoryService.getCategoryById(updatedCategory.getCategoryId()).getCategoryId()).isEqualTo(category.getCategoryId());
         assertThat(categoryService.getCategoryById(updatedCategory.getCategoryId()).getName()).isNotEqualTo(category.getName());
         assertThat(categoryService.getCategoryById(updatedCategory.getCategoryId()).getName()).isEqualTo(newName);
+    }
+
+    @Test
+    public void updateCategoryNameConflict() throws InputException, AlreadyExistsException {
+        NewCategory newCategory1 = categoryMocker.generateNewCategory();
+        Category category1 = categoryService.createNewCategory(newCategory1);
+
+        NewCategory newCategory2 = categoryMocker.generateNewCategory();
+        newCategory2.setName(category1.getName());
+        assertThrows(AlreadyExistsException.class,
+                () -> categoryService.createNewCategory(newCategory2));
     }
 
 }

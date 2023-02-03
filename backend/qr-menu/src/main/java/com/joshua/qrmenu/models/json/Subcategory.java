@@ -16,6 +16,7 @@ public class Subcategory {
     @JsonProperty("id")
     private Long subcategoryId;
 
+    // Name must be unique within the same category and is required when creating a new Subcategory.
     @JsonProperty("name")
     private String name;
 

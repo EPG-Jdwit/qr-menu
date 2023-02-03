@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.ProductAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
@@ -65,7 +66,7 @@ public class ProductController extends BaseController {
      */
     @PostMapping("/products")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Product> addProduct(@RequestBody NewProduct newProduct) throws InputException {
+    public EntityModel<Product> addProduct(@RequestBody NewProduct newProduct) throws InputException, AlreadyExistsException {
         return productAssembler.toModel(productService.createNewProduct(newProduct));
     }
 
@@ -91,7 +92,7 @@ public class ProductController extends BaseController {
      */
     @PatchMapping("/products/{productId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EntityModel<Product> updateProductById(@PathVariable Long productId, @RequestBody NewProduct newProduct) throws NotFoundException {
+    public EntityModel<Product> updateProductById(@PathVariable Long productId, @RequestBody NewProduct newProduct) throws NotFoundException, AlreadyExistsException {
         return productAssembler.toModel(productService.patchProductById(productId, newProduct));
     }
 }

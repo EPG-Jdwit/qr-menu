@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.endpoints.config;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class SubcategoryConfig {
 
-    public static void populateSubcategories(CategoryService categoryService, SubcategoryService subcategoryService, ProductService productService) throws NotFoundException, InputException {
+    public static void populateSubcategories(CategoryService categoryService, SubcategoryService subcategoryService, ProductService productService) throws NotFoundException, InputException, AlreadyExistsException {
         List<Category> categoryList = categoryService.getAll();
         List<Product> productList = productService.getAll();
         Set<Long> prodIds1 = productList.subList(0, 3).stream().map(Product::getProductId).collect(Collectors.toSet());

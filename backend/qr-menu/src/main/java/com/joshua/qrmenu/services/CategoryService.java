@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
@@ -51,10 +52,15 @@ public class CategoryService extends AbstractService {
     }
 
     // No products when creating
-    public Category createNewCategory(NewCategory newCategory) throws InputException {
+    public Category createNewCategory(NewCategory newCategory) throws InputException, AlreadyExistsException {
         // Validate input
         Validator validator = new Validator();
         validator.validate(newCategory, ValidatorMode.Create);
+
+        // Check if a category with the same name already exists
+        if(categoryRepository.findByName(newCategory.getName()).isPresent()) {
+            throw new AlreadyExistsException("Category with the name '" + newCategory.getName() + "' already exists.");
+        }
 
         CategoryEntity categoryEntity = categoryMapper.newJsonToEntity(newCategory);
         categoryEntity = categoryRepository.save(categoryEntity);
@@ -69,9 +75,17 @@ public class CategoryService extends AbstractService {
         }
     }
 
-    public Category patchCategoryById(Long id, NewCategory newCategory) throws NotFoundException {
+    public Category patchCategoryById(Long id, NewCategory newCategory) throws NotFoundException, AlreadyExistsException {
         CategoryEntity originalEntity = parseOptional(categoryRepository.findById(id));
         CategoryEntity newEntity = categoryMapper.newJsonToEntity(newCategory);
+
+        // Check if another category with the same name already exists
+        if( newEntity.getName() != null
+                && (!newEntity.getName().equals(originalEntity.getName()))
+                && categoryRepository.findByName(newCategory.getName()).isPresent()) {
+            throw new AlreadyExistsException("Category with the name '" + newCategory.getName() + "' already exists.");
+        }
+
         // TODO: Change this if allow NewCategory to contain subcategories in the future
         newEntity.setSubcategoryEntities(originalEntity.getSubcategoryEntities());
 

@@ -13,10 +13,12 @@ import lombok.*;
 @NoArgsConstructor
 public class NewProduct {
 
+    // Name must be unique and is required when creating a new Product.
     @JsonProperty("name")
     @RequiredValidator(on = {ValidatorMode.Create})
     private String name;
 
+    // Price is required when creating a new Product
     @JsonProperty("price")
     @RequiredValidator(on = {ValidatorMode.Create})
     private Double price;

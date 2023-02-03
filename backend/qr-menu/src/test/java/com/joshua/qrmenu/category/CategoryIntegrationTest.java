@@ -285,4 +285,45 @@ public class CategoryIntegrationTest {
                 )
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @Order(22)
+    public void createCategoryNameConflict() throws Exception{
+        NewCategory newCategory = categoryMocker.generateNewCategory();
+        newCategory.setName(category2.getName());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newCategory))
+                )
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @Order(23)
+    public void patchCategoryNameConflict() throws Exception {
+        NewCategory newCategory = categoryMocker.generateNewCategory();
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newCategory))
+                )
+                .andExpect(status().isCreated())
+                .andReturn().getResponse();
+        Category category = JSON_PARSER.jsonMapToCategory(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
+        newCategory.setName(category2.getName());
+
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .patch("/categories/" + category.getCategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newCategory))
+                )
+                .andExpect(status().isConflict());
+    }
 }

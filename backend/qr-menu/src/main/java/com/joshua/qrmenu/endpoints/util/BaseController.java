@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.endpoints.util;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,14 @@ public class BaseController {
     public ResponseEntity<String> exception400(InputException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<String> exception409(AlreadyExistsException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(ex.getMessage());
     }
 

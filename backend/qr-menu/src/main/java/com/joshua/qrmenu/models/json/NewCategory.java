@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NewCategory {
 
+    /**
+     * Name must be unique and is required when creating a new Category.
+     */
     @JsonProperty("name")
     @RequiredValidator(on = {ValidatorMode.Create})
     private String name;

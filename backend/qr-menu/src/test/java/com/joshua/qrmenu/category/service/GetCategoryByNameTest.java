@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
@@ -29,14 +30,14 @@ public class GetCategoryByNameTest {
     }
 
     @Test
-    public void canGetCategoryByName() throws NotFoundException, InputException {
+    public void canGetCategoryByName() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
         assertThat(categoryService.getCategoryByName(category.getName())).satisfies(categoryEqualsNewCategory(newCategory));
     }
 
     @Test
-    public void getCategoryByWrongName() throws InputException {
+    public void getCategoryByWrongName() throws InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 

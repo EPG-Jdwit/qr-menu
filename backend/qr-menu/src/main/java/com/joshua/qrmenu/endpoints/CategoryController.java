@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.CategoryAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
@@ -44,7 +45,7 @@ public class CategoryController extends BaseController {
 
     @PostMapping("/categories")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) throws InputException {
+    public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) throws InputException, AlreadyExistsException {
         return categoryAssembler.toModel(categoryService.createNewCategory(newCategory));
     }
 
@@ -56,7 +57,7 @@ public class CategoryController extends BaseController {
 
     @PatchMapping("/categories/{categoryId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EntityModel<Category> updateCategoryById(@PathVariable Long categoryId, @RequestBody NewCategory newCategory) throws  NotFoundException {
+    public EntityModel<Category> updateCategoryById(@PathVariable Long categoryId, @RequestBody NewCategory newCategory) throws  NotFoundException, AlreadyExistsException {
         Category category = categoryService.patchCategoryById(categoryId, newCategory);
         return categoryAssembler.toModel(category);
     }

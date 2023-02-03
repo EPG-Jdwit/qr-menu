@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.NewProduct;
@@ -29,14 +30,14 @@ public class GetProductByIdTest {
     }
 
     @Test
-    public void canGetProductById() throws NotFoundException, InputException {
+    public void canGetProductById() throws NotFoundException, InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         assertThat(productService.getProductById(product.getProductId())).satisfies(productEqualsNewProduct(newProduct));
     }
 
     @Test
-    public void getProductByWrongId() throws InputException {
+    public void getProductByWrongId() throws InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         assertThrows(NotFoundException.class,

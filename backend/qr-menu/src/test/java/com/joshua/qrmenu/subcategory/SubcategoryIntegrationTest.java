@@ -46,6 +46,7 @@ public class SubcategoryIntegrationTest {
     private static Subcategory subcategory1;
     private static Subcategory subcategory2;
     private static Subcategory subcategory3;
+    private static Subcategory subcategory4;
 
     private static Category category1;
     private static Category category2;
@@ -401,5 +402,78 @@ public class SubcategoryIntegrationTest {
                                 .content(new ObjectMapper().writeValueAsString(newSubcategory))
                 )
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(51)
+    public void createSubcategoryNameConflict() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        newSubcategory.setName(subcategory2.getName());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories/" + category1.getCategoryId() + "/subcategories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @Order(52)
+    public void createSubcategoryNoConflict() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        newSubcategory.setName(subcategory2.getName());
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories/" + category2.getCategoryId() + "/subcategories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isCreated())
+                .andReturn().getResponse();
+
+        subcategory4 = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
+
+        assertThat(subcategory4).satisfies(subcategoryEqualsNewSubcategory(newSubcategory));
+        assertThat(subcategory4.getSubcategoryId()).isNotEqualTo(null);
+    }
+
+    @Test
+    @Order(53)
+    public void patchSubcategoryByNameConflict() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        newSubcategory.setName(subcategory3.getName());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .patch("/categories/" + category2.getCategoryId() +
+                                        "/subcategories/" + subcategory4.getSubcategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @Order(54)
+    public void patchSubcategoryByNameNoConflict() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        newSubcategory.setName(subcategory3.getName());
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .patch("/categories/" + category1.getCategoryId() +
+                                        "/subcategories/" + subcategory2.getSubcategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
+        assertThat(result.getSubcategoryId()).isEqualTo(subcategory2.getSubcategoryId());
+        assertThat(result.getName()).isNotEqualTo(subcategory2.getName());
+        subcategory2 = result;
     }
 }

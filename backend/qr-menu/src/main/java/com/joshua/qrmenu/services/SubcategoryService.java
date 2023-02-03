@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
@@ -58,16 +59,20 @@ public class SubcategoryService extends AbstractSubcategoryService {
     }
 
     public Subcategory getSubcategoryByName(Long categoryId, String name) throws NotFoundException {
-        SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findByName(name));
+        SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findByName(name, categoryId));
         verifyCategoryId(categoryId, subcategoryEntity);
         return subcategoryMapper.entityToJson(subcategoryEntity);
     }
-    public Subcategory createNewSubcategory(Long categoryId, NewSubcategory newSubcategory) throws NotFoundException, InputException {
+    public Subcategory createNewSubcategory(Long categoryId, NewSubcategory newSubcategory) throws NotFoundException, InputException, AlreadyExistsException {
         // Check if the category exists, otherwise throw a NotFoundException
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
         // Validate the input
         Validator validator = new Validator();
         validator.validate(newSubcategory, ValidatorMode.Create);
+        // Check if a category with the same name already exists
+        if(subcategoryRepository.findByName(newSubcategory.getName(), categoryId).isPresent()) {
+            throw new AlreadyExistsException("Subcategory with the name '" + newSubcategory.getName() + "' already exists.");
+        }
         // Map the Subcategory to SubcategoryEntity
         SubcategoryEntity subcategoryEntity = subcategoryMapper.newJsonToEntity(newSubcategory);
 
@@ -94,11 +99,18 @@ public class SubcategoryService extends AbstractSubcategoryService {
         }
     }
 
-    public Subcategory patchSubcategoryById(Long categoryId, Long subcategoryId, NewSubcategory newSubcategory) throws NotFoundException {
+    public Subcategory patchSubcategoryById(Long categoryId, Long subcategoryId, NewSubcategory newSubcategory) throws NotFoundException, AlreadyExistsException {
+        // Check if the category exists, otherwise throw a NotFoundException
+        CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
         SubcategoryEntity originalEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
         verifyCategoryId(categoryId, originalEntity);
         SubcategoryEntity newEntity = subcategoryMapper.newJsonToEntity(newSubcategory);
-
+        // Check if another subcategory (within the same category) with the same name already exists
+        if( newEntity.getName() != null
+                && (!newEntity.getName().equals(originalEntity.getName()))
+                && subcategoryRepository.findByName(newEntity.getName(), categoryId).isPresent()) {
+            throw new AlreadyExistsException("Subcategory (within the category '" + categoryEntity.getName() +"') with the name '" + newEntity.getName() + "' already exists.");
+        }
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
 
         addProductsToSubcategory(newSubcategory, originalEntity);

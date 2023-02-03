@@ -314,4 +314,44 @@ public class ProductIntegrationTest {
                 )
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    @Order(32)
+    public void createProductNameConflict() throws Exception {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        newProduct.setName(product2.getName());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/products")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newProduct))
+                )
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @Order(33)
+    public void patchProductNameConflict() throws Exception {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/products")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newProduct))
+                )
+                .andExpect(status().isCreated())
+                .andReturn().getResponse();
+        Product product = JSON_PARSER.jsonMapToProduct(new ObjectMapper().readValue(response.getContentAsString(), Map.class));
+        newProduct.setName(product2.getName());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .patch("/products/" + product.getProductId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newProduct))
+                )
+                .andExpect(status().isConflict());
+    }
 }

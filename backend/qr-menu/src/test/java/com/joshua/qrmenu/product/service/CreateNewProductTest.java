@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
@@ -21,7 +22,7 @@ public class CreateNewProductTest {
     private final ProductMocker productMocker = new ProductMocker();
 
     @Test
-    public void canCreateProduct() throws InputException {
+    public void canCreateProduct() throws InputException, AlreadyExistsException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         assertThat(product.getProductId()).isNotNull();
@@ -29,7 +30,7 @@ public class CreateNewProductTest {
     }
 
     @Test
-    public void createProductWithoutName() {
+    public void createProductNoName() {
         NewProduct newProduct = productMocker.generateNewProduct();
         newProduct.setName(null);
         assertThrows(InputException.class,
@@ -37,7 +38,7 @@ public class CreateNewProductTest {
     }
 
     @Test
-    public void createProductWithoutPrice() {
+    public void createProductNoPrice() {
         NewProduct newProduct = productMocker.generateNewProduct();
         newProduct.setPrice(null);
         assertThrows(InputException.class,

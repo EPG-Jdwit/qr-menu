@@ -15,8 +15,12 @@ public class ProductNameMocker {
         Collections.shuffle(shuffledNames);
     }
 
+    /**
+     * Randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
+     * @return : A random product name.
+     */
     public String productName() {
-        return shuffledNames.get(createdCounter++ % names.length);
+        return shuffledNames.get(createdCounter++ % names.length) + createdCounter;
     }
 
     private final String[] names = {

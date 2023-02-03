@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
@@ -70,9 +71,15 @@ public class ProductService extends AbstractService {
      * @param newProduct : An object with all data to create the new product.
      * @return : A Product representing the newly created product.
      */
-    public Product createNewProduct(NewProduct newProduct) throws InputException {
+    public Product createNewProduct(NewProduct newProduct) throws InputException, AlreadyExistsException {
         Validator validator = new Validator();
         validator.validate(newProduct, ValidatorMode.Create);
+
+        // Check if a product with the same name already exists
+        if(productRepository.findByName(newProduct.getName()).isPresent()) {
+            throw new AlreadyExistsException("Product with the name '" + newProduct.getName() + "' already exists.");
+        }
+
         ProductEntity productEntity = productMapper.newJsonToEntity(newProduct);
         productEntity = productRepository.save(productEntity);
         return productMapper.entityToJson(productEntity);
@@ -100,9 +107,16 @@ public class ProductService extends AbstractService {
      * @return : The Product with the updated fields.
      * @throws NotFoundException : When the ID doesn't correspond to an existing product.
      */
-    public Product patchProductById(Long id, NewProduct newProduct) throws NotFoundException {
+    public Product patchProductById(Long id, NewProduct newProduct) throws NotFoundException, AlreadyExistsException {
         ProductEntity originalEntity = parseOptional(productRepository.findById(id));
         ProductEntity newEntity = productMapper.newJsonToEntity(newProduct);
+
+        // Check if another product with the same name already exists
+        if( newEntity.getName() != null
+                && (!newEntity.getName().equals(originalEntity.getName()))
+                && productRepository.findByName(newEntity.getName()).isPresent()) {
+            throw new AlreadyExistsException("Product with the name '" + newEntity.getName() + "' already exists.");
+        }
 
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
         productRepository.save(originalEntity);

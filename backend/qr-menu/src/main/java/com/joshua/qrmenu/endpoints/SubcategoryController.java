@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.SubcategoryAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
@@ -37,7 +38,7 @@ public class SubcategoryController extends BaseController {
 
     @PostMapping("/categories/{categoryId}/subcategories")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Subcategory> addSubcategoryToCategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException, InputException {
+    public EntityModel<Subcategory> addSubcategoryToCategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException, InputException, AlreadyExistsException {
         return subcategoryAssembler.toModel(subcategoryService.createNewSubcategory(categoryId, newSubcategory));
     }
 
@@ -53,7 +54,7 @@ public class SubcategoryController extends BaseController {
             @PathVariable Long categoryId,
             @PathVariable Long subcategoryId,
             @RequestBody NewSubcategory newSubcategory
-    ) throws NotFoundException {
+    ) throws NotFoundException, AlreadyExistsException {
         return subcategoryAssembler.toModel(subcategoryService.patchSubcategoryById(categoryId, subcategoryId, newSubcategory ));
     }
 }

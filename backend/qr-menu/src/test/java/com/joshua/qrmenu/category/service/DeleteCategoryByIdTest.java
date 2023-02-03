@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
@@ -28,7 +29,7 @@ public class DeleteCategoryByIdTest {
     }
 
     @Test
-    public void canDeleteById() throws NotFoundException, InputException {
+    public void canDeleteById() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -38,7 +39,7 @@ public class DeleteCategoryByIdTest {
     }
 
     @Test
-    public void canDeleteWhenMultiple() throws NotFoundException, InputException {
+    public void canDeleteWhenMultiple() throws NotFoundException, InputException, AlreadyExistsException {
         NewCategory newCategory1 = categoryMocker.generateNewCategory();
         NewCategory newCategory2 = categoryMocker.generateNewCategory();
         Category category1 = categoryService.createNewCategory(newCategory1);
