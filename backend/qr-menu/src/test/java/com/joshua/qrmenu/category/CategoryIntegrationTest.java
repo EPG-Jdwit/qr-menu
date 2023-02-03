@@ -81,6 +81,21 @@ public class CategoryIntegrationTest {
 
     @Test
     @Order(3)
+    public void createCategoryNoName() throws Exception {
+        NewCategory newCategory = categoryMocker.generateNewCategory();
+        newCategory.setName(null);
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newCategory))
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(4)
     public void getCategoryByIdNotFound() throws Exception {
         mvc.perform(
                         MockMvcRequestBuilders
@@ -92,7 +107,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(3)
+    @Order(5)
     public void getCategoryByNameNotFound() throws Exception {
         mvc.perform(
                         MockMvcRequestBuilders
@@ -104,7 +119,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     public void createCategory2() throws Exception{
         NewCategory newCategory = categoryMocker.generateNewCategory();
         MockHttpServletResponse response = mvc.perform(
@@ -123,7 +138,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     public void getAllCategories() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                 MockMvcRequestBuilders
@@ -138,7 +153,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(5)
+    @Order(8)
     public void getCategoryById() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                         MockMvcRequestBuilders
@@ -154,7 +169,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(5)
+    @Order(9)
     public void getCategoryByName() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                         MockMvcRequestBuilders
@@ -170,7 +185,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(6)
+    @Order(10)
     public void patchCategoryByIdAllFields() throws Exception {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         MockHttpServletResponse response = mvc.perform(
@@ -189,7 +204,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(7)
+    @Order(11)
     public void patchCategoryByIdNoFields() throws Exception {
         NewCategory newCategory = categoryMocker.generateNullNewCategory();
         MockHttpServletResponse response = mvc.perform(
@@ -207,7 +222,7 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    @Order(8)
+    @Order(12)
     public void patchCategoryNameById() throws Exception {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         MockHttpServletResponse response = mvc.perform(

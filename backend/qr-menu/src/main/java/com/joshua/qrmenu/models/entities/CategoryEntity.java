@@ -21,6 +21,8 @@ import java.util.Set;
 )
 public class CategoryEntity {
 
+    public static final int MAX_NAME_LENGTH = 255; // (default) //TODO: JdbcSQLDataException
+
     @Id
     @GeneratedValue(generator = "cat_generator")
     @GenericGenerator(
@@ -33,6 +35,12 @@ public class CategoryEntity {
     )
     private Long categoryId;
 
+    @Basic(optional = false)
+    @Column(
+            name= "name",
+            nullable = false,
+            length = MAX_NAME_LENGTH
+    )
     private String name;
 
     @OneToMany(

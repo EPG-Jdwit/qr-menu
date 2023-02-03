@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.CategoryAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
 import com.joshua.qrmenu.models.json.Category;
@@ -43,7 +44,7 @@ public class CategoryController extends BaseController {
 
     @PostMapping("/categories")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) {
+    public EntityModel<Category> addCategory(@RequestBody NewCategory newCategory) throws InputException {
         return categoryAssembler.toModel(categoryService.createNewCategory(newCategory));
     }
 

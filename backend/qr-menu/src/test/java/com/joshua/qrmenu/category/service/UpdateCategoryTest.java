@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.NewCategory;
@@ -27,7 +28,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateWithNoChanges() throws NotFoundException {
+    public void canUpdateWithNoChanges() throws NotFoundException, InputException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -37,7 +38,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateWithNullFields() throws NotFoundException {
+    public void canUpdateWithNullFields() throws NotFoundException, InputException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -49,7 +50,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void checkUpdateNoIDChange() throws NotFoundException {
+    public void checkUpdateNoIDChange() throws NotFoundException, InputException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
         NewCategory updatedNewCategory = categoryMocker.generateNewCategory();
@@ -59,7 +60,7 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void canUpdateCategoryName() throws NotFoundException {
+    public void canUpdateCategoryName() throws NotFoundException, InputException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 

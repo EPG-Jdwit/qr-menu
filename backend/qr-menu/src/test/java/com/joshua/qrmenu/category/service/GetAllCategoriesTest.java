@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.category.service;
 
 import com.joshua.qrmenu.category.CategoryEnvironment;
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.services.CategoryService;
@@ -25,7 +26,7 @@ public class GetAllCategoriesTest {
     }
 
     @Test
-    public void canAddOne() {
+    public void canAddOne() throws InputException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
 
@@ -34,7 +35,7 @@ public class GetAllCategoriesTest {
     }
 
     @Test
-    public void canAddTwo() {
+    public void canAddTwo() throws InputException {
         NewCategory newCategory1 = categoryMocker.generateNewCategory();
         NewCategory newCategory2 = categoryMocker.generateNewCategory();
         Category category1 = categoryService.createNewCategory(newCategory1);
@@ -45,7 +46,7 @@ public class GetAllCategoriesTest {
     }
 
     @Test
-    public void canAddTen() {
+    public void canAddTen() throws InputException {
         for (int i = 0; i < 10; i++) {
             NewCategory newCategory = categoryMocker.generateNewCategory();
             categoryService.createNewCategory(newCategory);

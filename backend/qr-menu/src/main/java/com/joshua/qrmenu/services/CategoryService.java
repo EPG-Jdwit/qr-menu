@@ -1,11 +1,14 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
 import com.joshua.qrmenu.models.entities.CategoryEntity;
 import com.joshua.qrmenu.models.json.Category;
 import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.models.mappers.CategoryMapper;
+import com.joshua.qrmenu.models.validators.Validator;
+import com.joshua.qrmenu.models.validators.ValidatorMode;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.services.util.AbstractService;
@@ -48,7 +51,11 @@ public class CategoryService extends AbstractService {
     }
 
     // No products when creating
-    public Category createNewCategory(NewCategory newCategory) {
+    public Category createNewCategory(NewCategory newCategory) throws InputException {
+        // Validate input
+        Validator validator = new Validator();
+        validator.validate(newCategory, ValidatorMode.Create);
+
         CategoryEntity categoryEntity = categoryMapper.newJsonToEntity(newCategory);
         categoryEntity = categoryRepository.save(categoryEntity);
         return categoryMapper.entityToJson(categoryEntity);
