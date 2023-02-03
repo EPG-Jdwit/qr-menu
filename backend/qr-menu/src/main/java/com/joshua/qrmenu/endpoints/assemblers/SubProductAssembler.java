@@ -23,9 +23,10 @@ public class SubProductAssembler implements RepresentationModelAssembler<Product
     // TODO: Not used due to needing categoryId and subcategoryId, find a way to extract out of Iterable
     @Override
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> subcategories) {
-        return CollectionModel.of(
-                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
-        );
+        return null;
+//        return CollectionModel.of(
+//                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
+//        );
     }
 
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> subcategories, Long categoryId, Long subcategoryId) {
@@ -42,7 +43,7 @@ public class SubProductAssembler implements RepresentationModelAssembler<Product
     }
 
     /**
-     * Converts a Product to a JSON representation.
+     * Converts a Product to a JSON representation. NOTE: identical to ProductAssembler
      *
      * @param product : the product to convert.
      * @return : EntityModel of the product.

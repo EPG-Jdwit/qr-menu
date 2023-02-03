@@ -22,9 +22,10 @@ public class SubcategoryAssembler implements RepresentationModelAssembler<Subcat
     // TODO: Not used due to needing categoryId, find a way to extract out of Iterable
     @Override
     public CollectionModel<EntityModel<Subcategory>> toCollectionModel(Iterable<? extends Subcategory> subcategories) {
-        return CollectionModel.of(
-                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
-        );
+        return null;
+//        return CollectionModel.of(
+//                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
+//        );
     }
 
     public CollectionModel<EntityModel<Subcategory>> toCollectionModel(Iterable<? extends Subcategory> subcategories, Long categoryId) {
@@ -47,7 +48,6 @@ public class SubcategoryAssembler implements RepresentationModelAssembler<Subcat
                     linkTo(methodOn(SubProductController.class).getSubcategoryProducts(subcategory.getCategoryId(), subcategory.getSubcategoryId())).withRel("products").expand(),
                     linkTo(methodOn(SubcategoryController.class).getAllCategorySubcategories(subcategory.getCategoryId())).withRel("subcategories").expand(),
                     linkTo(methodOn(CategoryController.class).getCategoryById(subcategory.getCategoryId())).withRel("category").expand()
-
                     );
         } catch (NotFoundException ex) {
             return null;
