@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.ProductAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
 import com.joshua.qrmenu.models.json.NewProduct;
@@ -64,7 +65,7 @@ public class ProductController extends BaseController {
      */
     @PostMapping("/products")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Product> addProduct(@RequestBody NewProduct newProduct) {
+    public EntityModel<Product> addProduct(@RequestBody NewProduct newProduct) throws InputException {
         return productAssembler.toModel(productService.createNewProduct(newProduct));
     }
 

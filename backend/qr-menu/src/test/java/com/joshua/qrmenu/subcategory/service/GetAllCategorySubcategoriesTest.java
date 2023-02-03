@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.subcategory.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.entities.CategoryEntity;
 import com.joshua.qrmenu.models.json.NewSubcategory;
@@ -40,7 +41,7 @@ public class GetAllCategorySubcategoriesTest {
     }
 
     @Test
-    public void wrongCategoryId() throws NotFoundException {
+    public void wrongCategoryId() throws NotFoundException, InputException {
         CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
         env.addCategoryEntity(categoryEntity);
         Long categoryId = categoryEntity.getCategoryId();
@@ -55,7 +56,7 @@ public class GetAllCategorySubcategoriesTest {
     }
 
     @Test
-    public void canAddOne() throws NotFoundException {
+    public void canAddOne() throws NotFoundException, InputException {
         CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
         env.addCategoryEntity(categoryEntity);
         Long categoryId = categoryEntity.getCategoryId();
@@ -69,7 +70,7 @@ public class GetAllCategorySubcategoriesTest {
     }
 
     @Test
-    public void canAddTwoToSameCategory() throws NotFoundException {
+    public void canAddTwoToSameCategory() throws NotFoundException, InputException {
         CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
         env.addCategoryEntity(categoryEntity);
         Long categoryId = categoryEntity.getCategoryId();
@@ -85,7 +86,7 @@ public class GetAllCategorySubcategoriesTest {
     }
 
     @Test
-    public void canAddTwoToDifferentCategories() throws NotFoundException {
+    public void canAddTwoToDifferentCategories() throws NotFoundException, InputException {
         CategoryEntity categoryEntity1 = categoryMocker.generateCategoryEntity();
         CategoryEntity categoryEntity2 = categoryMocker.generateCategoryEntity();
         env.addCategoryEntity(categoryEntity1);
@@ -111,7 +112,7 @@ public class GetAllCategorySubcategoriesTest {
     }
 
     @Test
-    public void canAddTen() throws NotFoundException {
+    public void canAddTen() throws NotFoundException, InputException {
         CategoryEntity categoryEntity = categoryMocker.generateCategoryEntity();
         env.addCategoryEntity(categoryEntity);
         Long categoryId = categoryEntity.getCategoryId();

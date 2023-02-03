@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.product.ProductEnvironment;
@@ -26,7 +27,7 @@ public class GetAllProductsTest {
     }
 
     @Test
-    public void canAddOne() {
+    public void canAddOne() throws InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -35,7 +36,7 @@ public class GetAllProductsTest {
     }
 
     @Test
-    public void canAddTwo() {
+    public void canAddTwo() throws InputException {
         NewProduct newProduct1 = productMocker.generateNewProduct();
         NewProduct newProduct2 = productMocker.generateNewProduct();
         Product product1 = productService.createNewProduct(newProduct1);
@@ -46,7 +47,7 @@ public class GetAllProductsTest {
     }
 
     @Test
-    public void canAddTen() {
+    public void canAddTen() throws InputException {
         for (int i = 0; i < 10; i++) {
             NewProduct newProduct = productMocker.generateNewProduct();
             productService.createNewProduct(newProduct);

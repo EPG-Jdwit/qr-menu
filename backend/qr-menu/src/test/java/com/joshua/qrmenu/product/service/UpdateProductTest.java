@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
@@ -28,7 +29,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateWithNoChanges() throws NotFoundException {
+    public void canUpdateWithNoChanges() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -37,7 +38,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateWithNullFields() throws NotFoundException {
+    public void canUpdateWithNullFields() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -51,7 +52,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void checkUpdateNoIdChange() throws NotFoundException {
+    public void checkUpdateNoIdChange() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         NewProduct updateNewProduct = productMocker.generateNewProduct();
@@ -61,7 +62,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductName() throws NotFoundException {
+    public void canUpdateProductName() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -76,7 +77,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductPrice() throws NotFoundException {
+    public void canUpdateProductPrice() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -91,7 +92,7 @@ public class UpdateProductTest {
     }
 
     @Test
-    public void canUpdateProductDescription() throws NotFoundException {
+    public void canUpdateProductDescription() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 

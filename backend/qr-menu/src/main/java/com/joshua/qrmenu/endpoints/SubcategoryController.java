@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.endpoints;
 
 import com.joshua.qrmenu.endpoints.assemblers.SubcategoryAssembler;
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.BaseController;
 import com.joshua.qrmenu.models.json.NewSubcategory;
@@ -36,7 +37,7 @@ public class SubcategoryController extends BaseController {
 
     @PostMapping("/categories/{categoryId}/subcategories")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EntityModel<Subcategory> addSubcategoryToCategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException {
+    public EntityModel<Subcategory> addSubcategoryToCategory(@PathVariable Long categoryId, @RequestBody NewSubcategory newSubcategory) throws NotFoundException, InputException {
         return subcategoryAssembler.toModel(subcategoryService.createNewSubcategory(categoryId, newSubcategory));
     }
 

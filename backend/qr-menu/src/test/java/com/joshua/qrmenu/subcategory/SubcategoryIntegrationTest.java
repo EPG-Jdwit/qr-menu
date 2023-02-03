@@ -387,4 +387,19 @@ public class SubcategoryIntegrationTest {
                 )
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @Order(50)
+    public void createSubcategoryNoName() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        newSubcategory.setName(null);
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/categories/" + category1.getCategoryId() + "/subcategories")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isBadRequest());
+    }
 }

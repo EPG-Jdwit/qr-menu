@@ -284,4 +284,34 @@ public class ProductIntegrationTest {
                 )
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @Order(30)
+    public void createProductNoName() throws Exception {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        newProduct.setName(null);
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/products")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newProduct))
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(31)
+    public void createProductNoPrice() throws Exception {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        newProduct.setPrice(null);
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/products")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newProduct))
+                )
+                .andExpect(status().isBadRequest());
+    }
 }

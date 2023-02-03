@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
@@ -26,7 +27,7 @@ public class DeleteProductByIdTest {
     }
 
     @Test
-    public void canDeleteById() throws NotFoundException {
+    public void canDeleteById() throws NotFoundException, InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
 
@@ -36,7 +37,7 @@ public class DeleteProductByIdTest {
     }
 
     @Test
-    public void canDeleteWhenMultiple() throws NotFoundException {
+    public void canDeleteWhenMultiple() throws NotFoundException, InputException {
         NewProduct newProduct1 = productMocker.generateNewProduct();
         NewProduct newProduct2 = productMocker.generateNewProduct();
         Product product1 = productService.createNewProduct(newProduct1);

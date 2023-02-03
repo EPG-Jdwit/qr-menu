@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.product.service;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.product.ProductEnvironment;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.joshua.qrmenu.util.Conditions.productListContainsNewProduct;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CreateNewProductTest {
 
@@ -19,13 +21,26 @@ public class CreateNewProductTest {
     private final ProductMocker productMocker = new ProductMocker();
 
     @Test
-    public void canCreateService() {
+    public void canCreateProduct() throws InputException {
         NewProduct newProduct = productMocker.generateNewProduct();
         Product product = productService.createNewProduct(newProduct);
         assertThat(product.getProductId()).isNotNull();
         assertThat(productService.getAll()).satisfies(productListContainsNewProduct(newProduct));
     }
 
-    // TODO: validate fields
+    @Test
+    public void createProductWithoutName() {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        newProduct.setName(null);
+        assertThrows(InputException.class,
+                () -> productService.createNewProduct(newProduct));
+    }
 
+    @Test
+    public void createProductWithoutPrice() {
+        NewProduct newProduct = productMocker.generateNewProduct();
+        newProduct.setPrice(null);
+        assertThrows(InputException.class,
+                () -> productService.createNewProduct(newProduct));
+    }
 }

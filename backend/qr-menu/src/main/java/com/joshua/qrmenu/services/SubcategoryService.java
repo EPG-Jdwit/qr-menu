@@ -1,5 +1,6 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
 import com.joshua.qrmenu.models.entities.CategoryEntity;
@@ -8,6 +9,8 @@ import com.joshua.qrmenu.models.entities.SubcategoryEntity;
 import com.joshua.qrmenu.models.json.NewSubcategory;
 import com.joshua.qrmenu.models.json.Subcategory;
 import com.joshua.qrmenu.models.mappers.SubcategoryMapper;
+import com.joshua.qrmenu.models.validators.Validator;
+import com.joshua.qrmenu.models.validators.ValidatorMode;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
@@ -59,9 +62,12 @@ public class SubcategoryService extends AbstractSubcategoryService {
         verifyCategoryId(categoryId, subcategoryEntity);
         return subcategoryMapper.entityToJson(subcategoryEntity);
     }
-    public Subcategory createNewSubcategory(Long categoryId, NewSubcategory newSubcategory) throws NotFoundException {
+    public Subcategory createNewSubcategory(Long categoryId, NewSubcategory newSubcategory) throws NotFoundException, InputException {
         // Check if the category exists, otherwise throw a NotFoundException
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
+        // Validate the input
+        Validator validator = new Validator();
+        validator.validate(newSubcategory, ValidatorMode.Create);
         // Map the Subcategory to SubcategoryEntity
         SubcategoryEntity subcategoryEntity = subcategoryMapper.newJsonToEntity(newSubcategory);
 

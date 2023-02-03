@@ -1,11 +1,14 @@
 package com.joshua.qrmenu.services;
 
+import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.endpoints.util.ShallowCopy;
 import com.joshua.qrmenu.models.entities.ProductEntity;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.models.mappers.ProductMapper;
+import com.joshua.qrmenu.models.validators.Validator;
+import com.joshua.qrmenu.models.validators.ValidatorMode;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.services.util.AbstractService;
 import org.springframework.stereotype.Service;
@@ -67,7 +70,9 @@ public class ProductService extends AbstractService {
      * @param newProduct : An object with all data to create the new product.
      * @return : A Product representing the newly created product.
      */
-    public Product createNewProduct(NewProduct newProduct) {
+    public Product createNewProduct(NewProduct newProduct) throws InputException {
+        Validator validator = new Validator();
+        validator.validate(newProduct, ValidatorMode.Create);
         ProductEntity productEntity = productMapper.newJsonToEntity(newProduct);
         productEntity = productRepository.save(productEntity);
         return productMapper.entityToJson(productEntity);
