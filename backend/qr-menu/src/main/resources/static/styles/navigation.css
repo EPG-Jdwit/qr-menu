@@ -11,7 +11,7 @@
   position: -webkit-sticky; /* Safari */
   position: sticky;
 
-  background-color: #444;
+  background-color: var(--theme-grey-color);
 }
 
 .nav-container-item {

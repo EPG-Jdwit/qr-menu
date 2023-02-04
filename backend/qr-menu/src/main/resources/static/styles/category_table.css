@@ -31,20 +31,3 @@
 .category-table-row {
     height: 7vh;
 }
-
-
-.category-table-row:nth-child(even) {
-    /* color: #F2EDD7FF; */
-    /* background-color: lemonchiffon; */
-    background-color: #F1F4FFFF;
-}
-
-.category-table-row:nth-child(odd) {
-    /* color: #755139FF; */
-    background-color: #A2A2A1FF;
-}
-
-.category-table-row:hover {
-    color: black;
-    background-color: #964F4CFF;
-}

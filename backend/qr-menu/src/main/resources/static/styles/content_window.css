@@ -62,22 +62,38 @@
 .center-panel {
     margin-left: 0;
     margin-right: 0;
-    padding-left: 5vw;
-    padding-right: 5vw;
     padding-bottom: 5vh;
     margin: 1vw 0 0 0;
     max-width: 70%;
     min-width: 70%;
 }
 
+.content-header {
+    width: 100%;
+    margin-bottom: 2vh;
+    margin-top: 5vh;
+    display: flex;
+}
+
+.content-header > * {
+    /* margin: 10px;
+    padding: 20px; */
+}
+
+#back-btn {
+    width: 10%;
+
+    margin: 1vh 1vw 1vh 3.5vw;
+}
+
 /* TODO: content title leaving background on resize */
 .content-title {
-    width: auto;
-    max-width: 40vw;
+    width: 70%;
+    max-width: 70%;
+    /* width: 85%; */
 
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2vh;
+    margin-left: 1vw;
+    margin-right: 9vw;
     padding: 0.195vh 0.975vw;
 
     display: block;
@@ -94,6 +110,8 @@
     border-radius: 20%;
 }
 
-#item-list-container {
+#content-container {
     margin-top: 3vh;
+    padding-left: 7vw;
+    padding-right: 7vw;
 }

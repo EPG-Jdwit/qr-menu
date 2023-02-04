@@ -1,0 +1,42 @@
+.main-btn {
+    height: 4.5vh;
+
+    padding: 0 3vw;
+    outline: none;
+
+    align-items: center;
+    justify-content: center;
+    vertical-align: baseline;
+
+    display: inline-flex;
+    flex-direction: column;
+
+    color: #fff;
+    text-align: center;
+    font-size: var(--responsive-font-size-tiny);
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+
+    background-color: initial;
+    background-image: linear-gradient(#464d55, #25292e);
+    
+    border-radius: 1vw;
+    border-width: 0;
+    box-shadow: 0 1vh 2vw rgba(0, 0, 0, .1),0 0.3vh 0.6vh rgba(0, 0, 0, .05);
+    box-sizing: border-box;
+    
+    transition: opacity 150ms;
+  }
+  
+  .main-btn:hover {
+    box-shadow: 0 0.2vh 0.8vw rgba(0, 1, 0, .2) ;
+    opacity: .90;
+  }
