@@ -26,7 +26,9 @@ public class CreateNewCategoryTest {
     public void canCreateCategory() throws InputException, AlreadyExistsException {
         NewCategory newCategory = categoryMocker.generateNewCategory();
         Category category = categoryService.createNewCategory(newCategory);
+        System.out.println(category);
         assertThat(category.getCategoryId()).isNotNull();
+        System.out.println(categoryService.getAll());
         assertThat(categoryService.getAll()).satisfies(categoryListContainsNewCategory(newCategory));
     }
 

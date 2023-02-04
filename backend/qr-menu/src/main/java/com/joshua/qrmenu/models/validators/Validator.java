@@ -17,6 +17,9 @@ public class Validator {
                     if (annotation.annotationType() == RequiredValidator.class) {
                         validateRequired(obj, field, mode);
                     }
+                    if (annotation.annotationType() == OrderValidator.class) {
+                        validateOrderValue(obj, field, mode);
+                    }
                 }
             }
             c = c.getSuperclass();
@@ -40,8 +43,22 @@ public class Validator {
             }
         } catch (IllegalAccessException e) {
             // TODO
+        }
+    }
+
+    private void validateOrderValue(Object obj, Field field, ValidatorMode mode) throws InputException {
+        field.setAccessible(true);
+        OrderValidator orderValidator = getValidator(field, OrderValidator.class);
+        if (!Arrays.asList(orderValidator.on()).contains(mode)) {
             return;
         }
-
+        try {
+            int value = (Integer) field.get(obj);
+            if (value < 0) {
+                throw new InputException("Field '" + field.getName() + "'must be greater or equal to zero", field.getName());
+            }
+        } catch (IllegalAccessException e) {
+            // TODO
+        }
     }
 }

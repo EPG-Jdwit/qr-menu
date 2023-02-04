@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public class NewSubcategory {
     private String name;
 
     @JsonProperty("products")
-    private Set<Long> products;
+    private List<Long> products;
 
     public NewSubcategory(String name) {
         this.name = name;

@@ -7,6 +7,7 @@ import com.joshua.qrmenu.models.entities.ProductEntity;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class CategoryRepositoryMocker {
 
     private static long idCounter = 0L;
 
+    private static final Sort orderSort = Sort.by(Sort.Direction.ASC, "orderNr");
+
     private CategoryRepositoryMocker() {}
 
     public static CategoryRepository init() {
@@ -27,7 +30,7 @@ public class CategoryRepositoryMocker {
         when(categoryRepository.existsById(nullable(Long.class))).thenReturn(false);
         when(categoryRepository.findById(nullable(Long.class))).thenReturn(Optional.empty());
         when(categoryRepository.findByName(nullable(String.class))).thenReturn(Optional.empty());
-        when(categoryRepository.findAll()).thenReturn(new ArrayList<>());
+        when(categoryRepository.findAll(orderSort)).thenReturn(new ArrayList<>());
 
         // Mock save
         when(categoryRepository.save(nullable(CategoryEntity.class))).then(args -> {
@@ -53,9 +56,9 @@ public class CategoryRepositoryMocker {
                     when(categoryRepository.existsById(categoryEntity.getCategoryId())).thenReturn(false);
                     when(categoryRepository.findById(categoryEntity.getCategoryId())).thenReturn(Optional.empty());
                     when(categoryRepository.findByName(nullable(String.class))).thenReturn(Optional.empty());
-                    List<CategoryEntity> allCategoryEntities = categoryRepository.findAll();
+                    List<CategoryEntity> allCategoryEntities = categoryRepository.findAll(orderSort);
                     allCategoryEntities.remove(categoryEntity);
-                    when(categoryRepository.findAll()).thenReturn(allCategoryEntities);
+                    when(categoryRepository.findAll(orderSort)).thenReturn(allCategoryEntities);
                 }
             } else {
                 throw new NotFoundException();
@@ -69,9 +72,9 @@ public class CategoryRepositoryMocker {
         when(categoryRepository.existsById(categoryEntity.getCategoryId())).thenReturn(true);
         when(categoryRepository.findById(categoryEntity.getCategoryId())).thenReturn(Optional.of(categoryEntity));
         when(categoryRepository.findByName(categoryEntity.getName())).thenReturn(Optional.of(categoryEntity));
-        List<CategoryEntity> currentFindAll = categoryRepository.findAll();
+        List<CategoryEntity> currentFindAll = categoryRepository.findAll(orderSort);
         currentFindAll.add(categoryEntity);
-        when(categoryRepository.findAll()).thenReturn(currentFindAll);
+        when(categoryRepository.findAll(orderSort)).thenReturn(currentFindAll);
     }
 
     public static void remove(CategoryRepository categoryRepository, CategoryEntity categoryEntity) throws NotFoundException {
@@ -82,7 +85,7 @@ public class CategoryRepositoryMocker {
         when(categoryRepository.existsById(categoryEntity.getCategoryId())).thenReturn(false);
         when(categoryRepository.findById(categoryEntity.getCategoryId())).thenReturn(Optional.empty());
         when(categoryRepository.findByName(categoryEntity.getName())).thenReturn(Optional.empty());
-        List <CategoryEntity> currentFindAll = categoryRepository.findAll();
+        List <CategoryEntity> currentFindAll = categoryRepository.findAll(orderSort);
         currentFindAll.removeIf( entity -> entity.getCategoryId().equals(categoryEntity.getCategoryId()));
     }
 

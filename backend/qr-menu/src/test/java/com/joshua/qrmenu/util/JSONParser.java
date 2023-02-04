@@ -59,7 +59,8 @@ public class JSONParser {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Category(
                 (Long) map.get("id"),
-                (String) map.get("name")
+                (String) map.get("name"),
+                (Integer) map.get("orderNr")
         );
     }
 

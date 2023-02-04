@@ -18,6 +18,9 @@ public class Category {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("orderNr")
+    private int orderNr;
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

@@ -18,9 +18,8 @@ import com.joshua.qrmenu.repositories.SubcategoryRepository;
 import com.joshua.qrmenu.services.util.AbstractSubcategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -79,7 +78,7 @@ public class SubcategoryService extends AbstractSubcategoryService {
         // Set the CategoryEntity of the SubcategoryEntity
         subcategoryEntity.setCategoryEntity(categoryEntity);
         // Add the SubcategoryEntity to the CategoryEntity's SubcategoryEntities
-        Set<SubcategoryEntity> tmp = categoryEntity.getSubcategoryEntities();
+        List<SubcategoryEntity> tmp = categoryEntity.getSubcategoryEntities();
         tmp.add(subcategoryEntity);
         categoryEntity.setSubcategoryEntities(tmp);
 
@@ -121,7 +120,7 @@ public class SubcategoryService extends AbstractSubcategoryService {
     private void addProductsToSubcategory(NewSubcategory newSubcategory, SubcategoryEntity subcategoryEntity) throws NotFoundException {
         // Add products
         if (newSubcategory.getProducts() != null) {
-            Set<ProductEntity> subcategoryProductEntities = new HashSet<>();
+            List<ProductEntity> subcategoryProductEntities = new ArrayList<>();
             for (Long productId : newSubcategory.getProducts()) {
                 // Todo use ProductService
                 ProductEntity productEntity = parseOptional(productRepository.findById(productId));

@@ -180,7 +180,7 @@ public class SubProductIntegrationTest {
     public void oneSubcategoryOneProductByPatch() throws Exception {
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         newSubcategory.setName(subcategory1.getName());
-        newSubcategory.setProducts(new HashSet<>(Collections.singleton(product1.getProductId())));
+        newSubcategory.setProducts(List.of(product1.getProductId()));
         MockHttpServletResponse response = mvc.perform(
                         MockMvcRequestBuilders
                                 .patch("/categories/" + category1.getCategoryId() +
@@ -237,7 +237,7 @@ public class SubProductIntegrationTest {
         // Update the subcategory
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         newSubcategory.setName(subcategory1.getName());
-        newSubcategory.setProducts(products.stream().map(Product::getProductId).collect(Collectors.toSet()));
+        newSubcategory.setProducts(products.stream().map(Product::getProductId).toList());
         response = mvc.perform(
                         MockMvcRequestBuilders
                                 .patch("/categories/" + category1.getCategoryId() +
@@ -277,7 +277,7 @@ public class SubProductIntegrationTest {
     public void oneSubcategoryOneProductByCreate() throws Exception {
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         newSubcategory.setProducts(
-                Stream.of(product3.getProductId()).collect(Collectors.toSet())
+                List.of(product3.getProductId())
         );
 
         MockHttpServletResponse response = mvc.perform(
@@ -315,7 +315,7 @@ public class SubProductIntegrationTest {
     public void oneSubcategoryTwoProductsByCreate() throws Exception {
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         newSubcategory.setProducts(
-                Stream.of(product3.getProductId(), product2.getProductId(), product1.getProductId()).collect(Collectors.toSet())
+                Stream.of(product3.getProductId(), product2.getProductId(), product1.getProductId()).toList()
         );
 
         MockHttpServletResponse response = mvc.perform(
@@ -366,7 +366,7 @@ public class SubProductIntegrationTest {
 
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         newSubcategory.setProducts(
-                Stream.of(product1.getProductId(), product2.getProductId()).collect(Collectors.toSet())
+                Stream.of(product1.getProductId(), product2.getProductId()).toList()
         );
 
         response = mvc.perform(

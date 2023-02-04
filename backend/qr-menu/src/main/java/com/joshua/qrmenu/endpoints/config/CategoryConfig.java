@@ -6,21 +6,25 @@ import com.joshua.qrmenu.services.CategoryService;
 public class CategoryConfig {
 
     public static void populateCategories(CategoryService categoryService) throws Exception {
-
-        categoryService.createNewCategory(new NewCategory("Bier"));
-        categoryService.createNewCategory(new NewCategory("Frisdrank"));
-        categoryService.createNewCategory(new NewCategory("Warme dranken"));
-        categoryService.createNewCategory(new NewCategory("Aperitief"));
-        categoryService.createNewCategory(new NewCategory("Wijn"));
-        categoryService.createNewCategory(new NewCategory("Digestief"));
-        categoryService.createNewCategory(new NewCategory("Borrelhapjes"));
-        categoryService.createNewCategory(new NewCategory("Snack"));
-        categoryService.createNewCategory(new NewCategory("Soep"));
-        categoryService.createNewCategory(new NewCategory("Slaatjes"));
-        categoryService.createNewCategory(new NewCategory("Frietgerechten"));
-        categoryService.createNewCategory(new NewCategory("Pastagerechten"));
-        categoryService.createNewCategory(new NewCategory("Dessert"));
-        categoryService.createNewCategory(new NewCategory("Tearoom"));
-        categoryService.createNewCategory(new NewCategory("Kindergerechten"));
+        for (int i = 0; i < categoryNames.length; i++) {
+            categoryService.createNewCategory(new NewCategory(categoryNames[i], i));
+        }
     }
+
+    private static final String[] categoryNames = new String[] {
+            "Bier",
+            "Frisdrank",
+            "Warme dranken",
+            "Aperitief",
+            "Wijn",
+            "Digestief",
+            "Borrelhapjes",
+            "Snack",
+            "Soep",
+            "Slaatjes",
+            "Frietgerechten",
+            "Pastagerechten",
+            "Dessert",
+            "Kindergerechten"
+    };
 }

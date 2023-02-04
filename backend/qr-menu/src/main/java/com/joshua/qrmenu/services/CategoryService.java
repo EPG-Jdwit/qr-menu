@@ -13,6 +13,7 @@ import com.joshua.qrmenu.models.validators.ValidatorMode;
 import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.services.util.AbstractService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,9 +35,10 @@ public class CategoryService extends AbstractService {
     }
 
     public List<Category> getAll() {
-        Stream<CategoryEntity> categoryEntityStream = categoryRepository.findAll().stream();
+        List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "orderNr"));
 
-        return categoryEntityStream
+        return categoryEntityList
+                .stream()
                 .map(categoryMapper::entityToJson)
                 .collect(Collectors.toList());
     }

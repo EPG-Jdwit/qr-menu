@@ -99,7 +99,7 @@ public class GetSubcategoryProductsTest {
 
             subcategoryEntity1 = subcategoryMocker.generateSubcategoryEntity();
             subcategoryEntity1.setCategoryEntity(categoryEntity1);
-            subcategoryEntity1.setProducts(new HashSet<>(Collections.singleton(productEntity1)));
+            subcategoryEntity1.setProducts(List.of(productEntity1));
             env.addSubcategoryEntity(subcategoryEntity1);
         }
 
@@ -141,12 +141,14 @@ public class GetSubcategoryProductsTest {
     @DisplayName("Multiple products")
     public class MultipleProductTests {
 
-        private Set<ProductEntity> productEntities = new HashSet<>();
+        private List<ProductEntity> productEntities;
 
         private ProductEntity productEntity2;
 
         @BeforeEach
         public void initializeEnv() {
+            productEntities = new ArrayList<>();
+
             categoryEntity1 = categoryMocker.generateCategoryEntity();
             env.addCategoryEntity(categoryEntity1);
 
@@ -186,7 +188,7 @@ public class GetSubcategoryProductsTest {
 
             private SubcategoryEntity subcategoryEntity2;
 
-            private Set<ProductEntity> productEntities2;
+            private List<ProductEntity> productEntities2;
 
             private ProductEntity productEntity3;
             private ProductEntity productEntity4;
@@ -194,7 +196,7 @@ public class GetSubcategoryProductsTest {
 
             @BeforeEach
             public void initializeEnv() {
-                productEntities2 = new HashSet<>();
+                productEntities2 = new ArrayList<>();
 
                 productEntity3 = productMocker.generateProductEntity();
                 env.addProductEntity(productEntity3);
