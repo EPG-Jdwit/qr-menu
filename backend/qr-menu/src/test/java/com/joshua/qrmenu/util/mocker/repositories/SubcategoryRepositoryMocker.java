@@ -4,6 +4,7 @@ import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
 import com.joshua.qrmenu.models.entities.SubcategoryEntity;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ public class SubcategoryRepositoryMocker {
 
     private static long idCounter = 0L;
 
+    private static final Sort orderSort = Sort.by(Sort.Direction.ASC, "orderNr");
+
     private SubcategoryRepositoryMocker() {}
 
     public static SubcategoryRepository init() {
@@ -25,7 +28,7 @@ public class SubcategoryRepositoryMocker {
         when(subcategoryRepository.findById(nullable(Long.class))).thenReturn(Optional.empty());
         when(subcategoryRepository.findByName(nullable(String.class), nullable(Long.class))).thenReturn(Optional.empty());
         when(subcategoryRepository.findAll()).thenReturn(new ArrayList<>());
-        when(subcategoryRepository.findAllOfCategory(nullable(Long.class))).thenReturn(new ArrayList<>());
+        when(subcategoryRepository.findAllOfCategory(nullable(Long.class), nullable(Sort.class))).thenReturn(new ArrayList<>());
 
         // Mock save
         when(subcategoryRepository.save(nullable(SubcategoryEntity.class))).then(args -> {
@@ -52,12 +55,12 @@ public class SubcategoryRepositoryMocker {
                     when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
                     when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
                     when(subcategoryRepository.findByName(nullable(String.class), nullable(Long.class))).thenReturn(Optional.empty());
-                    List<SubcategoryEntity> allSubcategoryEntities = subcategoryRepository.findAll();
+                    List<SubcategoryEntity> allSubcategoryEntities = subcategoryRepository.findAll(orderSort);
                     allSubcategoryEntities.remove(subcategoryEntity);
-                    when(subcategoryRepository.findAll()).thenReturn(allSubcategoryEntities);
-                    allSubcategoryEntities = subcategoryRepository.findAllOfCategory(categoryId);
+                    when(subcategoryRepository.findAll(orderSort)).thenReturn(allSubcategoryEntities);
+                    allSubcategoryEntities = subcategoryRepository.findAllOfCategory(categoryId, orderSort);
                     allSubcategoryEntities.remove(subcategoryEntity);
-                    when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(allSubcategoryEntities);
+                    when(subcategoryRepository.findAllOfCategory(categoryId, orderSort)).thenReturn(allSubcategoryEntities);
                 }
             } else {
                 throw new NotFoundException();
@@ -72,12 +75,12 @@ public class SubcategoryRepositoryMocker {
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(true);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.of(subcategoryEntity));
         when(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryId)).thenReturn(Optional.of(subcategoryEntity));
-        List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
+        List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll(orderSort);
         currentFindAll.add(subcategoryEntity);
         when(subcategoryRepository.findAll()).thenReturn(currentFindAll);
-        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId));
+        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId, orderSort));
         findAllOfCategory.add(subcategoryEntity);
-        when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(findAllOfCategory);
+        when(subcategoryRepository.findAllOfCategory(categoryId, orderSort)).thenReturn(findAllOfCategory);
     }
 
     public static void remove(SubcategoryRepository subcategoryRepository, SubcategoryEntity subcategoryEntity) throws NotFoundException {
@@ -85,11 +88,11 @@ public class SubcategoryRepositoryMocker {
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
         when(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryId)).thenReturn(Optional.empty());
-        List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll();
+        List<SubcategoryEntity> currentFindAll = subcategoryRepository.findAll(orderSort);
         // Use removeIf to guarantee removal is done based upon ID
         currentFindAll.removeIf( entity -> entity.getSubcategoryId().equals(subcategoryEntity.getSubcategoryId()));
-        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId));
+        List<SubcategoryEntity> findAllOfCategory = new ArrayList<>(subcategoryRepository.findAllOfCategory(categoryId, orderSort));
         findAllOfCategory.removeIf(entity -> entity.getSubcategoryId().equals(subcategoryEntity.getSubcategoryId()));
-        when(subcategoryRepository.findAllOfCategory(categoryId)).thenReturn(findAllOfCategory);
+        when(subcategoryRepository.findAllOfCategory(categoryId, orderSort)).thenReturn(findAllOfCategory);
     }
 }

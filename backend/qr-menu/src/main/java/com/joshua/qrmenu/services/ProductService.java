@@ -65,6 +65,11 @@ public class ProductService extends AbstractService {
         return productMapper.entityToJson(productEntity);
     }
 
+    public Product getProductByName(String name) throws NotFoundException {
+        ProductEntity productEntity = parseOptional(productRepository.findByName(name));
+        return productMapper.entityToJson(productEntity);
+    }
+
     /**
      * Create a new product.
      *

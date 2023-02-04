@@ -23,6 +23,9 @@ public class Subcategory {
     @JsonIgnore
     private Long categoryId;
 
+    @JsonProperty("orderNr")
+    private int orderNr;
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

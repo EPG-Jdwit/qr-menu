@@ -17,7 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @Table(
         name = "sub_categories",
-        schema = "public"
+        schema = "public",
+        indexes = {
+                @Index(
+                        name = "subcategory_order_nr_index",
+                        columnList = "order_nr"
+                )
+        }
 )
 public class SubcategoryEntity {
     @Id
@@ -47,6 +53,13 @@ public class SubcategoryEntity {
     @ManyToOne
     @JoinColumn(name="category_id", nullable = false)
     private CategoryEntity categoryEntity;
+
+    @Basic(optional = false)
+    @Column(
+            name = "order_nr",
+            nullable = false
+    )
+    private int orderNr;
 
     public SubcategoryEntity(String name) {
         this.name = name;

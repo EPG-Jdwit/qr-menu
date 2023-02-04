@@ -5,10 +5,10 @@
   --banner-title-color: blanchedalmond;
   --nav-hover-color: #222;
 
-  --table-even-color: rgb(255, 239, 213);
-  --table-odd-color: rgb(210, 180, 140);
-  --table-even-hover-color: rgba(255, 239, 213, 0.8);
-  --table-odd-hover-color: rgba(210, 180, 140, 0.8);
+  --table-odd-color: rgb(255, 239, 213);
+  --table-even-color: rgb(210, 180, 140);
+  --table-odd-hover-color: rgba(255, 239, 213, 0.8);
+  --table-even-hover-color: rgba(210, 180, 140, 0.8);
 
   --responsive-font-size-tiny: 2vmin;
   --responsive-font-size-small: 4vmin;

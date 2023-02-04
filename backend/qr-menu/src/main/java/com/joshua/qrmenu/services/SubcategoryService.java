@@ -16,12 +16,12 @@ import com.joshua.qrmenu.repositories.CategoryRepository;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
 import com.joshua.qrmenu.services.util.AbstractSubcategoryService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class SubcategoryService extends AbstractSubcategoryService {
@@ -46,9 +46,9 @@ public class SubcategoryService extends AbstractSubcategoryService {
         if (!categoryRepository.existsById(categoryId)) {
             throw new NotFoundException();
         }
-        Stream<SubcategoryEntity> subcategoryEntityStream = subcategoryRepository.findAllOfCategory(categoryId).stream();
+        List<SubcategoryEntity> subcategoryEntityList = subcategoryRepository.findAllOfCategory(categoryId, Sort.by(Sort.Direction.ASC, "orderNr"));
 
-        return subcategoryEntityStream.map(subcategoryMapper::entityToJson).collect(Collectors.toList());
+        return subcategoryEntityList.stream().map(subcategoryMapper::entityToJson).collect(Collectors.toList());
     }
 
     public Subcategory getSubcategoryById(Long categoryId, Long subcategoryId) throws NotFoundException {

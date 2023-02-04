@@ -1,6 +1,7 @@
 package com.joshua.qrmenu.models.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.joshua.qrmenu.models.validators.OrderValidator;
 import com.joshua.qrmenu.models.validators.RequiredValidator;
 import com.joshua.qrmenu.models.validators.ValidatorMode;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,10 @@ public class NewSubcategory {
 
     @JsonProperty("products")
     private List<Long> products;
+
+    @JsonProperty("orderNr")
+    @OrderValidator(on = {ValidatorMode.Create, ValidatorMode.Update})
+    private int orderNr;
 
     public NewSubcategory(String name) {
         this.name = name;
