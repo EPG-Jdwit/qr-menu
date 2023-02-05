@@ -27,7 +27,7 @@ public class ProductMocker {
         String productName = productNameMocker.productName();
         Double productPrice = productPriceMocker.productPrice();
         String productDescription = productDescriptionMocker.productDescription();
-        return new ProductEntity(createdCounter, productName, productPrice, productDescription, null);
+        return new ProductEntity(createdCounter, productName, productPrice, productDescription, null, new ArrayList<>());
     }
 
     public List<ProductEntity> generateProductEntities(int number) {
@@ -43,12 +43,12 @@ public class ProductMocker {
         String productName = productNameMocker.productName();
         Double productPrice = productPriceMocker.productPrice();
         String productDescription = productDescriptionMocker.productDescription();
-        return new NewProduct(productName, productPrice, productDescription);
+        return new NewProduct(productName, productPrice, productDescription, new ArrayList<>());
     }
 
     public NewProduct generateNullNewProduct() {
         createdCounter += 1;
-        return new NewProduct(null, null, null);
+        return new NewProduct(null, null, null, null);
     }
 
 }

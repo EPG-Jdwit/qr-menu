@@ -2,7 +2,7 @@ package com.joshua.qrmenu.models.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +20,11 @@ import org.hibernate.annotations.GenericGenerator;
 		schema = "public"
 )
 public class ProductEntity {
+
+	public static final List<String> VALID_ALLERGENICS = Arrays.asList(
+			"ei", "melk", "gluten", "lupine", "mosterd", "noten", "pindas",
+			"schaaldieren", "selderij", "sesamzaad", "soja", "vis", "weekdieren", "zwavel"
+	);
 
 	@Id
 	@GeneratedValue(generator = "prod_generator")
@@ -52,7 +57,9 @@ public class ProductEntity {
 			foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
 			inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
 	)
-	private Set<SubcategoryEntity> subcategories;
+	private Set<SubcategoryEntity> subcategories = new HashSet<>();
+
+	private List<String> allergenicList = new ArrayList<>();
 
 	@Override
 	public String toString() {

@@ -1,8 +1,14 @@
 "use strict";
 const categoriesUrl = "http://localhost:8081/categories";
 const categoryByNameURL = categoriesUrl + "/category?name=";
+const dagPrijs = "Dag Prijs";
 
 window.addEventListener("load", () => getCategories());
+
+function scrollToTop() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
 
 function getCategories() {
   const xmlhttp = new XMLHttpRequest();
@@ -26,6 +32,7 @@ function getCategories() {
   }
   xmlhttp.open("GET", categoriesUrl);
   xmlhttp.send();
+  scrollToTop();
 }
 
 function getCategoryByName(name) {
@@ -84,7 +91,22 @@ function getSubcategoryProducts(url, id) {
         text += "<div class='product-name'>" + products[x].name + "</div>";
         text += "<div class='product-description'>" + products[x].description + "</div>";
         text += "</td>";
-        text += "<td class='product-cell product-price-cell'>€" + products[x].price.toFixed(2) + "</td>";
+        // Add icons for allergenics
+        text += "<td class='product-allergenics-cell'>";
+        text += "<div class='product-allergenics-container'>";
+        products[x].allergenics.forEach(item =>
+          text += "<img class='allergenic-img' src='images/allergenics_nl/" + item + ".png' alt='" + item + "'>"
+        );
+
+        text += "</div>";
+        text += "</td>";
+        if (products[x].price == 0) {
+          // If price is zero, it's meant to be shown as "Dag Prijs"
+          text += "<td class='product-cell product-price-cell'>" + dagPrijs + "</td>";
+        } else {
+          text += "<td class='product-cell product-price-cell'>€" + products[x].price.toFixed(2) + "</td>";
+        }
+
         text += "</tr>";
       }
       text += "</table>";
@@ -93,4 +115,5 @@ function getSubcategoryProducts(url, id) {
   }
   xmlhttp.open("GET", url);
   xmlhttp.send();
+  scrollToTop();
 }

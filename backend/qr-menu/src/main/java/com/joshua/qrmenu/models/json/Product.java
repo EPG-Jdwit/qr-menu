@@ -3,6 +3,7 @@ package com.joshua.qrmenu.models.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +33,9 @@ public class Product {
                 "Product[id=%d, name='%s']",
                 productId, name);
     }
+
+    @JsonProperty("allergenics")
+    public List<String> allergenicList;
 
     @Override
     public boolean equals(Object o) {

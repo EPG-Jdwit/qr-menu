@@ -5,6 +5,8 @@ import com.joshua.qrmenu.models.validators.RequiredValidator;
 import com.joshua.qrmenu.models.validators.ValidatorMode;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Class that represents a new Product, which does not yet have an ID.
  */
@@ -25,4 +27,6 @@ public class NewProduct {
 
     @JsonProperty("description")
     private String description;
+
+    private List<String> allergenicList;
 }

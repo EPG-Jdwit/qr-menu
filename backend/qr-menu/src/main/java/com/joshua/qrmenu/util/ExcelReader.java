@@ -1,17 +1,14 @@
 package com.joshua.qrmenu.util;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 import com.joshua.qrmenu.endpoints.exceptions.AlreadyExistsException;
 import com.joshua.qrmenu.endpoints.exceptions.InputException;
 import com.joshua.qrmenu.endpoints.exceptions.NotFoundException;
+import com.joshua.qrmenu.models.entities.ProductEntity;
 import com.joshua.qrmenu.models.json.NewCategory;
 import com.joshua.qrmenu.models.json.NewProduct;
 import com.joshua.qrmenu.models.json.NewSubcategory;
@@ -21,7 +18,6 @@ import com.joshua.qrmenu.services.ProductService;
 import com.joshua.qrmenu.services.SubcategoryService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
@@ -81,19 +77,33 @@ public class ExcelReader {
                         try {
                             product = productService.getProductByName(productName);
                         } catch (NotFoundException e) {
-                            Double price;
-                            if (row.getCell(2).getCellType() != CellType.NUMERIC && row.getCell(2).getRichStringCellValue().getString().equals("D.Pr")) {
+                            double price;
+                            if (row.getCell(2).getCellType() != CellType.NUMERIC && row.getCell(2).getRichStringCellValue().getString().strip().equals("D.Pr")) {
                                 // TODO: find workaround for Dag Prijs
                                 price = 0.0;
                             } else {
                                 price = row.getCell(2).getNumericCellValue();
                             }
+                            // Add description if provided
                             String description = "";
                             if (row.getCell(3) != null) {
                                 description = row.getCell(3).getRichStringCellValue().toString();
                             }
+                            // Add allergenics if provided
+                            List<String> allergenicsList = new ArrayList<>();
+                            if (row.getCell(4) != null) {
+                                String allergenics = row.getCell(4).getRichStringCellValue().toString();
+                                List<String> results = Arrays.stream(allergenics.split(",")).toList();
+                                for (String result : results) {
+                                    // Remove leading and trailing spaces
+                                    String stripped = result.strip();
+                                    if (ProductEntity.VALID_ALLERGENICS.contains(stripped)) {
+                                        allergenicsList.add(stripped);
+                                    }
+                                }
+                            }
                             // TODO: ORDERNR
-                            NewProduct newProduct = new NewProduct(productName, price, description);
+                            NewProduct newProduct = new NewProduct(productName, price, description, allergenicsList);
                             product = productService.createNewProduct(newProduct);
                         }
                         productIds.add(product.getProductId());

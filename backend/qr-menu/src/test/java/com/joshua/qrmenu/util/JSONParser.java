@@ -35,7 +35,8 @@ public class JSONParser {
                 (Long) map.get("id"),
                 (String) map.get("name"),
                 (double) map.get("price"),
-                (String) map.get("description")
+                (String) map.get("description"),
+                (List<String>) map.get("allergenicList")
         );
     }
 

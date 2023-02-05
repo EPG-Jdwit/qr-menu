@@ -18,9 +18,6 @@ public class PopulateConfig {
                                             MetaDataRepository metaDataRepository
     ) throws Exception {
         if (!metaDataRepository.existsByKey("populate")) {
-//            ProductConfig.populateProducts(productService);
-//            CategoryConfig.populateCategories(categoryService);
-//            SubcategoryConfig.populateSubcategories(categoryService, subcategoryService, productService);
             ExcelReader excelReader = new ExcelReader(productService, categoryService, subcategoryService);
             excelReader.readExcel(FILE_LOCATION);
             metaDataRepository.save(new MetadataEntity("populate", "true"));
