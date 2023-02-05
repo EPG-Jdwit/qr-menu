@@ -95,7 +95,11 @@ function getSubcategoryProducts(url, id) {
         text += "<td class='product-allergenics-cell'>";
         text += "<div class='product-allergenics-container'>";
         products[x].allergenics.forEach(item =>
-          text += "<img class='allergenic-img' src='images/allergenics_nl/" + item + ".png' alt='" + item + "'>"
+          // if (item == 'variabel') {
+          //   text += "<p> Variabel </p>"
+          // } else {
+            text += "<img class='allergenic-img' src='images/allergenics_nl/" + item + ".png' alt='" + item + "'>"
+          // }
         );
 
         text += "</div>";
