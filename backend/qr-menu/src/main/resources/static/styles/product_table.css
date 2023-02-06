@@ -2,28 +2,23 @@
     width: 100%;
 
     padding: 0;
-
-    /* background-color: floralwhite; */
-    /* background-color: black;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .product-cell {
     font-size: var(--responsive-font-size-tiny);
     font-weight: bold;    
-    cursor: pointer;
-
-
     color: var(--theme-dark-color);
-    /* color: #755139FF; */
     font-family: Arial, Helvetica, sans-serif;
+    
+    cursor: pointer;
 }
 
 .product-name-cell {
+    margin-right: 0;
+
     padding-left: 10vw;
 
     text-align: left;
-
 }
 
 .product-name {
@@ -36,10 +31,11 @@
     padding: 1vh 2vw 1vh 2vw;
     font-size: var(--responsive-font-size-tiny);
     font-weight: normal;
-    /* font-style: italic; */
 }
 .product-allergenics-cell {
     width: 11vw;
+
+    margin-left: 0;
 }
 
 .product-allergenics-container {
@@ -51,12 +47,14 @@
     max-width: 3.5vw;
     height: 3.5vh;
     max-height: 3.5vh;
+
     object-fit: contain;
 }
 
 .product-price-cell {
     width: 8vw;
     max-width: 8vw;
+
     padding: 1vh;
 
     text-align: left;
