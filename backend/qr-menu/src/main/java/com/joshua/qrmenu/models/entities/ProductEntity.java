@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * An Entity representing a Product.
+ */
 @Entity
 @Getter
 @Setter
@@ -21,6 +24,8 @@ import org.hibernate.annotations.GenericGenerator;
 )
 public class ProductEntity {
 
+	// A List containing the only valid allergenics that can be used.
+	// The values are used in the frontend to fetch the image files of the icons.
 	public static final List<String> VALID_ALLERGENICS = Arrays.asList(
 			"ei", "melk", "gluten", "lupine", "mosterd", "noten", "pindas",
 			"schaaldieren", "selderij", "sesamzaad", "soja", "vis", "weekdieren", "zwavel"

@@ -9,14 +9,16 @@ import com.joshua.qrmenu.models.mappers.SubcategoryMapper;
 import com.joshua.qrmenu.repositories.ProductRepository;
 import com.joshua.qrmenu.repositories.SubcategoryRepository;
 import com.joshua.qrmenu.services.util.AbstractService;
-import com.joshua.qrmenu.services.util.AbstractSubcategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to handle all business logic concerning products of subcategories.
+ */
 @Service
-public class SubProductService extends AbstractSubcategoryService {
+public class SubProductService extends AbstractService {
 
     private final ProductRepository productRepository;
     private final SubcategoryRepository subcategoryRepository;
@@ -33,8 +35,7 @@ public class SubProductService extends AbstractSubcategoryService {
     }
 
     public List<Product> getSubcategoryProducts(Long categoryId, Long subcategoryId) throws NotFoundException {
-        SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
-        verifyCategoryId(categoryId, subcategoryEntity);
+        SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(categoryId, subcategoryId));
         List<Product> results = new ArrayList<>();
         for (ProductEntity productEntity : subcategoryEntity.getProducts()) {
             results.add(productMapper.entityToJson(productEntity));

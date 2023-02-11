@@ -11,13 +11,16 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * Assembling our internal data into JSON representation with HATEOAS links.
+ */
 @Component
 public class RootAssembler implements RepresentationModelAssembler<Root, EntityModel<Root>> {
 
     /**
      * Assembles a JSON representation of a root endpoint to navigate to other endpoints using the provided HATEAOS links.
      * @param entity : the root (empty) which is used to add navigation links
-     * @return : EntityModel of the root
+     * @return : EntityModel of the root: a collection of links.
      */
     @Override
     public EntityModel<Root> toModel(Root entity) {

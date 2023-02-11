@@ -16,8 +16,8 @@ public class SubcategoryNameMocker {
     }
 
     /**
-     * Randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
-     * @return : A random subcategory name.
+     * Semi-randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
+     * @return : A semi-random subcategory name.
      */
     public String subcategoryName() {
         return shuffledNames.get(createdCounter++ % names.length) + createdCounter;
@@ -28,7 +28,7 @@ public class SubcategoryNameMocker {
             "Pasta met vlees",
             "Pasta met vis",
             "Non-alcoholisch",
-            // TODO:   Subcategory(subcategoryId=2504552591575445, name=TheeÃ«n)
+            // TODO:   Subcategory(subcategoryId=2504552591575445, name=TheeÃ«n) problem
             // "Theeën",
             "Croques",
             "Kroketten",

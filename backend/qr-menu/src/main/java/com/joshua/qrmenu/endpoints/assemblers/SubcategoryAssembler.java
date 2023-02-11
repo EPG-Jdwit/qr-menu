@@ -16,6 +16,9 @@ import java.util.stream.StreamSupport;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * Assembling our internal data into JSON representation with HATEOAS links.
+ */
 @Component
 public class SubcategoryAssembler implements RepresentationModelAssembler<Subcategory, EntityModel<Subcategory>> {
 
@@ -23,11 +26,14 @@ public class SubcategoryAssembler implements RepresentationModelAssembler<Subcat
     @Override
     public CollectionModel<EntityModel<Subcategory>> toCollectionModel(Iterable<? extends Subcategory> subcategories) {
         return null;
-//        return CollectionModel.of(
-//                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
-//        );
     }
 
+    /**
+     * Converts a List of Subcategory to a JSON representation of a subcategoryList with an extra _links property.
+     *
+     * @param subcategories : A collection for which toModel must be applied to each element.
+     * @return : CollectionModel of the output with links.
+     */
     public CollectionModel<EntityModel<Subcategory>> toCollectionModel(Iterable<? extends Subcategory> subcategories, Long categoryId) {
         try {
             return CollectionModel.of(
@@ -40,6 +46,12 @@ public class SubcategoryAssembler implements RepresentationModelAssembler<Subcat
         }
     }
 
+    /**
+     * Converts a Subcategory to a JSON representation with HATEAOS links.
+     *
+     * @param subcategory : A Subcategory with data to be converted.
+     * @return : An EntityModel of the Subcategory with multiple HATEOAS links to the endpoints.
+     */
     @Override
     public EntityModel<Subcategory> toModel(Subcategory subcategory) {
         try {

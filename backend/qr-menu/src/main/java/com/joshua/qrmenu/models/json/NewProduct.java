@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.List;
 
 /**
- * Class that represents a new Product, which does not yet have an ID.
+ * Data Transfer Object representing a NewCategory without an ID.
  */
 @Data
 @AllArgsConstructor

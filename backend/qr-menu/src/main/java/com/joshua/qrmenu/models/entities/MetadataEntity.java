@@ -4,23 +4,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * An Entity to guarantee that the database only gets populated once.
+ */
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
         name = "meta_data",
-        schema = "public"
-//        uniqueConstraints = {
-//                @UniqueConstraint(
-//                        name = "meta_data_key_unique",
-//                        columnNames = {"key"}
-//                )
-//        }
+        schema = "public",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "meta_data_key_unique",
+                        columnNames = {"meta_key"}
+                )
+        }
 )
 public class MetadataEntity   {
-
-//    private static final int MAX_KEY_LENGTH = 1023;
-//    private static final int MAX_VALUE_LENGTH = 65535;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -34,7 +34,6 @@ public class MetadataEntity   {
     @Column(
             name = "meta_key",
             nullable = false
-//            length = MAX_KEY_LENGTH
     )
     private String key;
 
@@ -42,7 +41,6 @@ public class MetadataEntity   {
     @Column(
             name = "meta_value",
             nullable = false
-//            length = MAX_VALUE_LENGTH
     )
     private String value;
 

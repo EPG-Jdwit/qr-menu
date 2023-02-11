@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Class to handle domain logic about Products.
+ * Class to handle all business logic concerning products.
  */
 @Service
 public class ProductService extends AbstractService {
@@ -31,8 +31,8 @@ public class ProductService extends AbstractService {
     /**
      * Constructor for a ProductService
      *
-     * @param productRepository : a ProductRepository.
-     * @param productMapper : a ProductMapper to create EntityModels with HATEAOS links.
+     * @param productRepository : A ProductRepository.
+     * @param productMapper : A ProductMapper to map Data Transfer Objects to Entities and back.
      */
     public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
@@ -40,7 +40,7 @@ public class ProductService extends AbstractService {
     }
 
     /**
-     * Returns a list of products.
+     * Retrieves all existing Products.
      *
      * @return : A list of all products.
      */
@@ -56,15 +56,21 @@ public class ProductService extends AbstractService {
     /**
      * Return a product with a specific ID if found.
      *
-     * @param id : ID of the product to be retrieved.
+     * @param id : ID of the ProductEntity to be retrieved.
      * @return : The product with the given ID.
-     * @throws NotFoundException : When the ID doesn't correspond to an existing product.
+     * @throws NotFoundException : When the ID doesn't correspond to an existing ProductEntity.
      */
     public Product getProductById(Long id) throws NotFoundException {
         ProductEntity productEntity = parseOptional(productRepository.findById(id));
         return productMapper.entityToJson(productEntity);
     }
 
+    /**
+     * Return a product with a specific name if found.
+     * @param name : Name of the ProductEntity to be retrieved.
+     * @return : The product with the given name.
+     * @throws NotFoundException : When no ProductEntity exists with the given name.
+     */
     public Product getProductByName(String name) throws NotFoundException {
         ProductEntity productEntity = parseOptional(productRepository.findByName(name));
         return productMapper.entityToJson(productEntity);
@@ -73,8 +79,10 @@ public class ProductService extends AbstractService {
     /**
      * Create a new product.
      *
-     * @param newProduct : An object with all data to create the new product.
-     * @return : A Product representing the newly created product.
+     * @param newProduct : An object with all data to create the new ProductEntity.
+     * @return : A Product representing the newly created ProductEntity.
+     * @throws InputException : When a required field wasn't provided.
+     * @throws AlreadyExistsException : When a ProductEntity already exists with the same name.
      */
     public Product createNewProduct(NewProduct newProduct) throws InputException, AlreadyExistsException {
         Validator validator = new Validator();
@@ -91,10 +99,10 @@ public class ProductService extends AbstractService {
     }
 
     /**
-     * Delete a product with a specific ID if found.
+     * Delete a ProductEntity with a specific ID if found.
      *
-     * @param id : ID of the product to be deleted.
-     * @throws NotFoundException : When the ID doesn't correspond to an existing product.
+     * @param id : ID of the ProductEntity to be deleted.
+     * @throws NotFoundException : When the ID doesn't correspond to an existing ProductEntity.
      */
     public void deleteProductById(Long id) throws NotFoundException {
         if (productRepository.existsById(id)) {
@@ -105,18 +113,19 @@ public class ProductService extends AbstractService {
     }
 
     /**
-     * Update data of an existing product with a specific ID if found.
+     * Update data of an existing ProductEntity with a specific ID if found.
      *
-     * @param id : The ID of the product to be updated.
+     * @param id : The ID of the ProductEntity to be updated.
      * @param newProduct : An Object containing data to be changed.
      * @return : The Product with the updated fields.
-     * @throws NotFoundException : When the ID doesn't correspond to an existing product.
+     * @throws NotFoundException : When the ID doesn't correspond to an existing ProductEntity.
+     * @throws AlreadyExistsException : When a different ProductEntity already exists with the same name.
      */
     public Product patchProductById(Long id, NewProduct newProduct) throws NotFoundException, AlreadyExistsException {
         ProductEntity originalEntity = parseOptional(productRepository.findById(id));
         ProductEntity newEntity = productMapper.newJsonToEntity(newProduct);
 
-        // Check if another product with the same name already exists
+        // Check if another ProductEntity with the same name already exists
         if( newEntity.getName() != null
                 && (!newEntity.getName().equals(originalEntity.getName()))
                 && productRepository.findByName(newEntity.getName()).isPresent()) {

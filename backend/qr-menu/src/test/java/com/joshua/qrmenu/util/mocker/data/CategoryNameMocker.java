@@ -16,8 +16,8 @@ public class CategoryNameMocker {
     }
 
     /**
-     * Randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
-     * @return : A random category name.
+     * Semi-randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
+     * @return : A semi-random category name.
      */
     public String categoryName() {
         return shuffledNames.get(createdCounter++ % names.length) + createdCounter;

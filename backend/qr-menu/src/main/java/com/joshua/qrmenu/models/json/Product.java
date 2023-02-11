@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Class that represents a Product with all it's fields.
+ * Data Transfer Object representing a Product.
  */
 @Getter
 @Setter

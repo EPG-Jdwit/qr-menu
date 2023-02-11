@@ -7,6 +7,9 @@ import com.joshua.qrmenu.util.mocker.data.CategoryNameMocker;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * Mocker for categories.
+ */
 public class CategoryMocker {
 
     public CategoryMocker() {}
@@ -16,6 +19,10 @@ public class CategoryMocker {
 
     private static final CategoryNameMocker categoryNameMocker= new CategoryNameMocker();
 
+    /**
+     * Mocks a new CategoryEntity.
+     * @return : A newly mocker CategoryEntity.
+     */
     public CategoryEntity generateCategoryEntity() {
         createdCounter += 1;
         orderNumber += 1;
@@ -23,6 +30,10 @@ public class CategoryMocker {
         return new CategoryEntity(createdCounter, categoryName, new ArrayList<>(), orderNumber);
     }
 
+    /**
+     * Mocks a new NewCategory.
+     * @return : A newly mocked NewCategory.
+     */
     public NewCategory generateNewCategory() {
         createdCounter += 1;
         orderNumber += 1;
@@ -30,6 +41,10 @@ public class CategoryMocker {
         return new NewCategory(categoryName, orderNumber);
     }
 
+    /**
+     * Mocks a new NewCategory with all fields set to null.
+     * @return : A newly mocked NewCategory with all fields set to null.
+     */
     public NewCategory generateNullNewCategory() {
         createdCounter += 1;
         orderNumber += 1;

@@ -9,7 +9,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 /**
- * A class that maps ProductEntity objects to Product objects and back.
+ * Maps Data Transfer Objects to Entities and back.
  */
 @Component
 public class ProductMapper implements Mapper<ProductEntity, Product, NewProduct>{
@@ -18,6 +18,9 @@ public class ProductMapper implements Mapper<ProductEntity, Product, NewProduct>
 
     private final TypeMap<NewProduct, ProductEntity> newProductToProductEntityTypeMap;
 
+    /**
+     * Constructor
+     */
     public ProductMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -28,10 +31,10 @@ public class ProductMapper implements Mapper<ProductEntity, Product, NewProduct>
     }
 
     /**
-     * Maps a NewProduct object to a ProductEntity object.
+     * Maps a NewProduct to ProductEntity.
      *
-     * @param newProduct: The object that should be converted.
-     * @return : A ProductEntity object equivalent to the given NewProduct
+     * @param newProduct: A NewProduct with data.
+     * @return : A ProductEntity with fields filled with the corresponding data from the input
      */
     @Override
     public ProductEntity newJsonToEntity(NewProduct newProduct) {
@@ -39,10 +42,10 @@ public class ProductMapper implements Mapper<ProductEntity, Product, NewProduct>
     }
 
     /**
-     * Maps a ProductEntity object to a Product object.
+     * Maps a ProductEntity to a Product.
      *
-     * @param productEntity : The object that should be converted.
-     * @return : A Product object equivalent to the given ProductEntity.
+     * @param productEntity : A ProductEntity with data.
+     * @return : A Product with fields filled in with the corresponding data from the entity.
      */
     @Override
     public Product entityToJson(ProductEntity productEntity) {

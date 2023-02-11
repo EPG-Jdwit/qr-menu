@@ -10,6 +10,9 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An Entity representing a Subcategory.
+ */
 @Entity
 @Getter
 @Setter

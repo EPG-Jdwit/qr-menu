@@ -10,6 +10,9 @@ import com.joshua.qrmenu.util.mocker.data.ProductPriceMocker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mocker for products.
+ */
 public class ProductMocker {
 
     public ProductMocker() {}
@@ -22,6 +25,10 @@ public class ProductMocker {
 
     private static final ProductDescriptionMocker productDescriptionMocker = new ProductDescriptionMocker();
 
+    /**
+     * Mocks a new ProductEntity.
+     * @return : A newly mocker ProductEntity.
+     */
     public ProductEntity generateProductEntity() {
         createdCounter += 1;
         String productName = productNameMocker.productName();
@@ -30,14 +37,10 @@ public class ProductMocker {
         return new ProductEntity(createdCounter, productName, productPrice, productDescription, null, new ArrayList<>());
     }
 
-    public List<ProductEntity> generateProductEntities(int number) {
-        List<ProductEntity> list = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            list.add(generateProductEntity());
-        }
-        return list;
-    }
-
+    /**
+     * Mocks a new NewProduct.
+     * @return : A newly mocked NewProduct.
+     */
     public NewProduct generateNewProduct() {
         createdCounter += 1;
         String productName = productNameMocker.productName();
@@ -46,6 +49,10 @@ public class ProductMocker {
         return new NewProduct(productName, productPrice, productDescription, new ArrayList<>());
     }
 
+    /**
+     * Mocks a new NewProduct with all fields set to null.
+     * @return : A newly mocked NewProduct with all fields set to null.
+     */
     public NewProduct generateNullNewProduct() {
         createdCounter += 1;
         return new NewProduct(null, null, null, null);

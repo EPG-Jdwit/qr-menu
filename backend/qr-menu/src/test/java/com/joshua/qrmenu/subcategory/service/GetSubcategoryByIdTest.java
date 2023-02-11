@@ -69,7 +69,6 @@ public class GetSubcategoryByIdTest {
 
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         Subcategory subcategory = subcategoryService.createNewSubcategory(categoryId, newSubcategory);
-
         assertThat(subcategoryService.getSubcategoryById(categoryId, subcategory.getSubcategoryId())).isEqualTo(subcategory);
     }
 

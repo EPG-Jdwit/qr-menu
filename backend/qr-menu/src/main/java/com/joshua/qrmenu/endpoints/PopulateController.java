@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Endpoint to generate data provided in data.xls
+ */
 @RestController
 public class PopulateController {
 
@@ -24,6 +27,11 @@ public class PopulateController {
     @Autowired
     private MetaDataRepository metaDataRepository;
 
+    /**
+     * Populates the database from a data.xls file
+     *
+     * @throws Exception : If something goes wrong.
+     */
     @GetMapping("/populate")
     public void populate() throws Exception {
         PopulateConfig.populateDatabaseBean(productService, categoryService, subcategoryService, metaDataRepository);

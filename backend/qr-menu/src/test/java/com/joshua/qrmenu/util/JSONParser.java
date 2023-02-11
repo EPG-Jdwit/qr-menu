@@ -11,8 +11,16 @@ import com.joshua.qrmenu.models.json.Subcategory;
 import java.util.*;
 
 
+/**
+ * Class that parses JSON data into a Data Transfer Object.
+ */
 public class JSONParser {
 
+    /**
+     * Parses a JSON response into a List of Products.
+     * @param object : The JSON response.
+     * @return : A List of Products.
+     */
     public List<Product> embeddedObjectToProductList(Object object) {
         Map<String, Map<String, List<Map<String, Object>>>> json = (Map<String, Map<String, List<Map<String, Object>>>>) object;
         List<Product> products = new ArrayList<>();
@@ -29,6 +37,11 @@ public class JSONParser {
         return products;
     }
 
+    /**
+     * Parses a JSON object to a Product object.
+     * @param object : The JSON object.
+     * @return : A Product.
+     */
     public Product jsonMapToProduct(Object object) {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Product(
@@ -40,6 +53,11 @@ public class JSONParser {
         );
     }
 
+    /**
+     * Parses a JSON response into a List of Categories.
+     * @param object : The JSON response.
+     * @return : A List of Categories.
+     */
     public List<Category> embeddedObjectToCategoryList(Object object) {
         Map<String, Map<String, List<Map<String, Object>>>> json = (Map<String, Map<String, List<Map<String, Object>>>>) object;
         List<Category> categories = new ArrayList<>();
@@ -56,6 +74,11 @@ public class JSONParser {
         return categories;
     }
 
+    /**
+     * Parses a JSON object to a Category object.
+     * @param object : The JSON object.
+     * @return : A Category.
+     */
     public Category jsonMapToCategory(Object object) {
         Map<String, Object> map = (Map<String, Object>) object;
         return new Category(
@@ -65,6 +88,11 @@ public class JSONParser {
         );
     }
 
+    /**
+     * Parses a JSON response into a List of Subcategories.
+     * @param object : The JSON response.
+     * @return : A List of Subcategories.
+     */
     public List<Subcategory> embeddedObjectToSubcategoryList(Object object) {
         Map<String, Map<String, List<Map<String, Object>>>> json = (Map<String, Map<String, List<Map<String, Object>>>>) object;
         List<Subcategory> subcategories = new ArrayList<>();
@@ -81,12 +109,13 @@ public class JSONParser {
         return subcategories;
     }
 
+    /**
+     * Parses a JSON string to a Subcategory object.
+     * @param string : The JSON string.
+     * @return : A Product.
+     */
     public Subcategory jsonMapToSubcategory(String string) {
-//        Map<String, Object> map = (Map<String, Object>) object;
-//        return new Subcategory(
-//                (Long) map.get("id"),
-//                (String) map.get("name")
-//        );
+        // TODO: Apply this to all entities
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper

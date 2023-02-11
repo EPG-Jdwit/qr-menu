@@ -12,8 +12,6 @@ public class CategoryEnvironment extends AbstractEnvironment<CategoryService> {
     public CategoryService initService() {
         return new CategoryService(
                 CategoryRepositoryMocker.init(),
-                // TODO: rekening houden met volgende lijn
-                ProductRepositoryMocker.init(),
                 new CategoryMapper()
         );
     }

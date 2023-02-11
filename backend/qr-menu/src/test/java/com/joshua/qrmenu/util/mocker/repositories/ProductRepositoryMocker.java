@@ -68,11 +68,7 @@ public class ProductRepositoryMocker {
         when(productRepository.findAll()).thenReturn(currentFindAll);
     }
 
-    public static void remove(ProductRepository productRepository, ProductEntity productEntity) throws NotFoundException {
-//        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productEntity.getProductId());
-//        if (optionalProductEntity.isEmpty()) {
-//            throw new NotFoundException();
-//        }
+    public static void remove(ProductRepository productRepository, ProductEntity productEntity) {
         when(productRepository.existsById(productEntity.getProductId())).thenReturn(false);
         when(productRepository.findById(productEntity.getProductId())).thenReturn(Optional.empty());
         List <ProductEntity> currentFindAll = productRepository.findAll();

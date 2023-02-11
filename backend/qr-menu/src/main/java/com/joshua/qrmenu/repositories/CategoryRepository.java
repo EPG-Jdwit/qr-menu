@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
+    // Retrieves a CategoryEntity by name if found.
     @Query("SELECT c FROM CategoryEntity c WHERE c.name = :name")
     Optional<CategoryEntity> findByName(@Param("name") String name);
 
-//    List<CategoryEntity> findByOrderByOrderNrAsc();
 }

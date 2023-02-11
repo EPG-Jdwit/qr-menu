@@ -16,6 +16,10 @@ public class ProductPriceMocker {
         Collections.shuffle(shuffledPrices);
     }
 
+    /**
+     * Semi-randomly pick a product price.
+     * @return : A semi-random product price.
+     */
     public Double productPrice() {
         return shuffledPrices.get(createdCounter++ % prices.length);
     }

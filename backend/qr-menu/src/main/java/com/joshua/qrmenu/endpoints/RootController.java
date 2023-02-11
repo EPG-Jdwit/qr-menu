@@ -17,7 +17,7 @@ public class RootController {
     /**
      * Constructor
      *
-     * @param rootAssembler : A RootAssembler to create EntityModels with HATEAOS links.
+     * @param rootAssembler : A RootAssembler to create EntityModels with HATEAOS links to other endpoints.
      */
     public RootController(RootAssembler rootAssembler) {
         this.rootAssembler = rootAssembler;

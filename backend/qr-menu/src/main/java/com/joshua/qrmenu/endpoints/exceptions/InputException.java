@@ -10,13 +10,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class InputException extends Exception {
 
-    /**
-     * Message to be shown
-     */
+     // Message to be shown
     private final String message;
 
-    /**
-     * Parameter which contains the invalid input.
-     */
+     // Parameter which contains the invalid input.
     private final String parameter;
 }

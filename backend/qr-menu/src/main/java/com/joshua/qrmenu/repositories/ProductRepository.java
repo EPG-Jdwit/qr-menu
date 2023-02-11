@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
+    // Retrieves a ProductEntity by name if found.
     @Query("SELECT p FROM ProductEntity p WHERE p.name = :name")
     Optional<ProductEntity> findByName(@Param("name") String name);
 }

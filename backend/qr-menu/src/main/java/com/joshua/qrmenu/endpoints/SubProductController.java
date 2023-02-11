@@ -12,19 +12,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Endpoints to get products from categories
+ */
 @RestController
 public class SubProductController extends BaseController {
 
         private final SubProductService subProductService;
         private final SubProductAssembler subProductAssembler;
 
-        public SubProductController(SubProductService subProductService, SubProductAssembler subProductAssembler) {
+    /**
+     * Constructor.
+     *
+     * @param subProductService : A SubProductService.
+     * @param subProductAssembler : A SubProductAssembler to create EntityModels of products with added hateaos links.
+     */
+    public SubProductController(SubProductService subProductService, SubProductAssembler subProductAssembler) {
             this.subProductService = subProductService;
             this.subProductAssembler = subProductAssembler;
-        }
+    }
 
-        @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}/products")
-        public CollectionModel<EntityModel<Product>> getSubcategoryProducts(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
-            return subProductAssembler.toCollectionModel(subProductService.getSubcategoryProducts(categoryId, subcategoryId), categoryId, subcategoryId);
-        }
+    /**
+     * Retrieves all the products of the subcategory of the category with provided ID's.
+     *
+     * @param categoryId : The ID of the category of which the subcategorie's products are to be retrieved.
+     * @param subcategoryId : The ID of the subcategory of which the products are to be retrieved.
+     * @return : A CollectionModel of the products of the subcategory.
+     * @throws NotFoundException : When either a category or subcategory which provided IDs aren't found.
+     */
+    @GetMapping("/categories/{categoryId}/subcategories/{subcategoryId}/products")
+    public CollectionModel<EntityModel<Product>> getSubcategoryProducts(@PathVariable Long categoryId, @PathVariable Long subcategoryId) throws NotFoundException {
+        return subProductAssembler.toCollectionModel(subProductService.getSubcategoryProducts(categoryId, subcategoryId), categoryId, subcategoryId);
+    }
 }

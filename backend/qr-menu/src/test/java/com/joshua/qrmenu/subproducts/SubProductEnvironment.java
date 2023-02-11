@@ -14,7 +14,6 @@ import com.joshua.qrmenu.util.mocker.repositories.CategoryRepositoryMocker;
 import com.joshua.qrmenu.util.mocker.repositories.ProductRepositoryMocker;
 import com.joshua.qrmenu.util.mocker.repositories.SubcategoryRepositoryMocker;
 
-//TODO : ProductMapper doesn't belong here
 public class SubProductEnvironment extends AbstractEnvironment<SubProductService> {
 
     private final ProductRepository productRepository = ProductRepositoryMocker.init();

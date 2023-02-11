@@ -27,14 +27,26 @@ public class BaseController {
                 .body(ex.getMessage());
     }
 
+    /**
+     * An exception handler for endpoints throwing InputExceptions.
+     *
+     * @param ex : The InputException.
+     * @return : The parameter and message of the exception wrapped in a ResponseEntity.
+     */
     @ExceptionHandler(InputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> exception400(InputException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ex.getMessage());
+                .body(ex.getParameter() + ":" + ex.getMessage());
     }
 
+    /**
+     * An exception handler for endpoints throwing AlreadyExistsExceptions.
+     *
+     * @param ex : The alreadyExistsException.
+     * @return : The message of the exception wrapped in a ResponseEntity
+     */
     @ExceptionHandler(AlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<String> exception409(AlreadyExistsException ex) {

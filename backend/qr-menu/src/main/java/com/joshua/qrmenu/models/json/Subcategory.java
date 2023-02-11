@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * Data Transfer Object representing a Subcategory.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -37,7 +37,7 @@ public class ProductController extends BaseController {
     /**
      * Retrieve all products.
      *
-     * @return: A CollectionModel of the list of all existing products.
+     * @return : A CollectionModel of the list of all existing products.
      */
     @GetMapping("/products")
     public CollectionModel<EntityModel<Product>> getAllProducts() {
@@ -50,7 +50,7 @@ public class ProductController extends BaseController {
      * Retrieve a product with a specific ID.
      *
      * @param productId : The ID of the product to be retrieved.
-     * @return : A product with the given ID if found.
+     * @return : An EntityModel of the product with the given ID if found.
      * @throws NotFoundException : When the ID doesn't correspond to an existing product.
      */
     @GetMapping("/products/{productId}")
@@ -62,7 +62,9 @@ public class ProductController extends BaseController {
      * Creates a new product.
      *
      * @param newProduct : An Object with data to create a new product.
-     * @return : An EntityModel of the added product.
+     * @return : An EntityModel of the created product.
+     * @throws InputException : When a required field of the product wasn't provided.
+     * @throws AlreadyExistsException : If a product already exists with the same name.
      */
     @PostMapping("/products")
     @ResponseStatus(value = HttpStatus.CREATED)

@@ -77,11 +77,7 @@ public class CategoryRepositoryMocker {
         when(categoryRepository.findAll(orderSort)).thenReturn(currentFindAll);
     }
 
-    public static void remove(CategoryRepository categoryRepository, CategoryEntity categoryEntity) throws NotFoundException {
-//        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(categoryEntity.getCategoryId());
-//        if (optionalCategoryEntity.isEmpty()) {
-//            throw new NotFoundException();
-//        }
+    public static void remove(CategoryRepository categoryRepository, CategoryEntity categoryEntity) {
         when(categoryRepository.existsById(categoryEntity.getCategoryId())).thenReturn(false);
         when(categoryRepository.findById(categoryEntity.getCategoryId())).thenReturn(Optional.empty());
         when(categoryRepository.findByName(categoryEntity.getName())).thenReturn(Optional.empty());

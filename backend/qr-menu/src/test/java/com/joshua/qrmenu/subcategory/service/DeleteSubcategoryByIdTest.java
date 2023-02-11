@@ -63,7 +63,6 @@ public class DeleteSubcategoryByIdTest {
 
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
         Subcategory subcategory = subcategoryService.createNewSubcategory(categoryId, newSubcategory);
-
         assertThat(subcategoryService.getAllCategorySubcategories(categoryId).size()).isEqualTo(1);
         subcategoryService.deleteSubcategoryById(categoryId, subcategory.getSubcategoryId());
         assertThat(subcategoryService.getAllCategorySubcategories(categoryId).size()).isEqualTo(0);

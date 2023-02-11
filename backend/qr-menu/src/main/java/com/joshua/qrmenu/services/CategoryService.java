@@ -20,20 +20,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class to handle all business logic concerning categories.
+ */
 @Service
 public class CategoryService extends AbstractService {
 
     private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
 
     private final CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryRepository categoryRepository, ProductRepository productRepository, CategoryMapper categoryMapper) {
+    /**
+     * Constructor for a CategoryService.
+     * @param categoryRepository: A CategoryRepository.
+     * @param categoryMapper: A CategoryMapper to map Data Transfer Objects to Entities and back.
+     */
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
         this.categoryMapper = categoryMapper;
     }
 
+    /**
+     * Retrieves all existing Categories
+     * @return : A List of all Categories.
+     */
     public List<Category> getAll() {
         List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "orderNr"));
 
@@ -43,17 +53,35 @@ public class CategoryService extends AbstractService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Return a category with a specific ID if found.
+     * @param id : ID of the CategoryEntity to be retrieved.
+     * @return : The category with the given ID,
+     * @throws NotFoundException : When the ID doesn't correspond to an existing CategoryEntity.
+     */
     public Category getCategoryById(Long id) throws NotFoundException {
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(id));
         return categoryMapper.entityToJson(categoryEntity);
     }
 
+    /**
+     * Return a category with a specific name if found.
+     * @param name : Name of the CategoryEntity to be retrieved.
+     * @return : The category with the given name,
+     * @throws NotFoundException : When no CategoryEntity exists with the given name.
+     */
     public Category getCategoryByName(String name) throws NotFoundException {
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findByName(name));
         return categoryMapper.entityToJson(categoryEntity);
     }
 
-    // No products when creating
+    /**
+     * Create a new category.
+     * @param newCategory : An object with all data to create the new CategoryEntity.
+     * @return : A Category representing the newly created CategoryEntity.
+     * @throws InputException : When a required field wasn't provided.
+     * @throws AlreadyExistsException : When a CategoryEntity already exists with the same name.
+     */
     public Category createNewCategory(NewCategory newCategory) throws InputException, AlreadyExistsException {
         // Validate input
         Validator validator = new Validator();
@@ -69,6 +97,12 @@ public class CategoryService extends AbstractService {
         return categoryMapper.entityToJson(categoryEntity);
     }
 
+    /**
+     * Delete a CategoryEntity with a specific ID if found.
+     *
+     * @param id : ID of the CategoryEntity to be deleted.
+     * @throws NotFoundException : When the ID doesn't correspond to an existing CategoryEntity.
+     */
     public void deleteCategoryById(Long id) throws NotFoundException {
         if (categoryRepository.existsById(id)) {
             categoryRepository.deleteById(id);
@@ -77,18 +111,26 @@ public class CategoryService extends AbstractService {
         }
     }
 
+    /**
+     * Update data of an existing CategoryEntity with a specific ID if found.
+     *
+     * @param id : The ID of the CategoryEntity to be updated.
+     * @param newCategory : An Object containing data to be changed.
+     * @return : The Category with the updated fields.
+     * @throws NotFoundException : When the ID doesn't correspond to an existing CategoryEntity.
+     * @throws AlreadyExistsException : When a different CategoryEntity already exists with the same name.
+     */
     public Category patchCategoryById(Long id, NewCategory newCategory) throws NotFoundException, AlreadyExistsException {
         CategoryEntity originalEntity = parseOptional(categoryRepository.findById(id));
         CategoryEntity newEntity = categoryMapper.newJsonToEntity(newCategory);
 
-        // Check if another category with the same name already exists
+        // Check if another CategoryEntity with the same name already exists
         if( newEntity.getName() != null
                 && (!newEntity.getName().equals(originalEntity.getName()))
                 && categoryRepository.findByName(newCategory.getName()).isPresent()) {
             throw new AlreadyExistsException("Category with the name '" + newCategory.getName() + "' already exists.");
         }
 
-        // TODO: Change this if allow NewCategory to contain subcategories in the future
         newEntity.setSubcategoryEntities(originalEntity.getSubcategoryEntities());
 
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);

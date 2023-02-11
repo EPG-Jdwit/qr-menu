@@ -16,8 +16,8 @@ public class ProductNameMocker {
     }
 
     /**
-     * Randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
-     * @return : A random product name.
+     * Semi-randomly pick a name and add the createdCounter to it to avoid random conflicts that could happen.
+     * @return : A semi-random product name.
      */
     public String productName() {
         return shuffledNames.get(createdCounter++ % names.length) + createdCounter;

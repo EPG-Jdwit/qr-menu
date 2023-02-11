@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object representing a NewSubcategory without an ID.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -15,6 +15,10 @@ public class ProductDescriptionMocker {
         Collections.shuffle(shuffledDescriptions);
     }
 
+    /**
+     * Semi-randomly pick a product description.
+     * @return : A semi-random product description.
+     */
     public String productDescription() {
         return shuffledDescriptions.get(createdCounter++ % descriptions.length);
     }

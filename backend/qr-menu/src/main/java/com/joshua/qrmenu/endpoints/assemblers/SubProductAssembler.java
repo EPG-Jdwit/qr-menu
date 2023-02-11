@@ -17,6 +17,9 @@ import java.util.stream.StreamSupport;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * Assembling our internal data into JSON representation with HATEOAS links.
+ */
 @Component
 public class SubProductAssembler implements RepresentationModelAssembler<Product, EntityModel<Product>> {
 
@@ -24,11 +27,17 @@ public class SubProductAssembler implements RepresentationModelAssembler<Product
     @Override
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> subcategories) {
         return null;
-//        return CollectionModel.of(
-//                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList())
-//        );
     }
 
+    /**
+     * Converts a list of Products to a JSON representation of a productList with an extra _links property.
+     * This is similar to the method in ProductAssembler but requires extra links due to being called in a different manner,
+     * ie : links to the catergory and subcategory.
+     * @param subcategories : A collection for with toModel must be applied to each element.
+     * @param categoryId : The id of the category, used to build the links.
+     * @param subcategoryId : The id of the subcategory, used to build the links.
+     * @return : CollectionModel of the output with links.
+     */
     public CollectionModel<EntityModel<Product>> toCollectionModel(Iterable<? extends Product> subcategories, Long categoryId, Long subcategoryId) {
         try {
             return CollectionModel.of(
@@ -46,7 +55,7 @@ public class SubProductAssembler implements RepresentationModelAssembler<Product
      * Converts a Product to a JSON representation. NOTE: identical to ProductAssembler
      *
      * @param product : the product to convert.
-     * @return : EntityModel of the product.
+     * @return : EntityModel of the product with multiple HATEAOS links to endpoints.
      */
     public EntityModel<Product> toModel(Product product) {
         try {

@@ -5,6 +5,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class to shallow copy fields from one Entity to another
+ */
 public class ShallowCopy {
 
     // Private constructor for static class

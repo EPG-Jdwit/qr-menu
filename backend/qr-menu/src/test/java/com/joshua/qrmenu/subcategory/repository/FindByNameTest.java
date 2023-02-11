@@ -11,14 +11,14 @@ public class FindByNameTest extends BaseSubcategoryRepositoryTest {
 
     @Test
     public void notPresentAtStart() {
-        assertThat(subcategoryRepository.findByName("Subcategory", 0L).isEmpty()).isTrue();
+        assertThat(subcategoryRepository.findByName(0L, "Subcategory").isEmpty()).isTrue();
     }
 
     @Test
     public void presentAfterAdd() {
         CategoryEntity categoryEntity = createCategory1();
         SubcategoryEntity subcategoryEntity = createSubcategoryEntity(categoryEntity);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryEntity.getCategoryId()).get()).isEqualTo(subcategoryEntity);
+        assertThat(subcategoryRepository.findByName(categoryEntity.getCategoryId(), subcategoryEntity.getName()).get()).isEqualTo(subcategoryEntity);
     }
 
     @Test
@@ -26,8 +26,8 @@ public class FindByNameTest extends BaseSubcategoryRepositoryTest {
         CategoryEntity categoryEntity = createCategory1();
         SubcategoryEntity subcategoryEntity1 = createSubcategoryEntity(categoryEntity);
         SubcategoryEntity subcategoryEntity2 = createSubcategoryEntity(categoryEntity);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity1.getName(), categoryEntity.getCategoryId()).get()).isEqualTo(subcategoryEntity1);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity2.getName(), categoryEntity.getCategoryId()).get()).isEqualTo(subcategoryEntity2);
+        assertThat(subcategoryRepository.findByName(categoryEntity.getCategoryId(), subcategoryEntity1.getName()).get()).isEqualTo(subcategoryEntity1);
+        assertThat(subcategoryRepository.findByName(categoryEntity.getCategoryId(), subcategoryEntity2.getName()).get()).isEqualTo(subcategoryEntity2);
     }
 
     @Test
@@ -36,8 +36,8 @@ public class FindByNameTest extends BaseSubcategoryRepositoryTest {
         SubcategoryEntity subcategoryEntity1 = createSubcategoryEntity(categoryEntity1);
         CategoryEntity categoryEntity2 = createCategory1();
         SubcategoryEntity subcategoryEntity2 = createSubcategoryEntity(categoryEntity2);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity1.getName(), categoryEntity1.getCategoryId()).get()).isEqualTo(subcategoryEntity1);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity2.getName(), categoryEntity2.getCategoryId()).get()).isEqualTo(subcategoryEntity2);
+        assertThat(subcategoryRepository.findByName(categoryEntity1.getCategoryId(), subcategoryEntity1.getName()).get()).isEqualTo(subcategoryEntity1);
+        assertThat(subcategoryRepository.findByName(categoryEntity2.getCategoryId(), subcategoryEntity2.getName()).get()).isEqualTo(subcategoryEntity2);
     }
 
     @Test
@@ -45,9 +45,9 @@ public class FindByNameTest extends BaseSubcategoryRepositoryTest {
         CategoryEntity categoryEntity = createCategory1();
 
         SubcategoryEntity subcategoryEntity = createSubcategoryEntity(categoryEntity);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryEntity.getCategoryId()).get()).isEqualTo(subcategoryEntity);
+        assertThat(subcategoryRepository.findByName(categoryEntity.getCategoryId(), subcategoryEntity.getName()).get()).isEqualTo(subcategoryEntity);
         subcategoryRepository.deleteById(subcategoryEntity.getSubcategoryId());
-        assertThat(subcategoryRepository.findByName(subcategoryEntity.getName(), categoryEntity.getCategoryId()).isEmpty()).isTrue();
+        assertThat(subcategoryRepository.findByName(categoryEntity.getCategoryId(), subcategoryEntity.getName()).isEmpty()).isTrue();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class FindByNameTest extends BaseSubcategoryRepositoryTest {
         CategoryEntity categoryEntity2 = createCategory1();
         SubcategoryEntity subcategoryEntity2 = createSubcategoryEntity(categoryEntity2);
         subcategoryEntity2.setName(categoryEntity1.getName());
-        assertThat(subcategoryRepository.findByName(subcategoryEntity1.getName(), categoryEntity1.getCategoryId()).get()).isEqualTo(subcategoryEntity1);
-        assertThat(subcategoryRepository.findByName(subcategoryEntity2.getName(), categoryEntity2.getCategoryId()).get()).isEqualTo(subcategoryEntity2);
+        assertThat(subcategoryRepository.findByName(categoryEntity1.getCategoryId(), subcategoryEntity1.getName()).get()).isEqualTo(subcategoryEntity1);
+        assertThat(subcategoryRepository.findByName(categoryEntity2.getCategoryId(), subcategoryEntity2.getName()).get()).isEqualTo(subcategoryEntity2);
     }
 }
