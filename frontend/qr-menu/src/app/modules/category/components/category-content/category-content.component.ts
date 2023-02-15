@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { of, from } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 
 import { Category } from '../../category.model';
 import { CategoryService } from '../../category.service';
@@ -20,7 +17,6 @@ export class CategoryContentComponent {
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private location: Location
   ) {}
 
   ngOnInit(): void {

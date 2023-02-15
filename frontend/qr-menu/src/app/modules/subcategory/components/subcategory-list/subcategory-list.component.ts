@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
+import { Category } from 'src/app/modules/category/category.model';
 import { Subcategory, SubcategoryList } from '../../subcategory.model';
 import { SubcategoryService } from '../../subcategory.service';
 
@@ -12,11 +13,13 @@ import { SubcategoryService } from '../../subcategory.service';
 })
 export class SubcategoryListComponent {
   subcategories: Subcategory[] = [];
-  @Input() categoryId: number;
+  @Input() category: Category;
+  categoryId: number;
 
   constructor(private subcategoryService: SubcategoryService) {}
 
   ngOnInit() {
+    this.categoryId = this.category.id;
     const resultList: Subcategory[] = []
 
     this.subcategoryService.getSubcategories(this.categoryId)
@@ -42,4 +45,6 @@ export class SubcategoryListComponent {
         )
     });
   }
+
+  priv
 }

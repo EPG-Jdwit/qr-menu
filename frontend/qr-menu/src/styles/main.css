@@ -1,0 +1,79 @@
+:root {
+  --theme-dark-color: #333;
+  --theme-grey-color: #444;
+  --theme-light-color: burlywood;
+  --banner-title-color: blanchedalmond;
+  --nav-hover-color: #222;
+
+  --table-odd-color: rgb(255, 239, 213);
+  --table-even-color: rgb(210, 180, 140);
+  --table-odd-hover-color: rgba(255, 239, 213, 0.8);
+  --table-even-hover-color: rgba(210, 180, 140, 0.8);
+
+  --responsive-font-size-tiny: 2vmin;
+  --responsive-font-size-small: 4vmin;
+  --responsive-font-size-medium: 5vmin;
+  --responsive-font-size-large: 6vmin;
+  --responsive-font-size-huge: 7vmin;
+
+  --text-shadow-default: text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-size: 100%;
+
+  background-color: var(--theme-light-color);
+}
+
+#header {
+  width: 100%;
+  height: 27vh;
+  min-height: 27vh;
+  max-height: 27vh;
+}
+
+#content-window {
+  height: auto;
+  min-height: 68vh;
+  display: flex;
+  margin: 0;
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-even-color);
+}
+
+tr:nth-child(odd) {
+  background-color: var(--table-odd-color);
+}
+
+tr.hover-row:hover:nth-child(even) {
+  background-color: var(--table-even-hover-color);
+}
+
+tr.hover-row:hover:nth-child(odd) {
+  background-color: var(--table-odd-hover-color);
+}
+
+
+footer {
+  width: 100%;
+  height: 5vh;
+
+  padding: 1vh 20vw; /* TODO: align items center */
+
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+
+  font-size: var(--responsive-font-size-tiny);
+  color: var(--banner-title-color);
+
+  background-color: var(--theme-dark-color);
+}

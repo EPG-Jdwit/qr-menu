@@ -1,6 +1,17 @@
-<ul class="subcategories">
-    <li *ngFor="let subcategory of subcategories">
-        <span>{{subcategory.name}}</span>
-        <app-subcategory-product-list [categoryId]="categoryId" [subcategoryId]="subcategory.id"></app-subcategory-product-list>
-    </li>
-</ul>
+<div class="content-header">
+    <app-back-button class="bck-btn"></app-back-button>
+    <div class="content-title">{{category.name}}</div>
+</div>
+
+<div id="content-container">
+    <table class="subcat-table">
+        <ng-container *ngFor="let subcategory of subcategories">
+            <tr class='subcat-table-row'>
+                <td class='subcat-cell'>
+                    <div class='subcat-name'>{{subcategory.name}}</div>
+                    <app-subcategory-product-list [categoryId]="categoryId" [subcategoryId]="subcategory.id"></app-subcategory-product-list>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div> 

@@ -1,8 +1,25 @@
-<ul class="subcategory-products">
-    <li *ngFor="let product of products">
-        <span>{{product.name}}</span>
-        <span>{{product.price}}</span>
-        <span>{{product.description}}</span>
-        <span>{{product.allergenics}}</span>
-    </li>
-</ul>
+<table id="product-table">
+    <ng-container *ngFor="let product of products">
+        <tr class='product-table-row hover-row'>
+            <td class='product-cell product-name-cell'>
+            <div class='product-name'>{{product.name}}</div>
+            <div class='product-description'>{{product.description}}</div>
+            </td>
+            <!-- Add icons for allergenics -->
+            <td class='product-allergenics-cell'>
+                <ng-container class="product-allergenics-container" *ngFor="let allergenic of product.allergenics">
+                    <img class='allergenic-img' src='assets/images/allergenics_nl/{{allergenic}}.png' alt='" + {{allergenic}} + "'>
+                </ng-container>
+            </td>
+
+            <div *ngIf="product.price == 0; then dagprijs else prijs"></div>
+            <ng-template #dagprijs>
+                <td class='product-cell product-price-cell'>Dag Prijs</td>
+            </ng-template>
+            <ng-template #prijs>
+                <td class='product-cell product-price-cell'>{{product.price | currency: 'EUR'}}</td>
+            </ng-template>
+    
+        </tr>
+    </ng-container>
+</table>

@@ -1,5 +1,31 @@
-<h1>{{title}}</h1>
-<nav>
-    <a routerLink="/categories">Categories</a>
-</nav>
-<router-outlet></router-outlet>
+<div id="title-container">
+    <img src="assets/images/tafel8.jpg" id="top-banner" alt="Barkentijn ODK Banner">
+    <div id="banner-text">De Barkentijn Oostduinkerke</div>
+  </div>
+  <div id="nav-container">
+    <div class="nav-container-item nav-container-item-1">
+      <img src="assets/images/bktlogo.png" id="logo" alt="logo de Barkentijn">
+    </div>
+    <div id="navbar" class="nav-container-item nav-container-item-2">
+      <a class="nav-item nav-item-l" routerLink="/">Home</a>
+      <a class="nav-item nav-item-l dropdown" routerLink="/categories">Menu</a>
+      <a class="nav-item nav-item-l" routerLink="/contact">Contact</a>
+      <a class="nav-item nav-item-r" routerLink="/booking"><span>Reserveren</span></a>
+    </div>
+  </div>
+
+  <div id="content-window">
+  <div class="left-panel">
+    <img src="assets/images/duinenwandeling-koksijde-oostduinkerke.jpg" id="left-panel-image" alt="Duinen Oostduinkerke"/>
+  </div>
+  <div class="center-panel">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="right-panel">
+    <img src="assets/images/pdvs.jpg" id="right-panel-image" alt="Paardevischer op strand ODK"/>
+  </div>
+</div>
+
+<footer>
+  Designed by Joshua De Wit
+</footer>
