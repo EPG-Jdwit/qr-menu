@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Endpoints for subcategories
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class SubcategoryController extends BaseController {
 
     private final SubcategoryService subcategoryService;

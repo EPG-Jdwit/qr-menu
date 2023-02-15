@@ -1,0 +1,4 @@
+<div *ngIf="category">
+    <h1>{{category.name}}</h1>
+    <app-subcategory-list [categoryId]="category.id"></app-subcategory-list>
+</div>

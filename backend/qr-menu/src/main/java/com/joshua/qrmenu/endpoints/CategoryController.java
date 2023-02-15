@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Endpoints for categories
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController extends BaseController {
 
     private final CategoryService categoryService;

@@ -8,6 +8,7 @@ import com.joshua.qrmenu.models.json.Product;
 import com.joshua.qrmenu.services.SubProductService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Endpoints to get products from categories
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class SubProductController extends BaseController {
 
         private final SubProductService subProductService;

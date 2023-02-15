@@ -1,0 +1,6 @@
+<ul class="subcategories">
+    <li *ngFor="let subcategory of subcategories">
+        <span>{{subcategory.name}}</span>
+        <app-subcategory-product-list [categoryId]="categoryId" [subcategoryId]="subcategory.id"></app-subcategory-product-list>
+    </li>
+</ul>
