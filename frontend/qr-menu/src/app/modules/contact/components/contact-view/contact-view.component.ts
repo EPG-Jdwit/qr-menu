@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./contact-view.component.scss']
 })
 export class ContactViewComponent {
-
+  
 }
