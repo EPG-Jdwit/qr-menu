@@ -1,0 +1,23 @@
+.contact-container {
+    margin: 5vh 3vw 5vh 3vw;
+    padding: 3vh 3vw 3vh 3vw;
+
+    background-color: antiquewhite;
+}
+
+.contact-item-container {
+    display: flex;
+}
+
+.contact-item {
+    padding: 1vh 0vw 1vh 0vw;
+    margin: 2vh 1vw 2vh 1vw;
+
+
+    font-size: var(--responsive-font-size-small);
+}
+
+.contact-img {
+    width: 4vw;
+    height: 5vh;
+}

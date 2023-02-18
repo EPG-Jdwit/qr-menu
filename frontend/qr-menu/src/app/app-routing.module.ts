@@ -8,16 +8,18 @@ import { ContactViewComponent } from './modules/contact/components/contact-view/
 import { BookingViewComponent } from './modules/booking/components/booking-view/booking-view.component';
 
 const routes: Routes = [
-  { path: '', component: HomeViewComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home', component: HomeViewComponent},
   { path: 'categories', component: CategoryListComponent },
   { path: 'categories/:categoryId', component: CategoryContentComponent },
   { path: 'contact', component: ContactViewComponent},
   { path: 'booking', component: BookingViewComponent},
-  { path: 'about', component: AboutViewComponent }
+  { path: 'about', component: AboutViewComponent },
+  { path: '**', component: HomeViewComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
