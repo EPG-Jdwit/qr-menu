@@ -1,0 +1,29 @@
+{
+   "suggestions": [
+      {
+         "url": "assets/images/vispannetje.jpeg",
+         "tag": "Vispannetje",
+         "description": "Vispannetje met frietjes"
+      },
+      {
+         "url": "assets/images/slabarkentijn.jpg",
+         "tag": "Sla Barkentijn",
+         "description": "Salade Barkentijn"
+      },
+      {
+         "url": "assets/images/duopasta.jpeg",
+         "tag": "Duo Kip &amp Scampi met pasta",
+         "description": "Duo van kip en scampi in rode curry met tagliatelle"
+      },
+      {
+         "url": "assets/images/sangriar.jpeg",
+         "tag": "Rode Sangria van Quint",
+         "description": "Rode sangria met vers fruit"
+      },
+      {
+         "url": "assets/images/warmgemengd.jpeg",
+         "tag": "Warme hapjes gemengd",
+         "description": "Mengeling van ons assortiment warme hapjes"
+      }
+   ]  
+}

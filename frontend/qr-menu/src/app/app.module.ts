@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CategoryModule } from './modules/category/category.module';
+import { HomeModule } from './modules/home/home.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CategoryModule } from './modules/category/category.module';
     AppRoutingModule,
     CategoryModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    ContactModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
