@@ -1,23 +1,50 @@
-.contact-container {
+.contact-overview {
     margin: 5vh 3vw 5vh 3vw;
-    padding: 3vh 3vw 3vh 3vw;
+
+    display: flex;
+    justify-content: space-between;
 
     background-color: antiquewhite;
 }
 
+#contact-left-pannel {
+    border-right: 5px solid rgba(200, 200, 200, 0.8);
+}
+
+.google-map {
+    width: 25%;
+    height: 60vh;
+}
+
+#logo {
+    object-fit: cover;
+    height: 52vh;
+}
+
+
+.contact-container {
+    width: 70%;
+    padding: 3vh 3vw 3vh 3vw;
+
+    // background-color: antiquewhite;
+}
+
 .contact-item-container {
+    width: 100%;
     display: flex;
+    align-items: center;
 }
 
 .contact-item {
+    width: 100%;
     padding: 1vh 0vw 1vh 0vw;
     margin: 2vh 1vw 2vh 1vw;
 
 
-    font-size: var(--responsive-font-size-small);
+    font-size: var(--responsive-font-size-tiny);
 }
 
 .contact-img {
-    width: 4vw;
-    height: 5vh;
+    width: 3vw;
+    height: 4vh;
 }

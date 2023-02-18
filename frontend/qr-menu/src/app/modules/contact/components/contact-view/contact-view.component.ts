@@ -16,7 +16,28 @@ export class ContactViewComponent {
   private hoursTextUrl: string = "assets/contact-hours.txt";
   private phoneTextUrl: string = "assets/contact-phone.txt";
 
-  constructor(private http: HttpClient) {}
+  center: google.maps.LatLngLiteral;
+  markers: any[] = [];
+
+  constructor(private http: HttpClient) {
+    this.center = {
+      lat: 51.13321479515517, 
+      lng: 2.673087821281197
+    }
+
+    this.markers.push({
+      position: {
+        lat: this.center.lat,
+        lng: this.center.lng
+      },
+      label: {
+        color: 'red',
+        text: 'De Barkentijn Oostduinkerke',
+      },
+      title: 'De Barkentijn Oostduinkerke',
+      options: { animation: google.maps.Animation.BOUNCE },
+    });
+  }
 
   ngOnInit(): void {
     this.http.get(this.addresTextUrl, {responseType: 'text'}).subscribe(data => {
@@ -32,4 +53,6 @@ export class ContactViewComponent {
       this.phoneText = data;
     })
   }
+
+  
 }
