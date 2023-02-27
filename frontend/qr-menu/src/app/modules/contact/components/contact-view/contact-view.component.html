@@ -1,6 +1,6 @@
 <div class="contact-overview">
     <div id="contact-left-pannel">
-        <google-map [center]="center">
+        <google-map [center]="center" width="31vw" height="40vh">
             <map-marker
             *ngFor="let marker of markers"
             [position]="marker.position"
@@ -8,32 +8,31 @@
             [title]="marker.title"
             [options]="marker.options"
             >
-        </map-marker>
+            </map-marker>
         </google-map>
-        <img id="logo" src="assets/images/logo.jpeg">
-
+        <img id="logo" src="assets/images/logo.jpeg" alt="Barkentijn logo">
     </div>
     <div class="contact-container">
         <div class="contact-item-container">
-            <img class="contact-img" src="assets/icons/location.png"/>
+            <img class="contact-img" src="assets/icons/location.png" alt="location icon"/>
             <div class="contact-item"
                 [innerText]="addresText">
             </div>
         </div>
         <div class="contact-item-container">
-            <img class="contact-img" src="assets/icons/incoming-call.png"/>
+            <img class="contact-img" src="assets/icons/incoming-call.png" alt="phone icon"/>
             <div class="contact-item"
                 [innerText]="phoneText">
             </div>
         </div>
         <div class="contact-item-container">
-            <img class="contact-img" src="assets/icons/open.png"/>
+            <img class="contact-img" src="assets/icons/open.png" alt="open icon"/>
             <div class="contact-item"
                 [innerText]="hoursText">
             </div>
         </div>
         <div class="contact-item-container">
-            <img class="contact-img" src="assets/icons/email.png"/>
+            <img class="contact-img" src="assets/icons/email.png" alt="mail icon"/>
             <div class="contact-item"
                 [innerText]="emailText">
             </div>

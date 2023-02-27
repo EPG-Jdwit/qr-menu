@@ -4,29 +4,26 @@
     display: flex;
     justify-content: space-between;
 
-    background-color: antiquewhite;
+    background-color: var(--banner-title-color);
 }
 
 #contact-left-pannel {
     border-right: 5px solid rgba(200, 200, 200, 0.8);
 }
 
-.google-map {
-    width: 25%;
-    height: 60vh;
-}
 
 #logo {
     object-fit: cover;
-    height: 52vh;
+    height: 40vh;
 }
 
 
 .contact-container {
     width: 70%;
     padding: 3vh 3vw 3vh 3vw;
-
-    // background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .contact-item-container {
@@ -39,7 +36,6 @@
     width: 100%;
     padding: 1vh 0vw 1vh 0vw;
     margin: 2vh 1vw 2vh 1vw;
-
 
     font-size: var(--responsive-font-size-tiny);
 }

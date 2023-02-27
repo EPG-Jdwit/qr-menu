@@ -1,0 +1,28 @@
+#header {
+    width: 100%;
+    height: 27vh;
+    min-height: 27vh;
+    max-height: 27vh;
+  }
+  
+  #content-window {
+    height: auto;
+    min-height: 68vh;
+    display: flex;
+    margin: 0;
+  }
+  
+  footer {
+    width: 100%;
+    height: 5vh;
+  
+    padding: 1vh 20vw;
+  
+    bottom: 0;
+    left: 0;
+  
+    font-size: var(--responsive-font-size-tiny);
+    color: var(--banner-title-color);
+  
+    background-color: var(--theme-dark-color);
+  }

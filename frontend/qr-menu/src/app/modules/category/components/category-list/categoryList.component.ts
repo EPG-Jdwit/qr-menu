@@ -12,6 +12,7 @@ import { CategoryService } from '../../category.service';
 })
 export class CategoryListComponent {
   categories: Category[] = [];
+  title: string = "Categorieën";
 
   constructor(private categoryService: CategoryService) {
 

@@ -1,9 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'styles/main', 
-    'styles/header.css', 
+@import 'styles/header.css', 
     'styles/navigation.css', 
     'styles/content_window.css', 
     'styles/category_table.css', 
     'styles/product_table.css', 
     'styles/subcategory_table.css', 
-    'styles/buttons.css'
+    'styles/buttons.css';
+
+:root {
+  --theme-dark-color: #333;
+  --theme-grey-color: #444;
+  --theme-light-color: burlywood;
+  --banner-title-color: blanchedalmond;
+  --nav-hover-color: #222;
+  
+  --table-odd-color: rgb(255, 239, 213);
+  --table-even-color: rgb(210, 180, 140);
+  --table-odd-hover-color: rgba(255, 239, 213, 0.8);
+  --table-even-hover-color: rgba(210, 180, 140, 0.8);
+  
+  --responsive-font-size-tiny: 2vmin;
+  --responsive-font-size-small: 4vmin;
+  --responsive-font-size-medium: 5vmin;
+  --responsive-font-size-large: 6vmin;
+  --responsive-font-size-huge: 7vmin;
+  
+  --text-shadow-default: text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
+}
+    
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-size: 100%;
+
+  background-color: var(--theme-light-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-even-color);
+}
+
+tr:nth-child(odd) {
+  background-color: var(--table-odd-color);
+}
+
+tr.hover-row:hover:nth-child(even) {
+  background-color: var(--table-even-hover-color);
+}
+
+tr.hover-row:hover:nth-child(odd) {
+  background-color: var(--table-odd-hover-color);
+}

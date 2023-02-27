@@ -6,7 +6,12 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUIBaqbeC99qrORsiXT2Vw4e1TG5wU9OE&callback=initMap"></script>
+  <script>
+    // TODO: Remove this temporary hack
+    function initMap() {
+    }
+  </script>
+  <script defer async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUIBaqbeC99qrORsiXT2Vw4e1TG5wU9OE&callback=initMap"></script>
 </head>
 <body>
   <app-root></app-root>

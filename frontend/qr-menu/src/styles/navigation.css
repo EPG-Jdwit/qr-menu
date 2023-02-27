@@ -106,7 +106,7 @@
   margin-left: auto;
   flex-basis: 20vw;
 
-  color: red;
+  color: rgb(221, 191, 19, 0.753);
   font-size: var(--responsive-font-size-small);
 
 }

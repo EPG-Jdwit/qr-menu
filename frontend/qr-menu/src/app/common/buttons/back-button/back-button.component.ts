@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./back-button.component.scss']
 })
 export class BackButtonComponent {
+  name: string = "Back";
   constructor(private location: Location) {}
 
   public back(): void {
