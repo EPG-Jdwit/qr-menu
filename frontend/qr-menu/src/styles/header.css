@@ -8,8 +8,8 @@
 }
 
 #top-banner {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
                         /* TODO: Add image source "content: url()" here */
     object-fit: cover;
     object-position: 0% 49%;
