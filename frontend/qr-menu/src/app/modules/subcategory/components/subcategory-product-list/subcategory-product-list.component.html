@@ -8,7 +8,7 @@
             <!-- Add icons for allergenics -->
             <td class='product-allergenics-cell'>
                 <ng-container class="product-allergenics-container" *ngFor="let allergenic of product.allergenics">
-                    <img class='allergenic-img' src='assets/images/allergenics_nl/{{allergenic}}.png' alt='" + {{allergenic}} + "'>
+                    <img class='allergenic-img' src='assets/images/allergenics_nl/{{allergenic}}.avif' alt='" + {{allergenic}} + "'>
                 </ng-container>
             </td>
 
@@ -19,7 +19,6 @@
             <ng-template #prijs>
                 <td class='product-cell product-price-cell'>{{product.price | currency: 'EUR'}}</td>
             </ng-template>
-    
         </tr>
     </ng-container>
 </table>
