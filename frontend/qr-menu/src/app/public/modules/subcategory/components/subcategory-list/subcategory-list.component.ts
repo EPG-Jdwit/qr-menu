@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Category } from 'src/app/modules/category/category.model';
+import { Category } from '../../../category/category.model';
 import { Subcategory, SubcategoryList } from '../../subcategory.model';
 import { SubcategoryService } from '../../subcategory.service';
 
@@ -45,6 +45,4 @@ export class SubcategoryListComponent {
         )
     });
   }
-
-  priv
 }

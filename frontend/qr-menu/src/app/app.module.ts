@@ -5,10 +5,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { CategoryModule } from './modules/category/category.module';
-import { HomeModule } from './modules/home/home.module';
-import { ContactModule } from './modules/contact/contact.module';
+import { PublicModule } from './public/public.module';
+import { ManagementModule } from './management/management.module';
 
 @NgModule({
   declarations: [
@@ -17,11 +15,10 @@ import { ContactModule } from './modules/contact/contact.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CategoryModule,
     HttpClientModule,
     GoogleMapsModule,
-    ContactModule,
-    HomeModule
+    PublicModule,
+    ManagementModule
   ],
   providers: [],
   bootstrap: [AppComponent]

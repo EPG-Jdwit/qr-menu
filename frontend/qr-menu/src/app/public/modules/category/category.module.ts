@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule} from '@angular/router';
+import { RouterModule} from '@angular/router';
 
 import { SubcategoryModule } from '../subcategory/subcategory.module';
 import { CategoryListComponent } from './components/category-list/categoryList.component';
