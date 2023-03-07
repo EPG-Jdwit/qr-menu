@@ -18,6 +18,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
+import { ProductInfoComponent } from './product/product-info/product-info.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -27,7 +29,8 @@ import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overv
     LoginWindowComponent,
     DashboardNavComponent,
     ProductTableComponent,
-    DashboardOverviewComponent
+    DashboardOverviewComponent,
+    ProductInfoComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overv
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ]
 })
 export class DashboardModule { }
