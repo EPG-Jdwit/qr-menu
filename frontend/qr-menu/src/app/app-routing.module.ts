@@ -9,9 +9,18 @@ import { HomeViewComponent } from './public/modules/home/components/home-view/ho
 import { AboutViewComponent } from './public/modules/about/components/about-view/about-view.component';
 import { ContactViewComponent } from './public/modules/contact/components/contact-view/contact-view.component';
 import { BookingViewComponent } from './public/modules/booking/components/booking-view/booking-view.component';
+import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
+import { ProductTableComponent } from './dashboard/product-table/product-table.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardViewComponent },
+  { path: 'dashboard', 
+  component: DashboardViewComponent,
+  children: [
+    { path: '', redirectTo: 'overview', pathMatch: 'full'},
+    { path: 'overview', component: DashboardOverviewComponent},
+    { path: 'products', component: ProductTableComponent},
+    // { path: '**', component: DashboardOverviewComponent}
+  ] },
   { 
     path: '', 
     component: PublicViewComponent,

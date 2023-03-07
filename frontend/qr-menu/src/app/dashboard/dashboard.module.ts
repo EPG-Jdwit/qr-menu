@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule} from '@angular/material/sidenav';
 
@@ -14,7 +15,9 @@ import { ProductTableComponent } from './product-table/product-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 
 
 
@@ -23,10 +26,12 @@ import { MatSortModule } from '@angular/material/sort';
     DashboardViewComponent,
     LoginWindowComponent,
     DashboardNavComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    DashboardOverviewComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatSidenavModule,
     LayoutModule,
     MatToolbarModule,
@@ -35,7 +40,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class DashboardModule { }
