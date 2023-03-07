@@ -5,7 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 import { Product } from 'src/app/public/modules/product/product.model';
-import { ProductInfoComponent } from '../product/product-info/product-info.component';
+import { ProductEditViewComponent } from '../product-edit-view/product-edit-view.component';
+import { ProductInfoComponent } from '../product-info/product-info.component';
 import { ProductTableService } from './product-table.service';
 
 @Component({
@@ -60,12 +61,18 @@ export class ProductTableComponent {
     const index = this.dataSource.data.findIndex(product => product.id == id);
     const item = this.dataSource.data[index];
     const dialogRef = this.dialog.open(ProductInfoComponent, {
-      height: '40vh',
-      width: '40vw',
+      // height: '40vh',
+      // width: '40vw',
       data: item
     });
   }
   editProduct(id: number): void {
-
+    const index = this.dataSource.data.findIndex(product => product.id == id);
+    const item = this.dataSource.data[index];
+    const dialogRef = this.dialog.open(ProductEditViewComponent, {
+      // height: '50vh',
+      // width: '50vw',
+      data: item
+    });
   }
 }

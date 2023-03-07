@@ -10,7 +10,7 @@ import { AboutViewComponent } from './public/modules/about/components/about-view
 import { ContactViewComponent } from './public/modules/contact/components/contact-view/contact-view.component';
 import { BookingViewComponent } from './public/modules/booking/components/booking-view/booking-view.component';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
-import { ProductTableComponent } from './dashboard/product-table/product-table.component';
+import { ProductTableComponent } from './dashboard/product/product-table/product-table.component';
 
 const routes: Routes = [
   { path: 'dashboard', 

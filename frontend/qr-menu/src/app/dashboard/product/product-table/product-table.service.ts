@@ -20,6 +20,16 @@ export class ProductTableService {
   }
 
   deleteProduct(id : number) : void {
-    this.http.delete(this.productUrl + "/" + id);
+    this.http.delete(this.productUrl + "/" + id).subscribe(() =>
+    // TODO: remove this
+      console.log("test")
+    );
+  }
+
+  updateProduct(id: number, product: Product) : void {
+    this.http.patch(this.productUrl + "/" + id, product).subscribe(() =>
+    // TODO: remove this
+      console.log("test")
+    );
   }
 }
