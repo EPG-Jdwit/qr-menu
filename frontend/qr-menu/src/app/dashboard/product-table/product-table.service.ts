@@ -18,4 +18,8 @@ export class ProductTableService {
   getProducts(): Observable<ProductList<Product>> {
     return this.http.get<ProductList<Product>>(this.productUrl);
   }
+
+  deleteProduct(id : number) : void {
+    this.http.delete(this.productUrl + "/" + id);
+  }
 }

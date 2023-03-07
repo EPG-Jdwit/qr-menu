@@ -44,4 +44,11 @@ export class ProductTableComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  deleteProduct(id: number) :void {
+    this.productTableService.deleteProduct(id);
+    const index = this.dataSource.data.findIndex(product => product.id == id);
+    this.dataSource.data.splice(index, 1);
+    this.dataSource.data = this.dataSource.data;
+  }
 }
