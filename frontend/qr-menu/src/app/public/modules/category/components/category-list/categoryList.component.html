@@ -2,9 +2,9 @@
     <div class="content-title">{{title}}</div>
 </div>
 <div id="content-container">
-    <table class="category-table">
+    <table class="public-table category-table">
         <ng-container *ngFor="let category of categories">
-            <tr class='category-table-row hover-row'>
+            <tr class='public-row category-table-row hover-row'>
                 <td class='category-table-cell'>
                     <a class="category-cell-name" routerLink="/categories/{{category.id}}">
                     {{category.name}}
