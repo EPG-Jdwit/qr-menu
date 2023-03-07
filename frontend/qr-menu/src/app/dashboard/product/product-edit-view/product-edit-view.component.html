@@ -1,21 +1,21 @@
-<div class="edit-container">
+<div class="edit-container" [formGroup]="productForm">
     <mat-form-field appearance="outline"
         [floatLabel]="getFloatLabelValue()"
     >
         <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
+        <input matInput formControlName="name" placeholder="{{data.name}}">
     </mat-form-field>
     <mat-form-field appearance="outline"
         [floatLabel]="getFloatLabelValue()">
         <mat-label>Price</mat-label>
-        <input matInput type="number" [(ngModel)]="data.price" placeholder="{{data.price}}">
+        <input matInput type="number" formControlName="price" placeholder="{{data.price}}">
         <span matTextPrefix>€&nbsp;</span>
     </mat-form-field>
     <mat-form-field appearance="outline"
         [floatLabel]="getFloatLabelValue()"
     >
         <mat-label>Description</mat-label>
-        <textarea matInput [(ngModel)]="data.description" placeholder="{{data.description}}"></textarea>
+        <textarea matInput formControlName="description" placeholder="{{data.description}}"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
