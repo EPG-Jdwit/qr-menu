@@ -32,26 +32,5 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-
-  font-size: 100%;
-
-  background-color: var(--theme-light-color);
-}
-
-tr:nth-child(even) {
-  background-color: var(--table-even-color);
-}
-
-tr:nth-child(odd) {
-  background-color: var(--table-odd-color);
-}
-
-tr.hover-row:hover:nth-child(even) {
-  background-color: var(--table-even-hover-color);
-}
-
-tr.hover-row:hover:nth-child(odd) {
-  background-color: var(--table-odd-hover-color);
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagementViewComponent } from './management-view.component';
+import { LoginWindowComponent } from './login-window.component';
 
-describe('ManagementViewComponent', () => {
-  let component: ManagementViewComponent;
-  let fixture: ComponentFixture<ManagementViewComponent>;
+describe('LoginWindowComponent', () => {
+  let component: LoginWindowComponent;
+  let fixture: ComponentFixture<LoginWindowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManagementViewComponent ]
+      declarations: [ LoginWindowComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ManagementViewComponent);
+    fixture = TestBed.createComponent(LoginWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

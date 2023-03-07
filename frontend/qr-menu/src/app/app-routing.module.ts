@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManagementViewComponent } from './management/management-view/management-view.component';
+import { DashboardViewComponent } from './dashboard/dashboard-view/dashboard-view.component';
 import { PublicViewComponent } from './public/public-view/public-view.component';
 
 import { CategoryListComponent } from './public/modules/category/components/category-list/categoryList.component';
@@ -11,7 +11,7 @@ import { ContactViewComponent } from './public/modules/contact/components/contac
 import { BookingViewComponent } from './public/modules/booking/components/booking-view/booking-view.component';
 
 const routes: Routes = [
-  { path: 'management', component: ManagementViewComponent },
+  { path: 'dashboard', component: DashboardViewComponent },
   { 
     path: '', 
     component: PublicViewComponent,

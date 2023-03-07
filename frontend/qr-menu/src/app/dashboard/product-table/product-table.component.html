@@ -1,0 +1,48 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="product-table" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <!-- <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef="let row">{{row.price | currency: 'EUR'}}</td>
+    </ng-container>
+
+    <!-- Actions: Info, Edit and Delete -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button color="accent">
+          <mat-icon>info</mat-icon>
+        </button>
+        <button mat-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data?.length"
+      [pageIndex]="0"
+      [pageSize]="20"
+      [pageSizeOptions]="[10, 20, 50]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

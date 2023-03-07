@@ -20,3 +20,12 @@ export interface SubcategoryProductList<Product> {
         category: { href: string},
     }
 }
+
+export interface ProductList<Product> {
+    _embedded: {
+        productList: Product[]
+    };
+    _links: {
+        self: { href: string}
+    }
+}
