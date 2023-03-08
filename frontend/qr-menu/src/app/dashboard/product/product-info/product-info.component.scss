@@ -1,0 +1,52 @@
+#product-info-container {
+    width: 40vw;
+    // height: 40vh;
+    padding: auto 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-info-section {
+    padding: 0.3rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#product-info-title {
+    margin: 10px auto 20px auto;
+    text-align: center;
+
+    font-size: clamp(1rem, 2vmax, 4rem);
+}
+
+.product-info-label {
+    font-weight: bold;
+}
+
+#product-allergenics-label {
+    margin-top: 1.5rem;
+}
+
+.allergenic-list {
+    width: 90%;
+    margin: 1em 0.5em;
+    padding: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+}
+
+.allergenic-item {
+    width: 15vw;
+    max-width: 50%;
+    margin: 5% 0;
+    font-size: clamp(1rem, 1.5vw, 1.5rem); 
+}
+// Position the buttons
+#product-info-container > div.mat-mdc-dialog-actions.mdc-dialog__actions {
+    justify-content: space-around;
+}
