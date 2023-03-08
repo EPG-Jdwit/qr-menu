@@ -34,7 +34,7 @@ public class Product {
                 productId, name);
     }
 
-    @JsonProperty("allergenics")
+    @JsonProperty("allergenicList")
     public List<String> allergenicList;
 
     @Override

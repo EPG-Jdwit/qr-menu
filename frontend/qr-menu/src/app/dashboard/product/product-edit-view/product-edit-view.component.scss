@@ -4,3 +4,7 @@
     gap: 1rem;
     margin: 5vh 5vw;
 }
+
+::ng-deep .mat-select-panel {
+    max-height: 2vh !important;
+  }
