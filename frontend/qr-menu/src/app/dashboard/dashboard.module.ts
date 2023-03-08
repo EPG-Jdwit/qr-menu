@@ -5,7 +5,6 @@ import { MatSidenavModule} from '@angular/material/sidenav';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
-import { LoginWindowComponent } from './login/login-window/login-window.component';
 import { DashboardNavComponent } from './dashboard-nav/dashboard-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -31,7 +30,6 @@ import { ProductFormComponent } from './product/product-form/product-form.compon
 @NgModule({
   declarations: [
     DashboardViewComponent,
-    LoginWindowComponent,
     DashboardNavComponent,
     ProductTableComponent,
     DashboardOverviewComponent,

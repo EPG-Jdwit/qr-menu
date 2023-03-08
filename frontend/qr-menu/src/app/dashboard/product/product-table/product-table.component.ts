@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
@@ -112,5 +112,11 @@ export class ProductTableComponent {
   onProductPaginateChange(event: any) {
     const element = document.getElementById("scroll-top");
     element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+  }
+
+  public handlePageBottom(event: PageEvent) {
+    this.paginator.pageSize = event.pageSize;
+    this.paginator.pageIndex = event.pageIndex;
+    this.paginator.page.emit(event);
   }
 }
