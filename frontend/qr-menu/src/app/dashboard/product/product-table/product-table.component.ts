@@ -111,7 +111,7 @@ export class ProductTableComponent {
   // Scrolls to the top of the table when the next page in the paginator requested
   onProductPaginateChange(event: any) {
     const element = document.getElementById("scroll-top");
-    element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }
 
   public handlePageBottom(event: PageEvent) {
