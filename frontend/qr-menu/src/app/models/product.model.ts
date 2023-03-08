@@ -1,6 +1,6 @@
-export interface Product {
-    id?: number;
-    name: string;
+import { Entity, EntityList } from "./entity.model";
+
+export interface Product extends Entity {
     price?: number;
     description?: string;
     allergenicList?: string[];
@@ -21,11 +21,8 @@ export interface SubcategoryProductList<Product> {
     }
 }
 
-export interface ProductList<Product> {
+export interface ProductList<Product> extends EntityList<Entity>{
     _embedded: {
         productList: Product[]
     };
-    _links: {
-        self: { href: string}
-    }
 }

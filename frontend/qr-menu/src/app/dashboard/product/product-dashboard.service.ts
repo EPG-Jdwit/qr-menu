@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { Product, ProductList } from 'src/app/public/modules/product/product.model';
+import { Product, ProductList } from 'src/app/models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductTableService {
+export class ProductDashboardService {
 
   private productUrl: string;
 

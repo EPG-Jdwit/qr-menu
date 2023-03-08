@@ -4,11 +4,11 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
-import { Product } from 'src/app/public/modules/product/product.model';
+import { Product } from 'src/app/models/product.model';
 import { NewProductViewComponent } from '../new-product-view/new-product-view.component';
 import { ProductEditViewComponent } from '../product-edit-view/product-edit-view.component';
 import { ProductInfoComponent } from '../product-info/product-info.component';
-import { ProductTableService } from './product-table.service';
+import { ProductDashboardService } from '../product-dashboard.service';
 
 @Component({
   selector: 'product-table',
@@ -24,15 +24,14 @@ export class ProductTableComponent {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'price', 'actions'];
 
-  constructor(private productTableService : ProductTableService,
-              public dialog: MatDialog
-    ) {
+  constructor(private productService : ProductDashboardService,
+              public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource();
   }
 
   // Fetch all existing products for the table on initialization
   ngOnInit() {
-    this.productTableService.getProducts()
+    this.productService.getProducts()
       .subscribe(
       products => {
         // response only contains _embedded if products exist
@@ -59,7 +58,7 @@ export class ProductTableComponent {
   // Delete product
   deleteProduct(id: number) :void {
     // Delete from the backend
-    this.productTableService.deleteProduct(id);
+    this.productService.deleteProduct(id);
     // Delete from the frontend TODO: error handling NotFound
     const index = this.dataSource.data.findIndex(product => product.id == id);
     this.dataSource.data.splice(index, 1);
@@ -109,7 +108,7 @@ export class ProductTableComponent {
   }
 
   // Scrolls to the top of the table when the next page in the paginator requested
-  onProductPaginateChange(event: any) {
+  onPaginateChange(event: any) {
     const element = document.getElementById("scroll-top");
     element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }

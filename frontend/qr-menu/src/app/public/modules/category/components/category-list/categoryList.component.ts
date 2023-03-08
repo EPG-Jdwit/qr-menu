@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Category, CategoryList } from '../../category.model';
+import { Category, CategoryList } from '../../../../../models/category.model';
 import { CategoryService } from '../../category.service';
 
 @Component({

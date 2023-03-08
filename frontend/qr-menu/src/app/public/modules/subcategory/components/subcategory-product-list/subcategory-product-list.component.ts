@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Product, SubcategoryProductList } from '../../../product/product.model';
+import { Product, SubcategoryProductList } from '../../../../../models/product.model';
 import { SubcategoryProductListService } from './subcategory-product-list.service';
 
 @Component({

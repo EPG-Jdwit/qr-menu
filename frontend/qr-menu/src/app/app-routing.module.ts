@@ -11,6 +11,7 @@ import { ContactViewComponent } from './public/modules/contact/components/contac
 import { BookingViewComponent } from './public/modules/booking/components/booking-view/booking-view.component';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { ProductTableComponent } from './dashboard/product/product-table/product-table.component';
+import { CategoryTableComponent } from './dashboard/category/category-table/category-table.component';
 
 const routes: Routes = [
   { path: 'dashboard', 
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'overview', pathMatch: 'full'},
     { path: 'overview', component: DashboardOverviewComponent},
     { path: 'products', component: ProductTableComponent},
+    { path: 'categories', component: CategoryTableComponent}
     // { path: '**', component: DashboardOverviewComponent}
   ] },
   { 

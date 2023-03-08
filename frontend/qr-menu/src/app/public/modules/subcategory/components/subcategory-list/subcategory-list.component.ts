@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Category } from '../../../category/category.model';
-import { Subcategory, SubcategoryList } from '../../subcategory.model';
+import { Category } from '../../../../../models/category.model';
+import { Subcategory, SubcategoryList } from '../../../../../models/subcategory.model';
 import { SubcategoryService } from '../../subcategory.service';
 
 @Component({

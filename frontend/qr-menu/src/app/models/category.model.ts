@@ -1,6 +1,6 @@
-export interface Category {
-    id: number;
-    name: string;
+import { Entity, EntityList } from "./entity.model";
+
+export interface Category extends Entity {
     _links: {
         self: { href: string},
         subcategories:{ href: string},
@@ -8,11 +8,8 @@ export interface Category {
     };
 }
 
-export interface CategoryList<Category> {
+export interface CategoryList<Category> extends EntityList<Entity> {
     _embedded: {
         categoryList: Category[]
-    }
-    _links: {
-        self: string;
     }
 }

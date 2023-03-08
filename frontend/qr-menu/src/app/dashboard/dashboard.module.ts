@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ProductTableComponent } from './product/product-table/product-table.component';
+import { CategoryTableComponent } from './category/category-table/category-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -36,7 +37,8 @@ import { ProductFormComponent } from './product/product-form/product-form.compon
     ProductInfoComponent,
     ProductEditViewComponent,
     NewProductViewComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    CategoryTableComponent
   ],
   imports: [
     CommonModule,

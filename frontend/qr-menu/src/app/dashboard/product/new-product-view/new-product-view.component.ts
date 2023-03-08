@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Product } from 'src/app/public/modules/product/product.model';
-import { ProductTableService } from '../product-table/product-table.service';
+import { Product } from 'src/app/models/product.model';
+import { ProductDashboardService } from '../product-dashboard.service';
 
 @Component({
   selector: 'app-new-product-view',
@@ -32,7 +32,7 @@ export class NewProductViewComponent {
   constructor(
     public dialogRef: MatDialogRef<NewProductViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Product,
-    private productService : ProductTableService
+    private productService : ProductDashboardService
   ) {}
 
   // Simply close the dialog

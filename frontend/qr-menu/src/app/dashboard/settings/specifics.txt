@@ -1,0 +1,9 @@
+imports -> specific in child class?
+
+displayedColumns -> super constructor then push specifics? order?
+
+specific service -> polymorphism in constructor?
+    -> or maybe polymorphic entity type?
+
+_embedded.categoryList
+
