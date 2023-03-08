@@ -132,6 +132,7 @@ public class ProductService extends AbstractService {
             throw new AlreadyExistsException("Product with the name '" + newEntity.getName() + "' already exists.");
         }
 
+        newEntity.setSubcategories(originalEntity.getSubcategories());
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
         productRepository.save(originalEntity);
         return productMapper.entityToJson(originalEntity);
