@@ -1,19 +1,15 @@
 <div class="edit-container" [formGroup]="productForm">
-    <mat-form-field appearance="outline"
-        [floatLabel]="getFloatLabelValue()"
-    >
+    <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" placeholder="{{data.name}}">
     </mat-form-field>
-    <mat-form-field appearance="outline"
-        [floatLabel]="getFloatLabelValue()">
+    <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Price</mat-label>
         <input matInput type="number" formControlName="price" placeholder="{{data.price}}">
         <span matTextPrefix>€&nbsp;</span>
+        <mat-error *ngIf="price.invalid">{{getPriceErrorMessage()}}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline"
-        [floatLabel]="getFloatLabelValue()"
-    >
+    <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description" placeholder="{{data.description}}"></textarea>
     </mat-form-field>
@@ -26,7 +22,7 @@
       </mat-form-field>
 
     <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()" color="accent">Close</button>
+        <button mat-button (click)="close()" color="accent">Close</button>
         <button mat-button (click)="saveChanges(data.id)" [mat-dialog-close]="data" color="primary" cdkFocusInitial>Edit</button>
     </div>
 </div>

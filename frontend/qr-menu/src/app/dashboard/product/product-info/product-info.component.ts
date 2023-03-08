@@ -17,6 +17,6 @@ export class ProductInfoComponent {
     this.dialogRef.close();
   }
   editProduct(): void {
-    console.log("edit");
+    this.dialogRef.close(this.data.id);
   }
 }

@@ -1,4 +1,4 @@
-<div class="header-container">
+<div class="header-container" id="scroll-top">
   <h1>Producten</h1>
   <button mat-raised-button class="new-button" (click)="newProduct()" color="primary">New</button>
   <mat-form-field class="filter-search" appearance="outline">
@@ -8,6 +8,7 @@
 </div>
 
 <div class="mat-elevation-z8">
+
   <table mat-table class="product-table" matSort aria-label="Elements">
     <!-- Id Column -->
     <!-- <ng-container matColumnDef="id">
@@ -52,6 +53,8 @@
       [pageIndex]="0"
       [pageSize]="20"
       [pageSizeOptions]="[10, 20, 50]"
+      [showFirstLastButtons]="true"
+      (page)="onProductPaginateChange($event)"
       aria-label="Select page">
   </mat-paginator>
 </div>

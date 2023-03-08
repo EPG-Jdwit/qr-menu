@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import  {FloatLabelType } from '@angular/material/form-field';
 
 import { Product } from 'src/app/public/modules/product/product.model';
 import { ProductTableService } from '../product-table/product-table.service';
@@ -12,8 +11,8 @@ import { ProductTableService } from '../product-table/product-table.service';
   styleUrls: ['./new-product-view.component.scss']
 })
 export class NewProductViewComponent {
-  floatLabelControl = new FormControl('always' as FloatLabelType);
   allergenics = new FormControl('');
+  // TODO: Add endpoint to the backend to retrieve this list dynamically
   allergenicList: string[] = ['Milk', 'Egg', 'Seafood', 'Gluten', 'Nuts', 'Soja'];
 
   productForm = new FormGroup({
@@ -35,25 +34,27 @@ export class NewProductViewComponent {
     private productService : ProductTableService
   ) {}
 
-  onNoClick(): void {
+  // Simply close the dialog
+  close(): void {
     this.dialogRef.close();
   }
 
+  // Save the new product
   saveChanges(): void {
     this.copyChanges();
+    // Save the product to the backend
     this.productService.saveProduct(this.data).subscribe(response =>
+      // Close the dialog and return the product (with assigned ID) front the backend
       this.dialogRef.close(response)
     );
   }
 
-  getFloatLabelValue(): FloatLabelType {
-    return this.floatLabelControl.value || 'auto';
-  }
-
+  // Copy values from the form into the data Product object
   private copyChanges(): void {
     this.data = {name: this.productForm.value.name, price: +this.productForm.value.price, description: this.productForm.value.description};
   }
 
+  // Methods to retrieve members of the FormGroup
   get name() {
     return this.productForm.get("name");
   }
@@ -62,7 +63,7 @@ export class NewProductViewComponent {
     return this.productForm.get("price");
   }
 
-  // // Errors
+  // Error messages
   getNameErrorMessage(): string{
     return 'Name is required';
   }

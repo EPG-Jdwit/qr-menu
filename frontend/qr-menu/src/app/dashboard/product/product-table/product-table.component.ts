@@ -1,5 +1,5 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -30,8 +30,8 @@ export class ProductTableComponent {
     this.dataSource = new MatTableDataSource();
   }
 
+  // Fetch all existing products for the table on initialization
   ngOnInit() {
-
     this.productTableService.getProducts()
       .subscribe(
       products => {
@@ -39,45 +39,60 @@ export class ProductTableComponent {
         if (products._embedded) {
           this.dataSource.data = products._embedded.productList;
         }
+        // Set paginator, sorting and filtering to the data source
         this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = function (product, filter) {
-            return product.name.toLowerCase().includes(filter.trim().toLowerCase())
-
-          }
-          this.table.dataSource = this.dataSource;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = function (product, filter) {
+          return product.name.toLowerCase().includes(filter.trim().toLowerCase())
+        }
+        // Set the MatTableDataSource as source of the table's data
+        this.table.dataSource = this.dataSource;
       });
   }
 
+  // Filtering of the table by name (substring matching)
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Delete product
   deleteProduct(id: number) :void {
+    // Delete from the backend
     this.productTableService.deleteProduct(id);
+    // Delete from the frontend TODO: error handling NotFound
     const index = this.dataSource.data.findIndex(product => product.id == id);
     this.dataSource.data.splice(index, 1);
     this.dataSource.data = this.dataSource.data;
   }
 
+  // Display a dialog with all the information about the product
+  // with the posibility of editing it
   showProductInfo(id: number): void {
     const index = this.dataSource.data.findIndex(product => product.id == id);
     const item = this.dataSource.data[index];
     const dialogRef = this.dialog.open(ProductInfoComponent, {
-      // height: '40vh',
-      // width: '40vw',
       data: item
     });
+    dialogRef.afterClosed().subscribe(id => {
+      // Ignore when the dialog was closed by canceling
+      if (id) {
+        // Open the edit dialog for the product
+        this.editProduct(id);
+      }
+    });
   }
+
+  // Edit the product
   editProduct(id: number): void {
     const index = this.dataSource.data.findIndex(product => product.id == id);
     const item = this.dataSource.data[index];
-    const dialogRef = this.dialog.open(ProductEditViewComponent, {
+    this.dialog.open(ProductEditViewComponent, {
       data: item
     });
   }
 
+  // Add a new product
   newProduct(): void {
     let newProduct: Product;
     const dialogRef = this.dialog.open(NewProductViewComponent, {
@@ -91,5 +106,11 @@ export class ProductTableComponent {
         this.dataSource.data = this.dataSource.data;
       }
     });
+  }
+
+  // Scrolls to the top of the table when the next page in the paginator requested
+  onProductPaginateChange(event: any) {
+    const element = document.getElementById("scroll-top");
+    element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 }

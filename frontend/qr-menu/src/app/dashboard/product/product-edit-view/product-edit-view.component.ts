@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import  {FloatLabelType } from '@angular/material/form-field';
 
 import { Product } from 'src/app/public/modules/product/product.model';
 import { ProductTableService } from '../product-table/product-table.service';
@@ -12,7 +11,6 @@ import { ProductTableService } from '../product-table/product-table.service';
   styleUrls: ['./product-edit-view.component.scss']
 })
 export class ProductEditViewComponent {
-  floatLabelControl = new FormControl('always' as FloatLabelType);
   allergenics = new FormControl('');
   allergenicList: string[] = ['Milk', 'Egg', 'Seafood', 'Gluten', 'Nuts', 'Soja'];
 
@@ -21,7 +19,7 @@ export class ProductEditViewComponent {
       // Validators.minLength(5)
     ]),
     price: new FormControl('', [
-
+      Validators.min(0)
     ]),
     description: new FormControl('', [
 
@@ -34,17 +32,15 @@ export class ProductEditViewComponent {
     private productService : ProductTableService
   ) {}
 
-  onNoClick(): void {
+  // Simply close the dialog
+  close(): void {
     this.dialogRef.close();
   }
 
+  // Save the changes to the backend
   saveChanges(id: number): void {
     this.copyChanges();
     this.productService.updateProduct(id, this.data);
-  }
-
-  getFloatLabelValue(): FloatLabelType {
-    return this.floatLabelControl.value || 'auto';
   }
 
   private copyChanges(): void {
@@ -54,8 +50,18 @@ export class ProductEditViewComponent {
     if (this.productForm.value.price) {
       this.data.price = +this.productForm.value.price;
     }
-    if (this.productForm.value.name) {
+    if (this.productForm.value.description) {
       this.data.description = this.productForm.value.description;
     }
+  }
+
+  // Method to retrieve the price member of the FormGroup
+  get price() {
+    return this.productForm.get("price");
+  }
+
+  // Error messages
+  getPriceErrorMessage(): string {
+    return this.productForm.get("price").hasError('min') ? 'Price must be >= 0' : '';
   }
 }
