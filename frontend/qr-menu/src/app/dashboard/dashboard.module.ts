@@ -23,6 +23,8 @@ import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overv
 import { ProductInfoComponent } from './product/product-info/product-info.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProductEditViewComponent } from './product/product-edit-view/product-edit-view.component';
+import { NewProductViewComponent } from './product/new-product-view/new-product-view.component';
+import { ProductFormComponent } from './product/product-form/product-form.component';
 
 
 
@@ -34,7 +36,9 @@ import { ProductEditViewComponent } from './product/product-edit-view/product-ed
     ProductTableComponent,
     DashboardOverviewComponent,
     ProductInfoComponent,
-    ProductEditViewComponent
+    ProductEditViewComponent,
+    NewProductViewComponent,
+    ProductFormComponent
   ],
   imports: [
     CommonModule,

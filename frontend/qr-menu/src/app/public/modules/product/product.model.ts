@@ -1,10 +1,10 @@
 export interface Product {
-    id: number;
+    id?: number;
     name: string;
-    price: number;
-    description: string;
-    allergenics: string[];
-    _links: {
+    price?: number;
+    description?: string;
+    allergenics?: string[];
+    _links?: {
         self: { href: string},
         products:{ href: string}
     };

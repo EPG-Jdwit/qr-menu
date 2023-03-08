@@ -18,7 +18,7 @@
 }
 
 .filter-search {
-  margin-right: 5%;
+  // margin-right: 5%;
   margin-left: auto;
   width: 40%;
   font-size: 1rem;
@@ -26,6 +26,11 @@
 
 .header-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.new-button { 
+  margin-left: 3vw;
+  margin-right: 15vw;
 }

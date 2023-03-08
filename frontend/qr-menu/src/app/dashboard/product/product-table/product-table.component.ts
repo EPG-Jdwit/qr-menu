@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 import { Product } from 'src/app/public/modules/product/product.model';
+import { NewProductViewComponent } from '../new-product-view/new-product-view.component';
 import { ProductEditViewComponent } from '../product-edit-view/product-edit-view.component';
 import { ProductInfoComponent } from '../product-info/product-info.component';
 import { ProductTableService } from './product-table.service';
@@ -34,14 +35,17 @@ export class ProductTableComponent {
     this.productTableService.getProducts()
       .subscribe(
       products => {
-        this.dataSource.data = products._embedded.productList;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = function (product, filter) {
-          return product.name.toLowerCase().includes(filter.trim().toLowerCase())
-
+        // response only contains _embedded if products exist
+        if (products._embedded) {
+          this.dataSource.data = products._embedded.productList;
         }
-        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = function (product, filter) {
+            return product.name.toLowerCase().includes(filter.trim().toLowerCase())
+
+          }
+          this.table.dataSource = this.dataSource;
       });
   }
 
@@ -70,9 +74,22 @@ export class ProductTableComponent {
     const index = this.dataSource.data.findIndex(product => product.id == id);
     const item = this.dataSource.data[index];
     const dialogRef = this.dialog.open(ProductEditViewComponent, {
-      // height: '50vh',
-      // width: '50vw',
       data: item
+    });
+  }
+
+  newProduct(): void {
+    let newProduct: Product;
+    const dialogRef = this.dialog.open(NewProductViewComponent, {
+      data: newProduct
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // Ignore when the dialog was closed by canceling
+      if (result) {
+        // Add the created product to the table
+        this.dataSource.data.push(result);
+        this.dataSource.data = this.dataSource.data;
+      }
     });
   }
 }

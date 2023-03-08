@@ -1,5 +1,6 @@
 <div class="header-container">
   <h1>Producten</h1>
+  <button mat-raised-button class="new-button" (click)="newProduct()" color="primary">New</button>
   <mat-form-field class="filter-search" appearance="outline">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. koffie" #input>

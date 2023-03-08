@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Product, ProductList } from 'src/app/public/modules/product/product.model';
 
@@ -31,5 +31,9 @@ export class ProductTableService {
     // TODO: remove this
       console.log("test")
     );
+  }
+
+  saveProduct(product: Product) : Observable<Product> {
+    return this.http.post<Product>(this.productUrl, product);
   }
 }
