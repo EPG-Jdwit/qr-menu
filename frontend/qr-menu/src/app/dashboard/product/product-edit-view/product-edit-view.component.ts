@@ -11,13 +11,15 @@ import { ProductTableService } from '../product-table/product-table.service';
   styleUrls: ['./product-edit-view.component.scss']
 })
 export class ProductEditViewComponent {
-  allergenics = new FormControl('');
-  allergenicList: string[] = ['Milk', 'Egg', 'Seafood', 'Gluten', 'Nuts', 'Soja'];
-
+  allergenicFormControl = new FormControl();
+  allergenicList: string[] = [ "Ei", "Melk", "Gluten", "Lupine", "Mosterd", "Noten", "Pindas",
+    "Schaaldieren", "Selderij", "Sesamzaad", "Soja", "Vis", "Weekdieren", "Zwavel"].sort();
+  
   productForm = new FormGroup({
     name: new FormControl('', [
       // Validators.minLength(5)
     ]),
+    // TODO: number instead of ''
     price: new FormControl('', [
       Validators.min(0)
     ]),
@@ -30,7 +32,15 @@ export class ProductEditViewComponent {
     public dialogRef: MatDialogRef<ProductEditViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Product,
     private productService : ProductTableService
-  ) {}
+  ) {
+    // Set selected allergenic values in the multi select
+    if (data.allergenicList) {
+      this.allergenicFormControl.setValue(
+        // Capitalize the items
+        data.allergenicList.map(item => item.charAt(0).toUpperCase() + item.slice(1))
+        );
+    }
+  }
 
   // Simply close the dialog
   close(): void {
@@ -52,6 +62,9 @@ export class ProductEditViewComponent {
     }
     if (this.productForm.value.description) {
       this.data.description = this.productForm.value.description;
+    }
+    if (this.allergenicFormControl.value) {
+      this.data.allergenicList = this.allergenicFormControl.value.map(item => item.toLowerCase());
     }
   }
 

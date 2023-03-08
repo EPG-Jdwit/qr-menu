@@ -40,7 +40,7 @@ export class SubcategoryProductListComponent {
               name: product.name,
               price: product.price,
               description: product.description,
-              allergenics: product.allergenics
+              allergenicList: product.allergenicList
           } as Product);
           })
         )

@@ -11,9 +11,10 @@ import { ProductTableService } from '../product-table/product-table.service';
   styleUrls: ['./new-product-view.component.scss']
 })
 export class NewProductViewComponent {
-  allergenics = new FormControl('');
+  allergenicFormControl = new FormControl();
   // TODO: Add endpoint to the backend to retrieve this list dynamically
-  allergenicList: string[] = ['Milk', 'Egg', 'Seafood', 'Gluten', 'Nuts', 'Soja'];
+  allergenicList: string[] = [ "Ei", "Melk", "Gluten", "Lupine", "Mosterd", "Noten", "Pindas",
+    "Schaaldieren", "Selderij", "Sesamzaad", "Soja", "Vis", "Weekdieren", "Zwavel"].sort();
 
   productForm = new FormGroup({
     name: new FormControl('', [
@@ -42,6 +43,10 @@ export class NewProductViewComponent {
   // Save the new product
   saveChanges(): void {
     this.copyChanges();
+    // Add the selectet allergenics to the product
+    if (this.allergenicFormControl.value) {
+      this.data.allergenicList = this.allergenicFormControl.value.map((a : string) => a.toLowerCase());
+    }
     // Save the product to the backend
     this.productService.saveProduct(this.data).subscribe(response =>
       // Close the dialog and return the product (with assigned ID) front the backend

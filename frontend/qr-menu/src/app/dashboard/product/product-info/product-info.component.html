@@ -3,6 +3,10 @@
     <p>ID: {{data.id}}</p>
     <p>Price: {{data.price}}</p>
     <p>Description: {{data.description}}</p>
+    <p>Allergenics:</p>
+    <div *ngFor="let a of data.allergenicList">
+        <p>{{a}}</p>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()" color="accent">Close</button>

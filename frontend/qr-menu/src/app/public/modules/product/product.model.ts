@@ -3,7 +3,7 @@ export interface Product {
     name: string;
     price?: number;
     description?: string;
-    allergenics?: string[];
+    allergenicList?: string[];
     _links?: {
         self: { href: string},
         products:{ href: string}
