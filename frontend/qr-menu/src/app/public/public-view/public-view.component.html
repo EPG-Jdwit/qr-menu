@@ -1,10 +1,11 @@
-<div id="title-container">
-    <img src="assets/images/tafel8.avif" id="top-banner" alt="Barkentijn ODK Banner">
-    <div id="banner-text">De Barkentijn Oostduinkerke</div>
+<div id="public-view-container">
+  <div id="title-container">
+      <img src="assets/images/tafel8.avif" id="top-banner" alt="Barkentijn ODK Banner">
+      <div id="banner-text">De Barkentijn Oostduinkerke</div>
   </div>
   <div id="nav-container">
     <div class="nav-container-item nav-container-item-1">
-      <img src="assets/images/bktlogo.avif" id="logo" alt="logo de Barkentijn">
+      <img src="assets/images/bktlogo.png" id="logo" alt="logo de Barkentijn">
     </div>
     <div id="navbar" class="nav-container-item nav-container-item-2">
       <a class="nav-item nav-item-l" routerLink="/">Home</a>
@@ -16,16 +17,17 @@
   </div>
 
   <div id="content-window">
-  <div class="left-panel">
-    <img src="assets/images/duinenwandeling-koksijde-oostduinkerke.avif" id="left-panel-image" alt="Duinen Oostduinkerke"/>
+    <div class="left-panel">
+      <img src="assets/images/duinenwandeling-koksijde-oostduinkerke.avif" id="left-panel-image" alt="Duinen Oostduinkerke"/>
+    </div>
+    <div class="center-panel">    
+      <router-outlet></router-outlet>
+    </div>
+    <div class="right-panel">
+      <img src="assets/images/pdvs.avif" id="right-panel-image" alt="Paardevischer op strand ODK"/>
+    </div>
   </div>
-  <div class="center-panel">    
-    <router-outlet></router-outlet>
-  </div>
-  <div class="right-panel">
-    <img src="assets/images/pdvs.avif" id="right-panel-image" alt="Paardevischer op strand ODK"/>
-  </div>
+  <footer>
+    Designed by Joshua De Wit
+  </footer>
 </div>
-<footer>
-  Designed by Joshua De Wit
-</footer>
