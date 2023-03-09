@@ -6,8 +6,8 @@ import { CategoryDashboardService } from '../category-dashboard.service';
 
 @Component({
     selector: 'category-table',
-    templateUrl: './category-table.component.html',
-    styleUrls: ['./category-table.component.scss']
+    templateUrl: '../../shared/dashboard-table/base-table.component.html',
+    styleUrls: ['../../shared/dashboard-table/base-table.component.scss']
 })
 export class CategoryTableComponent extends BaseTableComponent {
 
@@ -17,6 +17,8 @@ export class CategoryTableComponent extends BaseTableComponent {
     ) {
         super(service, dialog);
         this.embeddedList = 'categoryList';
+        this.type = 'Category';
+        this.plural = 'Categories';
     }
     
 }

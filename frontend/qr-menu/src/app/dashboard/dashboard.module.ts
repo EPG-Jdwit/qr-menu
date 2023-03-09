@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { DashboardNavComponent } from './dashboard-nav/dashboard-nav.component';
+import { BaseTableComponent } from './shared/dashboard-table/base-table.component';
 import { DashboardInfoComponent } from './shared/dashboard-info/dashboard-info.component';
 
 import { ProductTableComponent } from './product/product-table/product-table.component';
@@ -28,8 +29,10 @@ import { ProductEditViewComponent } from './product/product-edit-view/product-ed
 import { NewProductViewComponent } from './product/new-product-view/new-product-view.component';
 
 import { CategoryTableComponent } from './category/category-table/category-table.component';
-import { ProductFormComponent } from './product/product-form/product-form.component';
 import { CategoryInfoComponent } from './category/category-info/category-info.component';
+
+import { SubcategoryTableComponent } from './subcategory/subcategory-table/subcategory-table.component';
+import { SubcategoryInfoComponent } from './subcategory/subcategory-info/subcategory-info.component';
 
 @NgModule({
   declarations: [
@@ -40,10 +43,12 @@ import { CategoryInfoComponent } from './category/category-info/category-info.co
     ProductInfoComponent,
     ProductEditViewComponent,
     NewProductViewComponent,
-    ProductFormComponent,
     CategoryTableComponent,
     DashboardInfoComponent,
-    CategoryInfoComponent
+    CategoryInfoComponent,
+    SubcategoryTableComponent,
+    SubcategoryInfoComponent,
+    BaseTableComponent
   ],
   imports: [
     CommonModule,

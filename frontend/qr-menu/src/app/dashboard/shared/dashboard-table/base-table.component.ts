@@ -19,9 +19,11 @@ export class BaseTableComponent {
     @ViewChild(MatTable) table!: MatTable<Entity>;
     dataSource: MatTableDataSource<Entity>;
 
-    protected embeddedList = ''
+    protected embeddedList: string = '';
+    type: string = '';
+    plural: string = '';
 
-    displayedColumns = ['name', 'actions'];
+    displayedColumns: string[] = ['name', 'actions'];
 
     constructor(public service: AbstractDashboardService,
                 public dialog: MatDialog) {

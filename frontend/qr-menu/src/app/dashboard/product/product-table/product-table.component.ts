@@ -9,8 +9,8 @@ import { Product } from 'src/app/models/product.model';
 
 @Component({
     selector: 'product-table',
-    templateUrl: './product-table.component.html',
-    styleUrls: ['./product-table.component.scss']
+    templateUrl: '../../shared/dashboard-table/base-table.component.html',
+    styleUrls: ['../../shared/dashboard-table/base-table.component.scss']
 })
 export class ProductTableComponent extends BaseTableComponent {
 
@@ -20,6 +20,8 @@ export class ProductTableComponent extends BaseTableComponent {
         super(service, dialog);
         this.embeddedList = 'productList';
         this.insertDisplayedColumn("price");
+        this.type = 'Product';
+        this.plural = 'Products';
   }
   
     // Edit the entity

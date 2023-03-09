@@ -12,6 +12,7 @@ import { BookingViewComponent } from './public/modules/booking/components/bookin
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { ProductTableComponent } from './dashboard/product/product-table/product-table.component';
 import { CategoryTableComponent } from './dashboard/category/category-table/category-table.component';
+import { SubcategoryTableComponent } from './dashboard/subcategory/subcategory-table/subcategory-table.component';
 
 const routes: Routes = [
   { path: 'dashboard', 
@@ -20,8 +21,9 @@ const routes: Routes = [
     { path: '', redirectTo: 'overview', pathMatch: 'full'},
     { path: 'overview', component: DashboardOverviewComponent},
     { path: 'products', component: ProductTableComponent},
-    { path: 'categories', component: CategoryTableComponent}
-    // { path: '**', component: DashboardOverviewComponent}
+    { path: 'categories', component: CategoryTableComponent},
+    { path: 'subcategories', component: SubcategoryTableComponent},
+    { path: '**', component: DashboardOverviewComponent}
   ] },
   { 
     path: '', 
