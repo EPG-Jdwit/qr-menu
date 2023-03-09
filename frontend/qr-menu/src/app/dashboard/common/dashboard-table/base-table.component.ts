@@ -5,15 +5,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 import { Category } from 'src/app/models/category.model';
-import { CategoryDashboardService } from '../../category/category-dashboard.service';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
 
 @Component({
   selector: 'dashboard-table',
-  templateUrl: './dashboard-table.component.html',
-  styleUrls: ['./dashboard-table.component.scss']
+  templateUrl: './base-table.component.html',
+  styleUrls: ['./base-table.component.scss']
 })
-export class DashboardTableComponent {
+export class BaseTableComponent {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<Category>;
@@ -80,10 +79,18 @@ export class DashboardTableComponent {
         element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 
+    // Synchronizes the two paginators
     public handlePageBottom(event: PageEvent) {
         this.paginator.pageSize = event.pageSize;
         this.paginator.pageIndex = event.pageIndex;
         this.paginator.page.emit(event);
+    }
+
+    // Inserts extra columns and sets actions as the last column
+    public insertDisplayedColumn(column: string): void {
+        var index = this.displayedColumns.indexOf("actions");
+        this.displayedColumns[index] = column;
+        this.displayedColumns.push("actions");
     }
 
 }
