@@ -30,19 +30,19 @@ export class BaseTableComponent {
         this.dataSource = new MatTableDataSource();
     }
 
-    // Fetch all existing categories for the table on initialization
+    // Fetch all existing entities for the table on initialization
     ngOnInit() {
         this.service.getAll().subscribe(
-            items => {
-                // response only contains _embedded if categories exist
-                if (items._embedded) {
-                    this.dataSource.data = eval('items._embedded' + '.' + this.embeddedList);
+            entities => {
+                // response only contains _embedded if entities exist
+                if (entities._embedded) {
+                    this.dataSource.data = eval('entities._embedded' + '.' + this.embeddedList);                    
                 }
                 // Set paginator, sorting and filtering to the data source
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator;
-                this.dataSource.filterPredicate = function (product, filter) {
-                return product.name.toLowerCase().includes(filter.trim().toLowerCase())
+                this.dataSource.filterPredicate = function (entity, filter) {
+                    return entity.name.toLowerCase().includes(filter.trim().toLowerCase())
                 }
                 // Set the MatTableDataSource as source of the table's data
                 this.table.dataSource = this.dataSource;
@@ -60,7 +60,7 @@ export class BaseTableComponent {
         // Delete from the backend
         this.service.deleteById(id);
         // Delete from the frontend TODO: error handling NotFound
-        const index = this.dataSource.data.findIndex(product => product.id == id);
+        const index = this.dataSource.data.findIndex(entity => entity.id == id);
         this.dataSource.data.splice(index, 1);
         this.dataSource.data = this.dataSource.data;
     }
@@ -68,43 +68,28 @@ export class BaseTableComponent {
     // Display a dialog with all the information about the entity
     // with the posibility of editing it
     showInfoById(id: number): void {
-        const index = this.dataSource.data.findIndex(product => product.id == id);
-        const item = this.dataSource.data[index];
+        const index = this.dataSource.data.findIndex(entity => entity.id == id);
+        const entity = this.dataSource.data[index];
         const dialogRef = this.dialog.open(DashboardInfoComponent, {
-            data: item
+            data: entity
         });
         dialogRef.afterClosed().subscribe(id => {
             // Ignore when the dialog was closed by canceling
             if (id) {
-                // Open the edit dialog for the product
+                // Open the edit dialog for the entity
                 this.editById(id);
             }
         });
     }
 
-    // // Edit the entity
+    // Edit the entity
     editById(id: number): void {
-    //     const index = this.dataSource.data.findIndex(product => product.id == id);
-    //     const item = this.dataSource.data[index];
-    //     this.dialog.open(ProductEditViewComponent, {
-    //         data: item
-    //     });
+        // empty in base component
     }
 
-    // // Add a new entity
+    // Add a new entity
     create(): void {
-    //     let newEntity: Entity;
-    //     const dialogRef = this.dialog.open(NewProductViewComponent, {
-    //         data: newEntity
-    //     });
-    //     dialogRef.afterClosed().subscribe(result => {
-    //     // Ignore when the dialog was closed by canceling
-    //     if (result) {
-    //         // Add the created product to the table
-    //         this.dataSource.data.push(result);
-    //         this.dataSource.data = this.dataSource.data;
-    //     }
-    //     });
+        // empty in base component
     }
 
     // Scrolls to the top of the table when the next page in the paginator requested
