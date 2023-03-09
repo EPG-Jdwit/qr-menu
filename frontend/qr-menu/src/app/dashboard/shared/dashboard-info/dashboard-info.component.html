@@ -30,22 +30,22 @@
             </div>
         </div>
         <div *ngIf="data.hasOwnProperty('allergenicList')">
-            <div id="dashboard-allergenics-label" class="dashboard-info-label">
+            <div id="dashboard-list-label" class="dashboard-info-label">
                 Allergenics:
             </div>
-            <div class="allergenic-list">
+            <div class="dashboard-list">
                 <div class="dashboard-info-value" *ngFor="let a of data.allergenicList">
-                    <div class="allergenic-item">{{a}}</div>
+                    <div class="dashboard-list-item">{{a}}</div>
                 </div>
             </div>
         </div>
         <div *ngIf="data.hasOwnProperty('subcategories')">
-            <div id="dashboard-subcategories-label" class="dashboard-info-label">
+            <div id="dashboard-list-label" class="dashboard-info-label">
                 Subcategories:
             </div>
-            <div class="subcategory-list">
+            <div class="dashboard-list">
                 <div class="dashboard-info-value" *ngFor="let sc of data.subcategories">
-                    <div class="subcategory-item">{{sc}}</div>
+                    <div class="dashboard-list-item">{{sc.name}}</div>
                 </div>
             </div>
         </div>
