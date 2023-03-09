@@ -33,6 +33,10 @@ import { CategoryInfoComponent } from './category/category-info/category-info.co
 
 import { SubcategoryTableComponent } from './subcategory/subcategory-table/subcategory-table.component';
 import { SubcategoryInfoComponent } from './subcategory/subcategory-info/subcategory-info.component';
+import { NewCategoryViewComponent } from './category/new-category-view/new-category-view.component';
+import { EditCategoryViewComponent } from './category/edit-category-view/edit-category-view.component';
+import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.component';
+import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { SubcategoryInfoComponent } from './subcategory/subcategory-info/subcate
     CategoryInfoComponent,
     SubcategoryTableComponent,
     SubcategoryInfoComponent,
-    BaseTableComponent
+    BaseTableComponent,
+    NewCategoryViewComponent,
+    EditCategoryViewComponent,
+    DashboardNewComponent,
+    NewProductSubViewComponent
   ],
   imports: [
     CommonModule,

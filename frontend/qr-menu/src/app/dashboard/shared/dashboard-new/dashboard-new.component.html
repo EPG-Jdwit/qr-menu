@@ -1,0 +1,17 @@
+<div class="new-container" [formGroup]="entityForm">
+    <h1>New</h1>
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <div *ngIf="isType('Product')">
+        <app-new-product-sub-view [allergenicFormControl]="allergenicFormControl" [entityForm]="entityForm"></app-new-product-sub-view>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="close()" color="accent">Close</button>
+        <button mat-button (click)="saveChanges()" [disabled]="!entityForm.valid" [mat-dialog-close]="data" color="primary">Add Product</button>
+    </div>
+</div>
