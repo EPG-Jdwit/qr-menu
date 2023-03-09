@@ -1,0 +1,47 @@
+<div id="dashboard-info-container">
+    <h1 mat-dialog-title id="dashboard-info-title">{{data.name}}</h1>
+    <div mat-dialog-content>
+        <div id="dashboard-info-id" class="dashboard-info-section">
+            <div id="dashboard-id-label" class="dashboard-info-label">
+                ID:
+            </div>
+            <div id="dashboard-id-value" class="dashboard-info-value">
+                {{data.id}}
+            </div>
+        </div>
+        <div *ngIf="data.hasOwnProperty('price')">
+            <div id="dashboard-info-price" class="dashboard-info-section">
+                <div id="dashboard-price-label" class="dashboard-info-label">
+                    Price:
+                </div>
+                <div id="dashboard-price-value" class="dashboard-info-value">
+                    {{data.price | currency:'EUR'}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data.hasOwnProperty('description')">
+            <div id="dashboard-info-description" class="dashboard-info-section">
+                <div id="dashboard-description-label" class="dashboard-info-label">
+                    Description:
+                </div>
+                <div id="dashboard-description-value" class="dashboard-info-value">
+                    {{data.description}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data.hasOwnProperty('allergenicList')">
+            <div id="dashboard-allergenics-label" class="dashboard-info-label">
+                Allergenics:
+            </div>
+            <div class="allergenic-list">
+                <div class="dashboard-info-value" *ngFor="let a of data.allergenicList">
+                    <div class="allergenic-item">{{a}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions id="dashboard-info-actions">
+        <button mat-button (click)="onNoClick()" color="accent">Close</button>
+        <button mat-button (click)="edit()" color="primary" cdkFocusInitial>Edit</button>
+    </div>
+</div>

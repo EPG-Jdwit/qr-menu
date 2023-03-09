@@ -1,22 +1,18 @@
 import {Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { Product } from 'src/app/models/product.model';
+
+import { DashboardInfoComponent } from '../../shared/dashboard-info/dashboard-info.component';
 
 @Component({
-  selector: 'app-product-info',
-  templateUrl: './product-info.component.html',
-  styleUrls: ['./product-info.component.scss']
+    selector: 'app-product-info',
+    templateUrl: '../../shared/dashboard-info/dashboard-info.component.html',
+    styleUrls: ['../../shared/dashboard-info/dashboard-info.component.scss']
 })
-export class ProductInfoComponent {
-  constructor(
-    public dialogRef: MatDialogRef<ProductInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Product,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  editProduct(): void {
-    this.dialogRef.close(this.data.id);
-  }
+export class ProductInfoComponent extends DashboardInfoComponent {
+    constructor(
+        public override dialogRef: MatDialogRef<DashboardInfoComponent>,
+        @Inject(MAT_DIALOG_DATA) public override data: any,
+    ) {
+        super(dialogRef, data);
+    }
 }

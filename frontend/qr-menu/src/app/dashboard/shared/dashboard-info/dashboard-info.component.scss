@@ -1,6 +1,5 @@
-#product-info-container {
+#dashboard-info-container {
     width: 40vw;
-    // height: 40vh;
     padding: auto 0.5rem;
 
     display: flex;
@@ -8,25 +7,25 @@
     justify-content: center;
 }
 
-.product-info-section {
+.dashboard-info-section {
     padding: 0.3rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-#product-info-title {
+#dashboard-info-title {
     margin: 10px auto 20px auto;
     text-align: center;
 
     font-size: clamp(1rem, 2vmax, 4rem);
 }
 
-.product-info-label {
+.dashboard-info-label {
     font-weight: bold;
 }
 
-#product-allergenics-label {
+#dashboard-allergenics-label {
     margin-top: 1.5rem;
 }
 
@@ -38,6 +37,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     border: 1px solid lightgray;
+    min-height: 10vh;
 }
 
 .allergenic-item {
@@ -47,6 +47,6 @@
     font-size: clamp(1rem, 1.5vw, 1.5rem); 
 }
 // Position the buttons
-#product-info-container > div.mat-mdc-dialog-actions.mdc-dialog__actions {
+#dashboard-info-container > div.mat-mdc-dialog-actions.mdc-dialog__actions {
     justify-content: space-around;
 }

@@ -48,7 +48,7 @@ export class NewProductViewComponent {
       this.data.allergenicList = this.allergenicFormControl.value.map((a : string) => a.toLowerCase());
     }
     // Save the product to the backend
-    this.productService.saveProduct(this.data).subscribe(response =>
+    this.productService.create(this.data).subscribe(response =>
       // Close the dialog and return the product (with assigned ID) front the backend
       this.dialogRef.close(response)
     );

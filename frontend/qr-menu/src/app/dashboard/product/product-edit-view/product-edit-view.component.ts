@@ -50,7 +50,7 @@ export class ProductEditViewComponent {
   // Save the changes to the backend
   saveChanges(id: number): void {
     this.copyChanges();
-    this.productService.updateProduct(id, this.data);
+    this.productService.editById(id, this.data);
   }
 
   private copyChanges(): void {

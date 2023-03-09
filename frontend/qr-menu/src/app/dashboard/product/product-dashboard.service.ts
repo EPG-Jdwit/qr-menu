@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Product, ProductList } from 'src/app/models/product.model';
-import { AbstractDashboardService } from '../common/abstract-dashboard.service';
+import { AbstractDashboardService } from '../shared/abstract-dashboard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +19,21 @@ export class ProductDashboardService extends AbstractDashboardService {
     return this.http.get<ProductList<Product>>(this.baseUrl);
   }
 
-  deleteProduct(id : number) : void {
+  deleteById(id : number) : void {
     this.http.delete(this.baseUrl + "/" + id).subscribe(() =>
     // TODO: remove this
       console.log("test")
     );
   }
 
-  updateProduct(id: number, product: Product) : void {
+  editById(id: number, product: Product) : void {
     this.http.patch(this.baseUrl + "/" + id, product).subscribe(() =>
     // TODO: remove this
       console.log("test")
     );
   }
 
-  saveProduct(product: Product) : Observable<Product> {
+  create(product: Product) : Observable<Product> {
     return this.http.post<Product>(this.baseUrl, product);
   }
 }

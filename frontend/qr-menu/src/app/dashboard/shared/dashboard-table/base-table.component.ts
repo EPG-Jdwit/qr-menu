@@ -4,8 +4,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
-import { Category } from 'src/app/models/category.model';
+import { Entity } from 'src/app/models/entity.model';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
+import { DashboardInfoComponent } from '../dashboard-info/dashboard-info.component';
 
 @Component({
   selector: 'dashboard-table',
@@ -15,8 +16,8 @@ import { AbstractDashboardService } from '../abstract-dashboard.service';
 export class BaseTableComponent {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    @ViewChild(MatTable) table!: MatTable<Category>;
-    dataSource: MatTableDataSource<Category>;
+    @ViewChild(MatTable) table!: MatTable<Entity>;
+    dataSource: MatTableDataSource<Entity>;
 
     protected embeddedList = ''
 
@@ -52,25 +53,56 @@ export class BaseTableComponent {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    // Delete category
+    // Delete the entity
     deleteById(id: number): void {
-
+        // Delete from the backend
+        this.service.deleteById(id);
+        // Delete from the frontend TODO: error handling NotFound
+        const index = this.dataSource.data.findIndex(product => product.id == id);
+        this.dataSource.data.splice(index, 1);
+        this.dataSource.data = this.dataSource.data;
     }
 
-    // Display a dialog with all the information about the category
+    // Display a dialog with all the information about the entity
     // with the posibility of editing it
     showInfoById(id: number): void {
-
+        const index = this.dataSource.data.findIndex(product => product.id == id);
+        const item = this.dataSource.data[index];
+        const dialogRef = this.dialog.open(DashboardInfoComponent, {
+            data: item
+        });
+        dialogRef.afterClosed().subscribe(id => {
+            // Ignore when the dialog was closed by canceling
+            if (id) {
+                // Open the edit dialog for the product
+                this.editById(id);
+            }
+        });
     }
 
-    // Edit the category
+    // // Edit the entity
     editById(id: number): void {
-
+    //     const index = this.dataSource.data.findIndex(product => product.id == id);
+    //     const item = this.dataSource.data[index];
+    //     this.dialog.open(ProductEditViewComponent, {
+    //         data: item
+    //     });
     }
 
-    // Add a new category
+    // // Add a new entity
     create(): void {
-
+    //     let newEntity: Entity;
+    //     const dialogRef = this.dialog.open(NewProductViewComponent, {
+    //         data: newEntity
+    //     });
+    //     dialogRef.afterClosed().subscribe(result => {
+    //     // Ignore when the dialog was closed by canceling
+    //     if (result) {
+    //         // Add the created product to the table
+    //         this.dataSource.data.push(result);
+    //         this.dataSource.data = this.dataSource.data;
+    //     }
+    //     });
     }
 
     // Scrolls to the top of the table when the next page in the paginator requested

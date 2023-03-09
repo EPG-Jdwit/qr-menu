@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { BaseTableComponent } from '../../common/dashboard-table/base-table.component';
+import { BaseTableComponent } from '../../shared/dashboard-table/base-table.component';
 import { CategoryDashboardService } from '../category-dashboard.service';
 
 @Component({
