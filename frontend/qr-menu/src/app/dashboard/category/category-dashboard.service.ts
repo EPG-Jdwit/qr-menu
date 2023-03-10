@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import { Category, CategoryList } from 'src/app/models/category.model';
 import { Subcategory, SubcategoryList } from 'src/app/models/subcategory.model';
@@ -20,14 +20,14 @@ export class CategoryDashboardService extends AbstractDashboardService {
     // Get all existing categories while adding their subcategories
     getAll(): Observable<CategoryList<Category>> {
         // Get the categories
-        return this.http.get(this.baseUrl).pipe(
+        return this.http.get<CategoryList<Category>>(this.baseUrl).pipe(
             // Transform the received response
-            mergeMap((response: CategoryList<Category>) => {
+            mergeMap(response => {
                 // Unwrap the category list
                 var catList = response._embedded.categoryList;
                 for (let i = 0; i < catList.length; i++ ) {
                     // Retrieve the subcategories by using the link
-                    this.http.get(catList[i]._links.subcategories.href).subscribe((subcategoryResponse: SubcategoryList<Subcategory>) => {
+                    this.http.get<SubcategoryList<Subcategory>>(catList[i]._links.subcategories.href).subscribe(subcategoryResponse => {
                         // Check if the category has any subcategories
                         if (subcategoryResponse._embedded) {
                             // Add the subcategory array to the category
@@ -36,6 +36,7 @@ export class CategoryDashboardService extends AbstractDashboardService {
                     })
                 }
                 // Return the response that has been expanded with the subcategories of each category
+                // console.log(response)
                 return of(response);
             })
         );

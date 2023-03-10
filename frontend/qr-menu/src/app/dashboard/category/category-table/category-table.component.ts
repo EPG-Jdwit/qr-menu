@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewProductViewComponent } from '../../product/new-product-view/new-product-view.component';
 
 import { Category } from 'src/app/models/category.model';
 import { BaseTableComponent } from '../../shared/dashboard-table/base-table.component';
@@ -21,6 +20,7 @@ export class CategoryTableComponent extends BaseTableComponent {
     ) {
         super(service, dialog);
         this.embeddedList = 'categoryList';
+        this.insertDisplayedColumn("nSubcategories");
         this.type = 'Category';
         this.plural = 'Categories';
     }

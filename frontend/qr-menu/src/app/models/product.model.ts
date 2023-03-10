@@ -11,7 +11,7 @@ export interface Product extends Entity {
 }
 
 export interface SubcategoryProductList<Product> {
-    _embedded: {
+    _embedded?: {
         productList: Product[]
     };
     _links: {

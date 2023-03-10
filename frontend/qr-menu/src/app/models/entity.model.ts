@@ -4,9 +4,9 @@ export interface Entity {
 }
 
 export interface EntityList<Entity> {
-    _links: {
-        self: string;
-    },
     _embedded: {
+    };
+    _links: {
+        self: { href: string},
     }
 }

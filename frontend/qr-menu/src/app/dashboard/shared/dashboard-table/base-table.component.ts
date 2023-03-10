@@ -36,7 +36,7 @@ export class BaseTableComponent {
             entities => {
                 // response only contains _embedded if entities exist
                 if (entities._embedded) {
-                    this.dataSource.data = eval('entities._embedded' + '.' + this.embeddedList);                    
+                    this.dataSource.data = eval('entities._embedded' + '.' + this.embeddedList);
                 }
                 // Set paginator, sorting and filtering to the data source
                 this.dataSource.sort = this.sort;
@@ -49,6 +49,7 @@ export class BaseTableComponent {
             }
         )
     }
+
     // Filtering of the table by name (substring matching)
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
@@ -96,6 +97,8 @@ export class BaseTableComponent {
     onPaginateChange(event: any) {
         const element = document.getElementById("scroll-top");
         element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        this.dataSource.data = this.dataSource.data;
+
     }
 
     // Synchronizes the two paginators
