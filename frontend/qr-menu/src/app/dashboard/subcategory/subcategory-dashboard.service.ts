@@ -62,15 +62,15 @@ export class SubcategoryDashboardService extends AbstractDashboardService {
         );
     }
 
-    deleteById(id : number) : void {
+    deleteEntity(subcategory: Subcategory) : void {
         
     }
 
-    editById(id: number, product: any) : void {
+    editEntity(subcategory: Subcategory) : void {
         
     }
 
-    create(product: any) : Observable<any> {
+    createEntity(subcategory: Subcategory) : Observable<any> {
         return null;
     }
     

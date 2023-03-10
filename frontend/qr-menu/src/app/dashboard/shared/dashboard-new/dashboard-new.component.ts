@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { AbstractDashboardService } from '../abstract-dashboard.service';
 
 @Component({
@@ -34,7 +35,7 @@ export class DashboardNewComponent {
         this.copyChanges();
 
         // Save the product to the backend
-        this.service.create(this.data).subscribe(response =>
+        this.service.createEntity(this.data).subscribe(response =>
             // Close the dialog and return the product (with assigned ID) front the backend
             this.dialogRef.close(response)
         );

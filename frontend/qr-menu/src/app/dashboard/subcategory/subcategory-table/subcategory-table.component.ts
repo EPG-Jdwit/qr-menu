@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subcategory } from 'src/app/models/subcategory.model';
 
 import { BaseTableComponent } from '../../shared/dashboard-table/base-table.component';
 import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
@@ -33,7 +34,7 @@ export class SubcategoryTableComponent extends BaseTableComponent {
     // }
 
     // Edit the entity
-    override editById(id: number): void {
+    override editEntity(subcategory: Subcategory): void {
         // const index = this.dataSource.data.findIndex(product => product.id == id);
         // const item = this.dataSource.data[index];
         // this.dialog.open(EditCategoryViewComponent, {
@@ -42,7 +43,7 @@ export class SubcategoryTableComponent extends BaseTableComponent {
     }
 
     // Add a new entity
-    override create(): void {
+    override createEntity(): void {
         // let newEntity: Category;
         // const dialogRef = this.dialog.open(NewCategoryViewComponent, {
         //     data: newEntity

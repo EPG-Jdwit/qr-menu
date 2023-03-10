@@ -12,9 +12,9 @@ export abstract class AbstractDashboardService {
 
   abstract getAll(): Observable<EntityList<Entity>>;
 
-  abstract deleteById(id: number): void;
+  abstract deleteEntity(entity: Entity): void;
 
-  abstract editById(id: number, entity: Entity): void;
+  abstract editEntity(entity: Entity): void;
 
-  abstract create(entity: Entity): Observable<Entity>;
+  abstract createEntity(entity: Entity): Observable<Entity>;
 }

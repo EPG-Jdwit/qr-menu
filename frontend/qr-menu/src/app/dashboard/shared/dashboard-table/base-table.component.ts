@@ -57,39 +57,37 @@ export class BaseTableComponent {
     }
 
     // Delete the entity
-    deleteById(id: number): void {
+    deleteEntity(entity: Entity): void {
         // Delete from the backend
-        this.service.deleteById(id);
+        this.service.deleteEntity(entity);
         // Delete from the frontend TODO: error handling NotFound
-        const index = this.dataSource.data.findIndex(entity => entity.id == id);
+        const index = this.dataSource.data.findIndex(dataEntity => dataEntity.id == entity.id);
         this.dataSource.data.splice(index, 1);
         this.dataSource.data = this.dataSource.data;
     }
 
     // Display a dialog with all the information about the entity
     // with the posibility of editing it
-    showInfoById(id: number): void {
-        const index = this.dataSource.data.findIndex(entity => entity.id == id);
-        const entity = this.dataSource.data[index];
+    showEntityInfo(entity: Entity): void {
         const dialogRef = this.dialog.open(DashboardInfoComponent, {
             data: entity
         });
-        dialogRef.afterClosed().subscribe(id => {
+        dialogRef.afterClosed().subscribe(data => {
             // Ignore when the dialog was closed by canceling
-            if (id) {
+            if (data) {
                 // Open the edit dialog for the entity
-                this.editById(id);
+                this.editEntity(data);
             }
         });
     }
 
     // Edit the entity
-    editById(id: number): void {
+    editEntity(entity: Entity): void {
         // empty in base component
     }
 
     // Add a new entity
-    create(): void {
+    createEntity(): void {
         // empty in base component
     }
 

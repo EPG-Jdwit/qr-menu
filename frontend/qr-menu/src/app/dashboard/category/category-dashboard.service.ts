@@ -42,21 +42,21 @@ export class CategoryDashboardService extends AbstractDashboardService {
         );
     }
 
-    deleteById(id : number) : void {
-        this.http.delete(this.baseUrl + "/" + id).subscribe(() =>
+    deleteEntity(category : Category) : void {
+        this.http.delete(this.baseUrl + "/" + category.id).subscribe(() =>
         // TODO: remove this
           console.log("test")
         );
       }
     
-    editById(id: number, product: Category) : void {
-    this.http.patch(this.baseUrl + "/" + id, product).subscribe(() =>
+    editEntity(category: Category) : void {
+    this.http.patch(this.baseUrl + "/" + category.id, category).subscribe(() =>
     // TODO: remove this
         console.log("test")
     );
     }
 
-    create(product: Category) : Observable<Category> {
-    return this.http.post<Category>(this.baseUrl, product);
+    createEntity(category: Category) : Observable<Category> {
+    return this.http.post<Category>(this.baseUrl, category);
     }
 }

@@ -37,6 +37,8 @@ import { NewCategoryViewComponent } from './category/new-category-view/new-categ
 import { EditCategoryViewComponent } from './category/edit-category-view/edit-category-view.component';
 import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.component';
 import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
+import { DashboardEditComponent } from './shared/dashboard-edit/dashboard-edit.component';
+import { SubEditProductViewComponent } from './product/product-edit-view/sub-edit-product-view/sub-edit-product-view.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { NewProductSubViewComponent } from './product/new-product-view/new-produ
     NewCategoryViewComponent,
     EditCategoryViewComponent,
     DashboardNewComponent,
-    NewProductSubViewComponent
+    NewProductSubViewComponent,
+    DashboardEditComponent,
+    SubEditProductViewComponent
   ],
   imports: [
     CommonModule,

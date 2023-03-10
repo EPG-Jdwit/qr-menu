@@ -26,16 +26,15 @@ export class CategoryTableComponent extends BaseTableComponent {
     }
 
     // Edit the entity
-    override editById(id: number): void {
-        const index = this.dataSource.data.findIndex(product => product.id == id);
-        const item = this.dataSource.data[index];
+    override editEntity(category: Category): void {
+
         this.dialog.open(EditCategoryViewComponent, {
-            data: item
+            data: category
         });
     }
 
     // Add a new entity
-    override create(): void {
+    override createEntity(): void {
         let newEntity: Category;
         const dialogRef = this.dialog.open(NewCategoryViewComponent, {
             data: newEntity
