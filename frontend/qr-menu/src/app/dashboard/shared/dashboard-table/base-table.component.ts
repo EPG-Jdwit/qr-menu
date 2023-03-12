@@ -7,6 +7,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Entity } from 'src/app/models/entity.model';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
 import { DashboardInfoComponent } from '../dashboard-info/dashboard-info.component';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'dashboard-table',
@@ -56,8 +57,22 @@ export class BaseTableComponent {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    // Delete the entity
+    // Delete the category
     deleteEntity(entity: Entity): void {
+
+        const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+            data: entity
+        });
+
+        dialogRef.afterClosed().subscribe(confirmation => {
+            if (confirmation) {
+                this.deleteConfirmed(entity);
+            }
+        })
+    }
+
+    // Delete the entity
+    private deleteConfirmed(entity: Entity): void {
         // Delete from the backend
         this.service.deleteEntity(entity);
         // Delete from the frontend TODO: error handling NotFound

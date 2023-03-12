@@ -13,7 +13,7 @@ import { AbstractDashboardService } from '../abstract-dashboard.service';
 export class DashboardEditComponent {
     entityForm: FormGroup = new FormGroup({
       name: new FormControl('', [
-        Validators.required
+        
       ]),
     })
     // TODO: This has to somehow be moved to EditProductViewComponent: Composition?

@@ -27,7 +27,6 @@ export class CategoryTableComponent extends BaseTableComponent {
 
     // Edit the entity
     override editEntity(category: Category): void {
-
         this.dialog.open(EditCategoryViewComponent, {
             data: category
         });
@@ -48,5 +47,4 @@ export class CategoryTableComponent extends BaseTableComponent {
             }
         });
     }
-    
 }

@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-sub-edit-product-view',
-    templateUrl: './sub-edit-product-view.component.html',
-    styleUrls: ['./sub-edit-product-view.component.scss']
+    templateUrl: '../../product-sub-view/product-sub-view.component.html',
+    styleUrls: ['../../product-sub-view/product-sub-view.component.scss']
 })
 export class SubEditProductViewComponent {
     @Input() entityForm: FormGroup;

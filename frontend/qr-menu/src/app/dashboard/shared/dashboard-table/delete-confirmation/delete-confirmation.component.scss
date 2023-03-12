@@ -1,0 +1,27 @@
+.delete-confirmation-container {
+    width: 30vw;
+    height: 25h;
+    padding: auto 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.confirmation-message {
+    padding-top: 3rem;
+    text-align: center;
+}
+
+#deletion-item-name {
+    font-weight: bold;
+    display: inline;
+}
+
+// Position the buttons
+div.mat-mdc-dialog-actions.mdc-dialog__actions{
+
+   justify-content: space-around;
+   margin-bottom: 1rem;
+}

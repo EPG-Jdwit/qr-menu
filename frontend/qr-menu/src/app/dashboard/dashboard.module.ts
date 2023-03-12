@@ -39,6 +39,7 @@ import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.comp
 import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
 import { DashboardEditComponent } from './shared/dashboard-edit/dashboard-edit.component';
 import { SubEditProductViewComponent } from './product/product-edit-view/sub-edit-product-view/sub-edit-product-view.component';
+import { DeleteConfirmationComponent } from './shared/dashboard-table/delete-confirmation/delete-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SubEditProductViewComponent } from './product/product-edit-view/sub-edi
     DashboardNewComponent,
     NewProductSubViewComponent,
     DashboardEditComponent,
-    SubEditProductViewComponent
+    SubEditProductViewComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     CommonModule,
