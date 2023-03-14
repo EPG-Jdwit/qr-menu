@@ -1,5 +1,5 @@
 <div class="new-container" [formGroup]="entityForm">
-    <h1>New</h1>
+    <h1>{{title}}</h1>
     <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" required>
@@ -9,9 +9,12 @@
     <div *ngIf="isType('Product')">
         <app-new-product-sub-view [allergenicFormControl]="allergenicFormControl" [entityForm]="entityForm"></app-new-product-sub-view>
     </div>
+    <div *ngIf="isType('Subcategory')">
+        <app-new-subcategory-sub-view [categoryFormControl]="categoryFormControl" [productFormControl]="productFormControl" [entityForm]="entityForm"></app-new-subcategory-sub-view>
+    </div>
 
     <div mat-dialog-actions>
         <button mat-button (click)="close()" color="accent">Close</button>
-        <button mat-button (click)="saveChanges()" [disabled]="!entityForm.valid" [mat-dialog-close]="data" color="primary">Add Product</button>
+        <button mat-button (click)="saveEntity()" [disabled]="!entityForm.valid" [mat-dialog-close]="data" color="primary">Add Item</button>
     </div>
 </div>

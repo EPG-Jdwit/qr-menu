@@ -3,7 +3,7 @@ import { Entity, EntityList } from "./entity.model";
 
 export interface Subcategory extends Entity {
     category: Category;
-    _links: {
+    _links?: {
         self: { href: string},
         products:{ href: string},
         subcategories:{ href: string},

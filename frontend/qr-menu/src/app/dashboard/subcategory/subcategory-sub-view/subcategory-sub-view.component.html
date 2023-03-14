@@ -1,0 +1,17 @@
+<div class="sub-view-container" [formGroup]="entityForm">
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Category</mat-label>
+        <mat-select [formControl]="categoryFormControl">
+            <input (keyup)="filterCategories($event)" placeholder="Search" #input>
+        <mat-option *ngFor="let category of filteredCategoryList" [value]="category">{{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Products</mat-label>
+        <mat-select [formControl]="productFormControl" multiple>
+            <input (keyup)="filterProducts($event)" placeholder="Search" #input>
+        <mat-option *ngFor="let product of filteredProductList" [value]="product">{{product.name || "No products"}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

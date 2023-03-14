@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, from } from 'rxjs';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import { Category, CategoryList } from 'src/app/models/category.model';
+import { Product, ProductList } from 'src/app/models/product.model';
 import { Subcategory, SubcategoryList } from 'src/app/models/subcategory.model';
 import { AbstractDashboardService } from '../shared/abstract-dashboard.service';
 
@@ -18,16 +19,6 @@ export class SubcategoryDashboardService extends AbstractDashboardService {
     }
 
     getAll(): Observable<SubcategoryList<Subcategory>> {
-
-        var subcategories: Subcategory[] = [];
-
-        var result: SubcategoryList<Subcategory> = {
-            _embedded: { subcategoryList: subcategories},
-            _links: { self: { href: ''} }
-        }
-        // array pushen
-        // SubcategoryList._embedded.subcategoryList ??
-
         // Get the categories
         return this.http.get<CategoryList<Category>>(this.baseUrl).pipe(
             // Transform the received response
@@ -56,22 +47,35 @@ export class SubcategoryDashboardService extends AbstractDashboardService {
                     })
                 }
                 // Assign the found subcategories to our result object
-                // result._embedded.subcategoryList = subcategories;
                 return of(result);
             })
         );
     }
 
+    getCategories(): Observable<CategoryList<Category>> {
+        return this.http.get<CategoryList<Category>>(this.baseUrl);
+    }
+
     deleteEntity(subcategory: Subcategory) : void {
-        
+        this.http.delete(this.baseUrl + "/" + subcategory.category.id + "/subcategories/" + subcategory.id).subscribe( _ =>
+            console.log("deleted")
+        );
     }
 
     editEntity(subcategory: Subcategory) : void {
-        
+        this.http.patch(this.baseUrl + "/" + subcategory.category.id + "/subcategories/" + subcategory.id, subcategory).subscribe(() =>
+        // TODO: remove this
+          console.log("test")
+        );
     }
 
     createEntity(subcategory: Subcategory) : Observable<any> {
-        return null;
+        return this.http.post(this.baseUrl + "/" + subcategory.category.id + "/subcategories", subcategory);
+    }
+
+    getAllProducts(): Observable<ProductList<Product>> {
+        // TODO
+        return this.http.get<ProductList<Product>>("http://localhost:8081/products");
     }
     
 }

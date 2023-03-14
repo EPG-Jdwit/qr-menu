@@ -1,5 +1,5 @@
 <div class="edit-container" [formGroup]="entityForm">
-    <h1>Edit</h1>
+    <h1>{{title}}</h1>
     <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" placeholder="{{data.name}}">
@@ -7,6 +7,9 @@
 
     <div *ngIf="isType('Product')">
         <app-sub-edit-product-view [allergenicFormControl]="allergenicFormControl" [entityForm]="entityForm"></app-sub-edit-product-view >
+    </div>
+    <div *ngIf="isType('Subcategory')">
+        <app-new-subcategory-sub-view [categoryFormControl]="categoryFormControl" [productFormControl]="productFormControl" [entityForm]="entityForm"></app-new-subcategory-sub-view>
     </div>
     
     <div mat-dialog-actions>

@@ -22,24 +22,32 @@ import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overv
 import { DashboardNavComponent } from './dashboard-nav/dashboard-nav.component';
 import { BaseTableComponent } from './shared/dashboard-table/base-table.component';
 import { DashboardInfoComponent } from './shared/dashboard-info/dashboard-info.component';
+import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.component';
+import { DashboardEditComponent } from './shared/dashboard-edit/dashboard-edit.component';
+
 
 import { ProductTableComponent } from './product/product-table/product-table.component';
 import { ProductInfoComponent } from './product/product-info/product-info.component';
 import { ProductEditViewComponent } from './product/product-edit-view/product-edit-view.component';
 import { NewProductViewComponent } from './product/new-product-view/new-product-view.component';
+import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
+import { SubEditProductViewComponent } from './product/product-edit-view/sub-edit-product-view/sub-edit-product-view.component';
+
 
 import { CategoryTableComponent } from './category/category-table/category-table.component';
 import { CategoryInfoComponent } from './category/category-info/category-info.component';
+import { NewCategoryViewComponent } from './category/new-category-view/new-category-view.component';
+import { EditCategoryViewComponent } from './category/edit-category-view/edit-category-view.component';
 
 import { SubcategoryTableComponent } from './subcategory/subcategory-table/subcategory-table.component';
 import { SubcategoryInfoComponent } from './subcategory/subcategory-info/subcategory-info.component';
-import { NewCategoryViewComponent } from './category/new-category-view/new-category-view.component';
-import { EditCategoryViewComponent } from './category/edit-category-view/edit-category-view.component';
-import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.component';
-import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
-import { DashboardEditComponent } from './shared/dashboard-edit/dashboard-edit.component';
-import { SubEditProductViewComponent } from './product/product-edit-view/sub-edit-product-view/sub-edit-product-view.component';
+import { NewSubcategoryViewComponent } from './subcategory/new-subcategory-view/new-subcategory-view.component';
+import { EditSubcategoryViewComponent } from './subcategory/edit-subcategory-view/edit-subcategory-view.component';
+import { NewSubcategorySubViewComponent } from './subcategory/new-subcategory-view/new-subcategory-sub-view/new-subcategory-sub-view.component';
+
 import { DeleteConfirmationComponent } from './shared/dashboard-table/delete-confirmation/delete-confirmation.component';
+import { EditSubcategorySubViewComponent } from './subcategory/edit-subcategory-view/edit-subcategory-sub-view/edit-subcategory-sub-view.component';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +70,11 @@ import { DeleteConfirmationComponent } from './shared/dashboard-table/delete-con
     NewProductSubViewComponent,
     DashboardEditComponent,
     SubEditProductViewComponent,
-    DeleteConfirmationComponent
+    DeleteConfirmationComponent,
+    NewSubcategoryViewComponent,
+    EditSubcategoryViewComponent,
+    NewSubcategorySubViewComponent,
+    EditSubcategorySubViewComponent,
   ],
   imports: [
     CommonModule,
