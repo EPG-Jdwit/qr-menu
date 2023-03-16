@@ -22,14 +22,23 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class SubcategoryAssembler implements RepresentationModelAssembler<Subcategory, EntityModel<Subcategory>> {
 
-    // TODO: Not used due to needing categoryId, find a way to extract out of Iterable
+    /**
+     * Converts a List of Subcategory to a JSON representation of a subcategoryList with an extra _links property.
+     *
+     * @param subcategories : A collection for which toModel must be applied to each element.
+     * @return : CollectionModel of the output with links.
+     */
     @Override
     public CollectionModel<EntityModel<Subcategory>> toCollectionModel(Iterable<? extends Subcategory> subcategories) {
-        return null;
+        return CollectionModel.of(
+                StreamSupport.stream(subcategories.spliterator(), false).map(this::toModel).collect(Collectors.toList()),
+                linkTo(methodOn(SubcategoryController.class).getAllSubcategories()).withSelfRel()
+
+        );
     }
 
     /**
-     * Converts a List of Subcategory to a JSON representation of a subcategoryList with an extra _links property.
+     * Converts a List of Subcategories of a Category to a JSON representation of a subcategoryList with an extra _links property.
      *
      * @param subcategories : A collection for which toModel must be applied to each element.
      * @return : CollectionModel of the output with links.

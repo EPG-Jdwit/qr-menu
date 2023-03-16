@@ -1,8 +1,8 @@
-<div class="new-container" [formGroup]="entityForm">
+<div class="dialog-container" [formGroup]="entityForm">
     <h1>{{title}}</h1>
     <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="name" required>
+        <input matInput formControlName="name" [placeholder]="!data? 'New Item' : data.name">
         <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
     </mat-form-field>
 

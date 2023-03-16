@@ -36,6 +36,15 @@ public class SubcategoryController extends BaseController {
     }
 
     /**
+     * Returns all existing subcategories
+     * @return : A CollectionModel of all the found subcategories
+     */
+    @GetMapping("/subcategories")
+    public CollectionModel<EntityModel<Subcategory>> getAllSubcategories() {
+        return subcategoryAssembler.toCollectionModel(subcategoryService.getAll());
+    }
+
+    /**
      * Retrieves all subcategories of a category with a given ID.
      * @param categoryId : The ID of the category of which the subcategories are to be retrived.
      * @return : A CollectionModel of all the found subcategories

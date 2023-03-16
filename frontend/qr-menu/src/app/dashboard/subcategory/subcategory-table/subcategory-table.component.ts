@@ -6,6 +6,7 @@ import { BaseTableComponent } from '../../shared/dashboard-table/base-table.comp
 import { EditSubcategoryViewComponent } from '../edit-subcategory-view/edit-subcategory-view.component';
 import { NewSubcategoryViewComponent } from '../new-subcategory-view/new-subcategory-view.component';
 import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
+import { SubcategoryInfoComponent } from '../subcategory-info/subcategory-info.component';
 
 @Component({
     selector: 'app-subcategory-table',
@@ -16,8 +17,8 @@ export class SubcategoryTableComponent extends BaseTableComponent {
     
     constructor(
         public override service: SubcategoryDashboardService,
-        public override dialog: MatDialog
-    ) {
+        public override dialog: MatDialog ) {
+
         super(service, dialog);
         this.embeddedList = 'subcategoryList';
         this.insertDisplayedColumn("category");
@@ -45,5 +46,10 @@ export class SubcategoryTableComponent extends BaseTableComponent {
         this.dialog.open(EditSubcategoryViewComponent, {
             data: subcategory
         });
+    }
+
+    // Open a specific infoComponent depending on the parameter
+    override showEntityInfo(subcategory: Subcategory): void {
+        this.showInfo(subcategory, SubcategoryInfoComponent);
     }
 }

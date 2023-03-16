@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category.model';
 import { BaseTableComponent } from '../../shared/dashboard-table/base-table.component';
 import { CategoryDashboardService } from '../category-dashboard.service';
+import { CategoryInfoComponent } from '../category-info/category-info.component';
 import { EditCategoryViewComponent } from '../edit-category-view/edit-category-view.component';
 import { NewCategoryViewComponent } from '../new-category-view/new-category-view.component';
 
@@ -16,7 +17,7 @@ export class CategoryTableComponent extends BaseTableComponent {
 
     constructor(
         public override service: CategoryDashboardService,
-        public override dialog: MatDialog
+        public override dialog: MatDialog,
     ) {
         super(service, dialog);
         this.embeddedList = 'categoryList';
@@ -46,5 +47,10 @@ export class CategoryTableComponent extends BaseTableComponent {
                 this.dataSource.data = this.dataSource.data;
             }
         });
+    }
+
+    // Open a specific infoComponent depending on the parameter
+    override showEntityInfo(category: Category): void {
+        this.showInfo(category, CategoryInfoComponent);
     }
 }

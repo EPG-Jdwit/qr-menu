@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit } from '@angular/core';
+import { map, Observable, finalize } from 'rxjs';
 
 import { Entity } from 'src/app/models/entity.model';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
-import { DashboardInfoComponent } from '../dashboard-info/dashboard-info.component';
+import { DashboardInfoComponent } from '../dashboard-info-dialog/dashboard-info.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @Component({
@@ -14,11 +16,18 @@ import { DeleteConfirmationComponent } from './delete-confirmation/delete-confir
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.scss']
 })
-export class BaseTableComponent {
+export class BaseTableComponent implements AfterViewInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<Entity>;
-    dataSource: MatTableDataSource<Entity>;
+    dataSource: MatTableDataSource<Entity> = new MatTableDataSource<Entity>([]);
+    // dataSource$: Observable<MatTableDataSource<Entity>> = this.service.getAll().pipe(
+    //     map(entities => {
+    //         const dataSource = new MatTableDataSource<Entity>();
+    //         dataSource.data = eval('entities._embedded' + '.' + this.embeddedList);
+    //         return dataSource;
+    //     })
+    // )
 
     protected embeddedList: string = '';
     type: string = '';
@@ -28,25 +37,27 @@ export class BaseTableComponent {
 
     constructor(public service: AbstractDashboardService,
                 public dialog: MatDialog) {
-        this.dataSource = new MatTableDataSource();
     }
 
-    // Fetch all existing entities for the table on initialization
-    ngOnInit() {
+    ngAfterViewInit() {
+        this.setupTable();
+    }
+
+    protected setupTable(): void {
+        // Set paginator, sorting and filtering to the data source
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = function (entity, filter) {
+            return entity.name.toLowerCase().includes(filter.trim().toLowerCase())
+        }
+
+        // Fetch all existing entities for the table on initialization
         this.service.getAll().subscribe(
             entities => {
                 // response only contains _embedded if entities exist
                 if (entities._embedded) {
                     this.dataSource.data = eval('entities._embedded' + '.' + this.embeddedList);
                 }
-                // Set paginator, sorting and filtering to the data source
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.filterPredicate = function (entity, filter) {
-                    return entity.name.toLowerCase().includes(filter.trim().toLowerCase())
-                }
-                // Set the MatTableDataSource as source of the table's data
-                this.table.dataSource = this.dataSource;
             }
         )
     }
@@ -81,10 +92,15 @@ export class BaseTableComponent {
         this.dataSource.data = this.dataSource.data;
     }
 
+    // Open a specific infoComponent depending on the parameter
+    showEntityInfo(entity: Entity): void {
+        this.showInfo(entity, DashboardInfoComponent);
+    }
+    
     // Display a dialog with all the information about the entity
     // with the posibility of editing it
-    showEntityInfo(entity: Entity): void {
-        const dialogRef = this.dialog.open(DashboardInfoComponent, {
+    protected showInfo(entity: Entity, infoComponnent: any): void {
+        const dialogRef = this.dialog.open(infoComponnent, {
             data: entity
         });
         dialogRef.afterClosed().subscribe(data => {
@@ -111,7 +127,6 @@ export class BaseTableComponent {
         const element = document.getElementById("scroll-top");
         element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
         this.dataSource.data = this.dataSource.data;
-
     }
 
     // Synchronizes the two paginators

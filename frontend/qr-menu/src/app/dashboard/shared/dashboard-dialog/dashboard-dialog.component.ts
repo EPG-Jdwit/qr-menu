@@ -2,18 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { Entity } from 'src/app/models/entity.model';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-new',
-    templateUrl: '../../shared/dashboard-new/dashboard-new.component.html',
-    styleUrls: ['../../shared/dashboard-new/dashboard-new.component.scss']
+    templateUrl: '../dashboard-dialog/dashboard-dialog.component.html',
+    styleUrls: ['../dashboard-dialog/dashboard-dialog.component.scss']
 })
-export class DashboardNewComponent {
-    title: string = "New";
+export class DashboardDialogComponent {
+    title: string = "";
     entityForm: FormGroup = new FormGroup({
         name: new FormControl('', [
-          Validators.required
         ]),
         // allergenic: new FormControl('', [
 
@@ -35,10 +35,11 @@ export class DashboardNewComponent {
     productFormControl = new FormControl();
     
     constructor(
-        public dialogRef: MatDialogRef<DashboardNewComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
+        public dialogRef: MatDialogRef<DashboardDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: Entity,
         protected service : AbstractDashboardService
-    ) {}
+    ) {
+    }
 
     // Simply close the dialog
     close(): void {
@@ -47,13 +48,7 @@ export class DashboardNewComponent {
 
     // Save the new entity
     saveEntity(): void {
-        this.copyChanges();
-
-        // Save the entity to the backend
-        this.service.createEntity(this.data).subscribe(response =>
-            // Close the dialog and return the entity (with assigned ID) front the backend
-            this.dialogRef.close(response)
-        );
+        // should be abstract
     }
 
     // Copy values from the form into the data Entity object

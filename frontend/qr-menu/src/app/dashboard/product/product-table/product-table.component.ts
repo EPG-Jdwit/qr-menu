@@ -6,6 +6,7 @@ import { BaseTableComponent } from '../../shared/dashboard-table/base-table.comp
 import { ProductEditViewComponent } from '../product-edit-view/product-edit-view.component';
 import { NewProductViewComponent } from '../new-product-view/new-product-view.component';
 import { Product } from 'src/app/models/product.model';
+import { ProductInfoComponent } from '../product-info/product-info.component';
 
 @Component({
     selector: 'product-table',
@@ -45,6 +46,11 @@ export class ProductTableComponent extends BaseTableComponent {
                 this.dataSource.data = this.dataSource.data;
             }
         });
+    }
+
+    // Open a specific infoComponent depending on the parameter
+    override showEntityInfo(product: Product): void {
+        this.showInfo(product, ProductInfoComponent);
     }
   
 }

@@ -70,6 +70,15 @@ public class SubcategoryService extends AbstractService {
     }
 
     /**
+     * Return all existing subcategories
+     * @return : A List of all existing subcategories
+     */
+    public List<Subcategory> getAll() {
+        List<SubcategoryEntity> subcategoryEntityList = subcategoryRepository.findAll(Sort.by(Sort.Direction.ASC, "orderNr"));
+        return subcategoryEntityList.stream().map(subcategoryMapper::entityToJson).collect(Collectors.toList());
+    }
+
+    /**
      * Returns a subcategory of a category with specific ID's if found.
      *
      * @param categoryId : ID of the CategoryEntity that owns the Subcategory.
@@ -138,13 +147,10 @@ public class SubcategoryService extends AbstractService {
      * @throws NotFoundException : When either the CategoryEntity or SubcategoryEntity with given IDs weren't found.
      */
     public void deleteSubcategoryById(Long categoryId, Long subcategoryId) throws NotFoundException {
-        if (subcategoryRepository.existsById(subcategoryId)) {
-            SubcategoryEntity subcategoryEntity = parseOptional(subcategoryRepository.findById(categoryId, subcategoryId));
-//            verifyCategoryId(categoryId, subcategoryEntity);
-            subcategoryRepository.deleteById(categoryId, subcategoryId);
-        } else {
-            throw new NotFoundException();
-        }
+        // Check if the subcategory can be found for the category
+        parseOptional(subcategoryRepository.findById(categoryId, subcategoryId));
+        // Delete the subcategory
+        subcategoryRepository.deleteById(categoryId, subcategoryId);
     }
 
     /**
@@ -161,7 +167,6 @@ public class SubcategoryService extends AbstractService {
         // Check if the category exists, otherwise throw a NotFoundException
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
         SubcategoryEntity originalEntity = parseOptional(subcategoryRepository.findById(categoryId, subcategoryId));
-//        verifyCategoryId(categoryId, originalEntity);
         SubcategoryEntity newEntity = subcategoryMapper.newJsonToEntity(newSubcategory);
         // Check if another subcategory (within the same category) with the same name already exists
         if( newEntity.getName() != null

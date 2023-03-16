@@ -2,13 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Category } from 'src/app/models/category.model';
-import { DashboardNewComponent } from '../../shared/dashboard-new/dashboard-new.component';
+import { DashboardNewComponent } from '../../shared/dashboard-new-dialog/dashboard-new.component';
 import { CategoryDashboardService } from '../category-dashboard.service';
 
 @Component({
     selector: 'app-new-category-view',
-    templateUrl: '../../shared/dashboard-new/dashboard-new.component.html',
-    styleUrls: ['../../shared/dashboard-new/dashboard-new.component.scss']
+    templateUrl: '../../shared/dashboard-dialog/dashboard-dialog.component.html',
+    styleUrls: ['../../shared/dashboard-dialog/dashboard-dialog.component.scss']
 })
 export class NewCategoryViewComponent extends DashboardNewComponent {
     

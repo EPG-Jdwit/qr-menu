@@ -1,1 +1,37 @@
-<p>subcategory-info works!</p>
+<div id="dashboard-info-container">
+    <h1 mat-dialog-title id="dashboard-info-title">{{data.name}}</h1>
+    <div mat-dialog-content>
+        <div id="dashboard-info-id" class="dashboard-info-section">
+            <div id="dashboard-id-label" class="dashboard-info-label">
+                ID:
+            </div>
+            <div id="dashboard-id-value" class="dashboard-info-value">
+                {{data.id}}
+            </div>
+        </div>
+        <div *ngIf="data.hasOwnProperty('category')">
+            <div id="dashboard-info-description" class="dashboard-info-section">
+                <div id="dashboard-description-label" class="dashboard-info-label">
+                    Category name:
+                </div>
+                <div id="dashboard-description-value" class="dashboard-info-value">
+                    {{data.category.name}}
+                </div>
+            </div>
+        </div>
+        <div id="subcategory-info-products" class="dashboard-info-section">
+            <div id="dashboard-list-label" class="dashboard-info-label">
+                Products:
+            </div>
+            <div class="dashboard-list">
+                <div class="dashboard-info-value" *ngFor="let product of data.products">
+                    <div class="dashboard-list-item">{{product.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions id="dashboard-info-actions">
+        <button mat-button (click)="onNoClick()" color="accent">Close</button>
+        <button mat-button (click)="edit()" color="primary" cdkFocusInitial>Edit</button>
+    </div>
+</div>

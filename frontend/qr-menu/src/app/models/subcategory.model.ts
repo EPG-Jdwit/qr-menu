@@ -1,8 +1,11 @@
 import { Category } from "./category.model";
+import { Product } from "./product.model";
 import { Entity, EntityList } from "./entity.model";
 
 export interface Subcategory extends Entity {
     category: Category;
+    categoryId?: number;
+    products?: Product[];
     _links?: {
         self: { href: string},
         products:{ href: string},

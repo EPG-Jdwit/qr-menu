@@ -3,13 +3,13 @@ import { Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Product } from 'src/app/models/product.model';
-import { DashboardNewComponent } from '../../shared/dashboard-new/dashboard-new.component';
+import { DashboardNewComponent } from '../../shared/dashboard-new-dialog/dashboard-new.component';
 import { ProductDashboardService } from '../product-dashboard.service';
 
 @Component({
     selector: 'app-new-product-view',
-    templateUrl: '../../shared/dashboard-new/dashboard-new.component.html',
-    styleUrls: ['../../shared/dashboard-new/dashboard-new.component.scss']
+    templateUrl: '../../shared/dashboard-dialog/dashboard-dialog.component.html',
+    styleUrls: ['../../shared/dashboard-dialog/dashboard-dialog.component.scss']
 })
 export class NewProductViewComponent extends DashboardNewComponent {
     constructor(

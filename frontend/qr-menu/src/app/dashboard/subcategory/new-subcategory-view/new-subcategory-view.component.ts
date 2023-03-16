@@ -4,12 +4,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Subcategory } from 'src/app/models/subcategory.model';
 import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
-import { DashboardNewComponent } from '../../shared/dashboard-new/dashboard-new.component';
+import { DashboardNewComponent } from '../../shared/dashboard-new-dialog/dashboard-new.component';
 
 @Component({
     selector: 'app-new-subcategory-view',
-    templateUrl: '../../shared/dashboard-new/dashboard-new.component.html',
-    styleUrls: ['../../shared/dashboard-new/dashboard-new.component.scss']
+    templateUrl: '../../shared/dashboard-dialog/dashboard-dialog.component.html',
+    styleUrls: ['../../shared/dashboard-dialog/dashboard-dialog.component.scss']
 })
 export class NewSubcategoryViewComponent extends DashboardNewComponent {
     constructor(

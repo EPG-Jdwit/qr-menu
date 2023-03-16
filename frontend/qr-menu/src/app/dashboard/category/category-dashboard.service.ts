@@ -24,7 +24,7 @@ export class CategoryDashboardService extends AbstractDashboardService {
             // Transform the received response
             mergeMap(response => {
                 // Unwrap the category list
-                var catList = response._embedded.categoryList;
+                let catList = response._embedded.categoryList;
                 for (let i = 0; i < catList.length; i++ ) {
                     // Retrieve the subcategories by using the link
                     this.http.get<SubcategoryList<Subcategory>>(catList[i]._links.subcategories.href).subscribe(subcategoryResponse => {

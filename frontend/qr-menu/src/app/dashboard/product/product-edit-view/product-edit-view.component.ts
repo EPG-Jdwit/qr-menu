@@ -3,13 +3,13 @@ import { Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Product } from 'src/app/models/product.model';
-import { DashboardEditComponent } from '../../shared/dashboard-edit/dashboard-edit.component';
+import { DashboardEditComponent } from '../../shared/dashboard-edit-dialog/dashboard-edit.component';
 import { ProductDashboardService } from '../product-dashboard.service';
 
 @Component({
   selector: 'app-product-edit-view',
-  templateUrl: '../../shared/dashboard-edit/dashboard-edit.component.html',
-  styleUrls: ['../../shared/dashboard-edit/dashboard-edit.component.scss']
+  templateUrl: '../../shared/dashboard-dialog/dashboard-dialog.component.html',
+  styleUrls: ['../../shared/dashboard-dialog/dashboard-dialog.component.scss']
 })
 export class ProductEditViewComponent extends DashboardEditComponent {
 
@@ -24,11 +24,11 @@ export class ProductEditViewComponent extends DashboardEditComponent {
     this.entityForm.addControl('description', new FormControl('', ));
 
     // Set selected allergenic values in the multi select
-    if (data.allergenicList) {
+    if (this.data.allergenicList) {
 
       this.allergenicFormControl.setValue(
         // Capitalize the items
-        data.allergenicList.map(item => item.charAt(0).toUpperCase() + item.slice(1))
+        this.data.allergenicList.map(item => item.charAt(0).toUpperCase() + item.slice(1))
         );
     }
   }

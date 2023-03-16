@@ -23,7 +23,7 @@ public class Subcategory {
     @JsonProperty("name")
     private String name;
 
-    @JsonIgnore
+//    @JsonIgnore
     private Long categoryId;
 
     @JsonProperty("orderNr")

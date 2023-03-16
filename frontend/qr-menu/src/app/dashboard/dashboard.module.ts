@@ -21,9 +21,10 @@ import { DashboardViewComponent } from './dashboard-view/dashboard-view.componen
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { DashboardNavComponent } from './dashboard-nav/dashboard-nav.component';
 import { BaseTableComponent } from './shared/dashboard-table/base-table.component';
-import { DashboardInfoComponent } from './shared/dashboard-info/dashboard-info.component';
-import { DashboardNewComponent } from './shared/dashboard-new/dashboard-new.component';
-import { DashboardEditComponent } from './shared/dashboard-edit/dashboard-edit.component';
+import { DashboardInfoComponent } from './shared/dashboard-info-dialog/dashboard-info.component';
+import { DashboardNewComponent } from './shared/dashboard-new-dialog/dashboard-new.component';
+import { DashboardEditComponent } from './shared/dashboard-edit-dialog/dashboard-edit.component';
+import { DashboardDialogComponent } from './shared/dashboard-dialog/dashboard-dialog.component';
 
 
 import { ProductTableComponent } from './product/product-table/product-table.component';
@@ -75,6 +76,7 @@ import { EditSubcategorySubViewComponent } from './subcategory/edit-subcategory-
     EditSubcategoryViewComponent,
     NewSubcategorySubViewComponent,
     EditSubcategorySubViewComponent,
+    DashboardDialogComponent
   ],
   imports: [
     CommonModule,
