@@ -22,15 +22,19 @@ export class SubcategoryDashboardService extends AbstractDashboardService {
         // Get the subcategories
         return this.http.get<SubcategoryList<Subcategory>>(this.alternativeUrl).pipe(
             mergeMap(response => {
-                let subcatList = response._embedded.subcategoryList;
-                subcatList.map(subcategory => {
-                    return this.http.get<Category>(this.baseUrl + "/" + subcategory.categoryId).subscribe( category => {
-                        subcategory.category = category;
-                        this.http.get<ProductList<Product>>(subcategory._links.products.href).subscribe( productList => {
-                            subcategory.products = productList._embedded.productList;
+                    if (response._embedded) {
+                    let subcatList = response._embedded.subcategoryList;
+                    subcatList.map(subcategory => {
+                        return this.http.get<Category>(this.baseUrl + "/" + subcategory.categoryId).subscribe( category => {
+                            subcategory.category = category;
+                            this.http.get<ProductList<Product>>(subcategory._links.products.href).subscribe( productList => {
+                                if (productList._embedded) {
+                                    subcategory.productList = productList._embedded.productList;
+                                }
+                            })
                         })
                     })
-                })
+                }
                 return of(response);
             })
         );
@@ -41,24 +45,31 @@ export class SubcategoryDashboardService extends AbstractDashboardService {
     }
 
     deleteEntity(subcategory: Subcategory) : void {
-        this.http.delete(this.baseUrl + "/" + subcategory.category.id + "/subcategories/" + subcategory.id).subscribe( _ =>
-            console.log("deleted")
+        this.http.delete(this.baseUrl + "/" + subcategory.categoryId + "/subcategories/" + subcategory.id).subscribe( _ =>
+            { error: e => console.error(e); }
         );
     }
 
     editEntity(subcategory: Subcategory) : void {
         this.http.patch(this.baseUrl + "/" + subcategory.category.id + "/subcategories/" + subcategory.id, subcategory).subscribe(() =>
-        // TODO: remove this
-          console.log("test")
+            { error: e => console.error(e); }
         );
     }
 
-    createEntity(subcategory: Subcategory) : Observable<any> {
-        return this.http.post(this.baseUrl + "/" + subcategory.category.id + "/subcategories", subcategory);
+    createEntity(subcategory: Subcategory) : Observable<Subcategory> {
+        return this.http.post(this.baseUrl + "/" + subcategory.category.id + "/subcategories", subcategory)
+            .pipe(map((response: Subcategory) => {
+                // Add the category to the subcategory as the backend only provides the categoryId
+                response.category = subcategory.category;
+                // Add the products to the subcategory as the backend only provides an array of productId's
+                response.productList = subcategory.productList;
+                return response;
+            })
+        );
     }
 
     getAllProducts(): Observable<ProductList<Product>> {
-        // TODO
+        // TODO : hardcoded url
         return this.http.get<ProductList<Product>>("http://localhost:8081/products");
     }
     

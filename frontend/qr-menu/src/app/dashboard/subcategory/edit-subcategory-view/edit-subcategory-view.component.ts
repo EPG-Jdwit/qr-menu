@@ -19,6 +19,17 @@ export class EditSubcategoryViewComponent extends DashboardEditComponent {
         protected override service : SubcategoryDashboardService
       ) {
         super(dialogRef, data, service)
+
+        // Set selected category value in the multi select
+        if (this.data.category) {
+            this.categoryFormControl.setValue( this.data.category);
+        }
+        console.log(this.categoryFormControl.value);
+        if (this.data.productList) {
+            this.productFormControl.setValue(this.data.productList)
+        }
+        console.log(this.productFormControl.value);
+
       }
 
     // Copy values from the form into the data Subcategory object

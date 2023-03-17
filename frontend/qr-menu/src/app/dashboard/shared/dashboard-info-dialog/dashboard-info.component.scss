@@ -18,7 +18,8 @@
     margin: 10px auto 20px auto;
     text-align: center;
 
-    font-size: clamp(1rem, 2vmax, 4rem);
+    font-size: clamp(1rem, 1.5vmax, 3rem);
+    line-height: 1.5;
 }
 
 .dashboard-info-label {
@@ -34,18 +35,23 @@
     margin: 1em 0.5em;
     padding: 0.5em;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     border: 1px solid lightgray;
     min-height: 10vh;
 }
 
-.dashboard-list-item {
-    width: 15vw;
+.dashboard-list-value {
+    width: 50%;
     max-width: 50%;
     margin: 5% 0;
     font-size: clamp(1rem, 1.5vw, 1.5rem);
     line-height: 1.5;
+}
+
+.dashboard-list-item {
+    text-align: center;
 }
 // Position the buttons
 #dashboard-info-container > div.mat-mdc-dialog-actions.mdc-dialog__actions {

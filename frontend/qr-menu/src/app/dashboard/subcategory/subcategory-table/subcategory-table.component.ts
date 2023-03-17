@@ -35,7 +35,8 @@ export class SubcategoryTableComponent extends BaseTableComponent {
         dialogRef.afterClosed().subscribe(result => {
             // Ignore when the dialog was closed by canceling
             if (result) {
-                // Add the created product to the table
+                console.log(result);
+                // Add the created entity to the table
                 this.dataSource.data.push(result);
                 this.dataSource.data = this.dataSource.data;
             }

@@ -20,8 +20,8 @@ export class ProductEditViewComponent extends DashboardEditComponent {
   ) {
     super(dialogRef, data, service)
 
-    this.entityForm.addControl('price', new FormControl('', [Validators.min(0)]));
-    this.entityForm.addControl('description', new FormControl('', ));
+    this.entityForm.addControl('price', new FormControl(data.price, [Validators.min(0)]));
+    this.entityForm.addControl('description', new FormControl(data.description, ));
 
     // Set selected allergenic values in the multi select
     if (this.data.allergenicList) {
@@ -29,7 +29,7 @@ export class ProductEditViewComponent extends DashboardEditComponent {
       this.allergenicFormControl.setValue(
         // Capitalize the items
         this.data.allergenicList.map(item => item.charAt(0).toUpperCase() + item.slice(1))
-        );
+      );
     }
   }
 

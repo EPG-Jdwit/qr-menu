@@ -23,17 +23,19 @@ export class CategoryDashboardService extends AbstractDashboardService {
         return this.http.get<CategoryList<Category>>(this.baseUrl).pipe(
             // Transform the received response
             mergeMap(response => {
-                // Unwrap the category list
-                let catList = response._embedded.categoryList;
-                for (let i = 0; i < catList.length; i++ ) {
-                    // Retrieve the subcategories by using the link
-                    this.http.get<SubcategoryList<Subcategory>>(catList[i]._links.subcategories.href).subscribe(subcategoryResponse => {
-                        // Check if the category has any subcategories
-                        if (subcategoryResponse._embedded) {
-                            // Add the subcategory array to the category
-                            catList[i].subcategories = subcategoryResponse._embedded.subcategoryList;
-                        }
-                    })
+                if (response._embedded) {
+                    // Unwrap the category list
+                    let catList = response._embedded.categoryList;
+                    for (let i = 0; i < catList.length; i++ ) {
+                        // Retrieve the subcategories by using the link
+                        this.http.get<SubcategoryList<Subcategory>>(catList[i]._links.subcategories.href).subscribe(subcategoryResponse => {
+                            // Check if the category has any subcategories
+                            if (subcategoryResponse._embedded) {
+                                // Add the subcategory array to the category
+                                catList[i].subcategories = subcategoryResponse._embedded.subcategoryList;
+                            }
+                        })
+                    }
                 }
                 // Return the response that has been expanded with the subcategories of each category
                 // console.log(response)
@@ -44,15 +46,13 @@ export class CategoryDashboardService extends AbstractDashboardService {
 
     deleteEntity(category : Category) : void {
         this.http.delete(this.baseUrl + "/" + category.id).subscribe(() =>
-        // TODO: remove this
-          console.log("test")
+            { error: e => console.error(e); }
         );
       }
     
     editEntity(category: Category) : void {
     this.http.patch(this.baseUrl + "/" + category.id, category).subscribe(() =>
-    // TODO: remove this
-        console.log("test")
+        { error: e => console.error(e); }
     );
     }
 

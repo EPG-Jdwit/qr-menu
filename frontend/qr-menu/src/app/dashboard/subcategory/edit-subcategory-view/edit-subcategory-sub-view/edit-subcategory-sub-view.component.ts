@@ -71,4 +71,10 @@ export class EditSubcategorySubViewComponent {
         return this.productList.filter(item => item.name.trim().toLowerCase().includes(filter));
     }
 
+    compareObjects(o1: any, o2: any) {
+        if(o1.name == o2.name && o1.id == o2.id )
+        return true;
+        else return false
+      }
+
 }

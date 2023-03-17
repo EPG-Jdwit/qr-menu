@@ -13,7 +13,7 @@ import { AbstractDashboardService } from '../abstract-dashboard.service';
 export class DashboardDialogComponent {
     title: string = "";
     entityForm: FormGroup = new FormGroup({
-        name: new FormControl('', [
+        name: new FormControl(this.data? this.data.name : '', [
         ]),
         // allergenic: new FormControl('', [
 

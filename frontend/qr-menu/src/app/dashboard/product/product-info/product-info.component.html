@@ -16,8 +16,8 @@
             <div id="dashboard-price-value" class="dashboard-info-value">
                 {{data.price | currency:'EUR'}}
             </div>
-            </div>
-            <div id="dashboard-info-description" class="dashboard-info-section">
+        </div>
+        <div id="dashboard-info-description" class="dashboard-info-section">
             <div id="dashboard-description-label" class="dashboard-info-label">
                 Description:
             </div>
@@ -30,7 +30,7 @@
                 Allergenics:
             </div>
             <div class="dashboard-list">
-                <div class="dashboard-info-value" *ngFor="let a of data.allergenicList">
+                <div class="dashboard-list-value" *ngFor="let a of data.allergenicList">
                     <div class="dashboard-list-item">{{a}}</div>
                 </div>
             </div>

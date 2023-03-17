@@ -29,7 +29,7 @@ export class DashboardNewComponent extends DashboardDialogComponent {
 
         // Save the entity to the backend
         this.service.createEntity(this.data).subscribe(response =>
-            // Close the dialog and return the entity (with assigned ID) front the backend
+            // Close the dialog and return the entity (with assigned ID) from the backend
             this.dialogRef.close(response)
         );
     }

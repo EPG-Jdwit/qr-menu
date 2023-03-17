@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
 
 import { Category } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/product.model';
@@ -22,6 +22,7 @@ export class NewSubcategorySubViewComponent {
     constructor(
         protected  service : SubcategoryDashboardService
     ) {
+        // this.entityForm.setControl('categoryFormControl', new FormControl('', [Validators.required]));
     }
 
     get category() {
@@ -42,7 +43,9 @@ export class NewSubcategorySubViewComponent {
 
     private getAllCategories(): void {
         this.service.getCategories().subscribe(data => {
+            if (data._embedded) {
                 this.categoryList = data._embedded.categoryList;
+            }
                 this.filteredCategoryList = this.categoryList;
         });
     }
@@ -58,7 +61,9 @@ export class NewSubcategorySubViewComponent {
 
     private getAllProducts(): void {
         this.service.getAllProducts().subscribe(data => {
-            this.productList = data._embedded.productList;
+            if (data._embedded) {
+                this.productList = data._embedded.productList;
+            }
             this.filteredProductList = this.productList;
         });
     }
@@ -71,5 +76,4 @@ export class NewSubcategorySubViewComponent {
         let filter = value.trim().toLowerCase();
         return this.productList.filter(item => item.name.trim().toLowerCase().includes(filter));
     }
-
 }

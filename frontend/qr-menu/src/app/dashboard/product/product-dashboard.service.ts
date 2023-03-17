@@ -21,15 +21,13 @@ export class ProductDashboardService extends AbstractDashboardService {
 
   deleteEntity(product : Product) : void {
     this.http.delete(this.baseUrl + "/" + product.id).subscribe(() =>
-    // TODO: remove this
-      console.log("test")
+      { error: e => console.error(e); }
     );
   }
 
   editEntity(product: Product) : void {
     this.http.patch(this.baseUrl + "/" + product.id, product).subscribe(() =>
-    // TODO: remove this
-      console.log("test")
+      { error: e => console.error(e); }
     );
   }
 
