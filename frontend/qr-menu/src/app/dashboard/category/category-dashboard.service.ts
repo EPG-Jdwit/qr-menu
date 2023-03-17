@@ -51,12 +51,12 @@ export class CategoryDashboardService extends AbstractDashboardService {
       }
     
     editEntity(category: Category) : void {
-    this.http.patch(this.baseUrl + "/" + category.id, category).subscribe(() =>
-        { error: e => console.error(e); }
-    );
+        this.http.patch(this.baseUrl + "/" + category.id, category).subscribe(() =>
+            { error: e => console.error(e); }
+        );
     }
 
     createEntity(category: Category) : Observable<Category> {
-    return this.http.post<Category>(this.baseUrl, category);
+        return this.http.post<Category>(this.baseUrl, category);
     }
 }

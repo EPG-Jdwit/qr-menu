@@ -107,6 +107,7 @@ export class BaseTableComponent implements AfterViewInit {
             // Ignore when the dialog was closed by canceling
             if (data) {
                 // Open the edit dialog for the entity
+                console.log(data);
                 this.editEntity(data);
             }
         });

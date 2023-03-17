@@ -17,6 +17,6 @@ export class DashboardInfoComponent {
         this.dialogRef.close();
       }
       edit(): void {
-        this.dialogRef.close(this.data.id);
+        this.dialogRef.close(this.data);
       }
 }
