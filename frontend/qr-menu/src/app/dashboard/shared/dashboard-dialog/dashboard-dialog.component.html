@@ -7,10 +7,10 @@
     </mat-form-field>
 
     <div *ngIf="isType('Product')">
-        <app-new-product-sub-view [allergenicFormControl]="allergenicFormControl" [entityForm]="entityForm"></app-new-product-sub-view>
+        <app-product-sub-view [allergenicFormControl]="allergenicFormControl" [entityForm]="entityForm"></app-product-sub-view>
     </div>
     <div *ngIf="isType('Subcategory')">
-        <app-new-subcategory-sub-view [categoryFormControl]="categoryFormControl" [productFormControl]="productFormControl" [entityForm]="entityForm"></app-new-subcategory-sub-view>
+        <app-subcategory-sub-view [categoryFormControl]="categoryFormControl" [productFormControl]="productFormControl" [entityForm]="entityForm"></app-subcategory-sub-view>
     </div>
 
     <div mat-dialog-actions>

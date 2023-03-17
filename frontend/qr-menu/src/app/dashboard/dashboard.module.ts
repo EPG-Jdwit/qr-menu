@@ -31,8 +31,7 @@ import { ProductTableComponent } from './product/product-table/product-table.com
 import { ProductInfoComponent } from './product/product-info/product-info.component';
 import { ProductEditViewComponent } from './product/product-edit-view/product-edit-view.component';
 import { NewProductViewComponent } from './product/new-product-view/new-product-view.component';
-import { NewProductSubViewComponent } from './product/new-product-view/new-product-sub-view/new-product-sub-view.component';
-import { SubEditProductViewComponent } from './product/product-edit-view/sub-edit-product-view/sub-edit-product-view.component';
+import { ProductSubViewComponent } from './product/product-sub-view/product-sub-view.component';
 
 
 import { CategoryTableComponent } from './category/category-table/category-table.component';
@@ -44,10 +43,9 @@ import { SubcategoryTableComponent } from './subcategory/subcategory-table/subca
 import { SubcategoryInfoComponent } from './subcategory/subcategory-info/subcategory-info.component';
 import { NewSubcategoryViewComponent } from './subcategory/new-subcategory-view/new-subcategory-view.component';
 import { EditSubcategoryViewComponent } from './subcategory/edit-subcategory-view/edit-subcategory-view.component';
-import { NewSubcategorySubViewComponent } from './subcategory/new-subcategory-view/new-subcategory-sub-view/new-subcategory-sub-view.component';
 
 import { DeleteConfirmationComponent } from './shared/dashboard-table/delete-confirmation/delete-confirmation.component';
-import { EditSubcategorySubViewComponent } from './subcategory/edit-subcategory-view/edit-subcategory-sub-view/edit-subcategory-sub-view.component';
+import { SubcategorySubViewComponent } from './subcategory/subcategory-sub-view/subcategory-sub-view.component';
 
 
 @NgModule({
@@ -68,14 +66,12 @@ import { EditSubcategorySubViewComponent } from './subcategory/edit-subcategory-
     NewCategoryViewComponent,
     EditCategoryViewComponent,
     DashboardNewComponent,
-    NewProductSubViewComponent,
+    ProductSubViewComponent,
     DashboardEditComponent,
-    SubEditProductViewComponent,
     DeleteConfirmationComponent,
     NewSubcategoryViewComponent,
     EditSubcategoryViewComponent,
-    NewSubcategorySubViewComponent,
-    EditSubcategorySubViewComponent,
+    SubcategorySubViewComponent,
     DashboardDialogComponent
   ],
   imports: [

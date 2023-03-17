@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditSubcategorySubViewComponent } from './edit-subcategory-sub-view.component';
+import { SubcategorySubViewComponent } from './subcategory-sub-view.component';
 
 describe('EditSubcategorySubViewComponent', () => {
-  let component: EditSubcategorySubViewComponent;
-  let fixture: ComponentFixture<EditSubcategorySubViewComponent>;
+  let component: SubcategorySubViewComponent;
+  let fixture: ComponentFixture<SubcategorySubViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditSubcategorySubViewComponent ]
+      declarations: [ SubcategorySubViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditSubcategorySubViewComponent);
+    fixture = TestBed.createComponent(SubcategorySubViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

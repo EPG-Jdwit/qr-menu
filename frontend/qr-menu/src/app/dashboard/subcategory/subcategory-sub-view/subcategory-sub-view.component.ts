@@ -3,14 +3,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { Category } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/product.model';
-import { SubcategoryDashboardService } from '../../subcategory-dashboard.service';
+import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
 
 @Component({
-    selector: 'app-edit-subcategory-sub-view',
-    templateUrl: '../../subcategory-sub-view/subcategory-sub-view.component.html',
-    styleUrls: ['../../subcategory-sub-view/subcategory-sub-view.component.scss']
+    selector: 'app-subcategory-sub-view',
+    templateUrl: './subcategory-sub-view.component.html',
+    styleUrls: ['./subcategory-sub-view.component.scss']
 })
-export class EditSubcategorySubViewComponent {
+export class SubcategorySubViewComponent {
     @Input() entityForm: FormGroup;
     @Input() categoryFormControl: FormControl;
     @Input() productFormControl: FormControl;
@@ -20,7 +20,7 @@ export class EditSubcategorySubViewComponent {
     filteredProductList: Product[]
 
     constructor(
-        protected  service : SubcategoryDashboardService
+        protected service : SubcategoryDashboardService
     ) {
     }
 
@@ -41,7 +41,9 @@ export class EditSubcategorySubViewComponent {
 
     private getAllCategories(): void {
         this.service.getCategories().subscribe(data => {
+            if (data._embedded) {
                 this.categoryList = data._embedded.categoryList;
+            }
                 this.filteredCategoryList = this.categoryList;
         });
     }
@@ -57,7 +59,9 @@ export class EditSubcategorySubViewComponent {
 
     private getAllProducts(): void {
         this.service.getAllProducts().subscribe(data => {
-            this.productList = data._embedded.productList;
+            if (data._embedded) {
+                this.productList = data._embedded.productList;
+            }
             this.filteredProductList = this.productList;
         });
     }
@@ -70,11 +74,4 @@ export class EditSubcategorySubViewComponent {
         let filter = value.trim().toLowerCase();
         return this.productList.filter(item => item.name.trim().toLowerCase().includes(filter));
     }
-
-    compareObjects(o1: any, o2: any) {
-        if(o1.name == o2.name && o1.id == o2.id )
-        return true;
-        else return false
-      }
-
 }
