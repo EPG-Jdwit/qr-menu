@@ -3,6 +3,7 @@ import { Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Subcategory } from 'src/app/models/subcategory.model';
+import { Product } from 'src/app/models/product.model';
 import { DashboardEditComponent } from '../../shared/dashboard-edit-dialog/dashboard-edit.component';
 import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
 
@@ -14,19 +15,20 @@ import { SubcategoryDashboardService } from '../subcategory-dashboard.service';
 export class EditSubcategoryViewComponent extends DashboardEditComponent {
 
     constructor(
-        public override dialogRef: MatDialogRef<DashboardEditComponent>,
+        public override dialogRef: MatDialogRef<EditSubcategoryViewComponent>,
         @Inject(MAT_DIALOG_DATA) public override data: Subcategory,
         protected override service : SubcategoryDashboardService
       ) {
-        super(dialogRef, data, service)
+        super(dialogRef, data, service);
 
         // Set selected category value in the multi select
         if (this.data.category) {
-            this.categoryFormControl.setValue(this.data.category.name);
-            console.log(this.categoryFormControl.value);
+            this.categoryFormControl.setValue(this.data.category);
         }
+
         if (this.data.productList) {
-            this.productFormControl.setValue(this.data.productList)
+            // this.productFormControl.setValue(this.data.productList.map(product => product.name));
+            this.productFormControl.setValue(this.data.productList);
         }
       }
 
@@ -37,6 +39,10 @@ export class EditSubcategoryViewComponent extends DashboardEditComponent {
         }
         if (this.categoryFormControl.value) {
             this.data.category = this.categoryFormControl.value
+        }
+        if (this.productFormControl.value) {
+            this.data.productList = this.productFormControl.value
+            this.data.products = this.productFormControl.value.map(product => product.id);
         }
     }
 

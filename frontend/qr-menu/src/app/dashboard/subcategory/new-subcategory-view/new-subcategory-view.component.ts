@@ -14,7 +14,7 @@ import { Product } from 'src/app/models/product.model';
 })
 export class NewSubcategoryViewComponent extends DashboardNewComponent {
     constructor(
-        public override dialogRef: MatDialogRef<DashboardNewComponent>,
+        public override dialogRef: MatDialogRef<NewSubcategoryViewComponent>,
         @Inject(MAT_DIALOG_DATA) public override data: Subcategory,
         protected override service : SubcategoryDashboardService
     ) {

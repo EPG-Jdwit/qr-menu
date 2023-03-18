@@ -74,4 +74,9 @@ export class SubcategorySubViewComponent {
         let filter = value.trim().toLowerCase();
         return this.productList.filter(item => item.name.trim().toLowerCase().includes(filter));
     }
+
+    compareSubcategoryItems(object1: any, object2: any) {
+        return object1 && object2 && object1.id == object2.id;
+    }
+
 }

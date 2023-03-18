@@ -13,7 +13,7 @@ import { ProductDashboardService } from '../product-dashboard.service';
 })
 export class NewProductViewComponent extends DashboardNewComponent {
     constructor(
-        public override dialogRef: MatDialogRef<DashboardNewComponent>,
+        public override dialogRef: MatDialogRef<NewProductViewComponent>,
         @Inject(MAT_DIALOG_DATA) public override data: Product,
         protected override service : ProductDashboardService
     ) {

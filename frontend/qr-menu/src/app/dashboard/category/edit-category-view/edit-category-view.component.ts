@@ -12,7 +12,7 @@ import { CategoryDashboardService } from '../category-dashboard.service';
 })
 export class EditCategoryViewComponent extends DashboardEditComponent {
     constructor(
-        public override dialogRef: MatDialogRef<DashboardEditComponent>,
+        public override dialogRef: MatDialogRef<EditCategoryViewComponent>,
         @Inject(MAT_DIALOG_DATA) public override data: Category,
         protected override service : CategoryDashboardService,
       ) {

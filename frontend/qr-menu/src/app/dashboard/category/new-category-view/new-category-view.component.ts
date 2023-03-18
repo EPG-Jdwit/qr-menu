@@ -13,7 +13,7 @@ import { CategoryDashboardService } from '../category-dashboard.service';
 export class NewCategoryViewComponent extends DashboardNewComponent {
     
     constructor(
-        public override dialogRef: MatDialogRef<DashboardNewComponent>,
+        public override dialogRef: MatDialogRef<NewCategoryViewComponent>,
         @Inject(MAT_DIALOG_DATA) public override data: Category,
         protected override service : CategoryDashboardService
     ) {
