@@ -2,7 +2,7 @@
     <h1>{{title}}</h1>
     <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="name"><!-- [placeholder]="!data? 'New Item' : data.name">-->
+        <input matInput formControlName="name">
         <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
     </mat-form-field>
 
@@ -15,6 +15,6 @@
 
     <div mat-dialog-actions>
         <button mat-button (click)="close()" color="accent">Close</button>
-        <button mat-button (click)="saveEntity()" [disabled]="!entityForm.valid" [mat-dialog-close]="data" color="primary">Add Item</button>
+        <button mat-button (click)="saveEntity()" [disabled]="!entityForm.valid" [mat-dialog-close]="data" color="primary">{{confirmation}}</button>
     </div>
 </div>

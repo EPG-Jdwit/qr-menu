@@ -22,14 +22,12 @@ export class EditSubcategoryViewComponent extends DashboardEditComponent {
 
         // Set selected category value in the multi select
         if (this.data.category) {
-            this.categoryFormControl.setValue( this.data.category);
+            this.categoryFormControl.setValue(this.data.category.name);
+            console.log(this.categoryFormControl.value);
         }
-        console.log(this.categoryFormControl.value);
         if (this.data.productList) {
             this.productFormControl.setValue(this.data.productList)
         }
-        console.log(this.productFormControl.value);
-
       }
 
     // Copy values from the form into the data Subcategory object

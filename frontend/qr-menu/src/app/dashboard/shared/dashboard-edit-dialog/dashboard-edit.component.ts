@@ -14,6 +14,7 @@ import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.c
 })
 export class DashboardEditComponent extends DashboardDialogComponent {
     override title: string = "Edit";
+    override confirmation: string= "Edit Item";
   
     constructor(
       public override dialogRef: MatDialogRef<DashboardDialogComponent>,

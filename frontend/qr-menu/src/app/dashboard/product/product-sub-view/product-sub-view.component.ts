@@ -13,8 +13,6 @@ export class ProductSubViewComponent {
     allergenicList: string[] = [ "Ei", "Melk", "Gluten", "Lupine", "Mosterd", "Noten", "Pindas",
         "Schaaldieren", "Selderij", "Sesamzaad", "Soja", "Vis", "Weekdieren", "Zwavel"].sort();
     
-
-
     get price() {
         return this.entityForm.get("price");
     }
