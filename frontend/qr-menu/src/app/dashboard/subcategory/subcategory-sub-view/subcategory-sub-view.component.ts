@@ -42,7 +42,7 @@ export class SubcategorySubViewComponent {
     private getAllCategories(): void {
         this.service.getCategories().subscribe(data => {
             if (data._embedded) {
-                this.categoryList = data._embedded.categoryList;
+                this.categoryList = data._embedded.categoryList.sort((a,b) => a.name.localeCompare(b.name));
             }
                 this.filteredCategoryList = this.categoryList;
         });
@@ -60,7 +60,7 @@ export class SubcategorySubViewComponent {
     private getAllProducts(): void {
         this.service.getAllProducts().subscribe(data => {
             if (data._embedded) {
-                this.productList = data._embedded.productList;
+                this.productList = data._embedded.productList.sort((a,b) => a.name.localeCompare(b.name));
             }
             this.filteredProductList = this.productList;
         });
