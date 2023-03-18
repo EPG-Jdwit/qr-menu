@@ -1,3 +1,4 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subcategory } from 'src/app/models/subcategory.model';
@@ -30,7 +31,8 @@ export class SubcategoryTableComponent extends BaseTableComponent {
     override createEntity(): void {
         let newEntity: Subcategory;
         const dialogRef = this.dialog.open(NewSubcategoryViewComponent, {
-            data: newEntity
+            data: newEntity,
+            scrollStrategy: new NoopScrollStrategy()
         });
         dialogRef.afterClosed().subscribe(result => {
             // Ignore when the dialog was closed by canceling
@@ -45,7 +47,8 @@ export class SubcategoryTableComponent extends BaseTableComponent {
 
     override editEntity(subcategory: Subcategory): void {
         this.dialog.open(EditSubcategoryViewComponent, {
-            data: subcategory
+            data: subcategory,
+            scrollStrategy: new NoopScrollStrategy()
         });
     }
 

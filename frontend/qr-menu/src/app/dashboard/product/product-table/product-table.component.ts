@@ -7,6 +7,7 @@ import { ProductEditViewComponent } from '../product-edit-view/product-edit-view
 import { NewProductViewComponent } from '../new-product-view/new-product-view.component';
 import { Product } from 'src/app/models/product.model';
 import { ProductInfoComponent } from '../product-info/product-info.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'product-table',
@@ -28,7 +29,8 @@ export class ProductTableComponent extends BaseTableComponent {
     // Edit the entity
     override editEntity(product: Product): void {
         this.dialog.open(ProductEditViewComponent, {
-            data: product
+            data: product,
+            scrollStrategy: new NoopScrollStrategy()
         });
     }
 
@@ -36,7 +38,8 @@ export class ProductTableComponent extends BaseTableComponent {
     override createEntity(): void {
         let newEntity: Product;
         const dialogRef = this.dialog.open(NewProductViewComponent, {
-            data: newEntity
+            data: newEntity,
+            scrollStrategy: new NoopScrollStrategy()
         });
         dialogRef.afterClosed().subscribe(result => {
             // Ignore when the dialog was closed by canceling

@@ -10,6 +10,7 @@ import { Entity } from 'src/app/models/entity.model';
 import { AbstractDashboardService } from '../abstract-dashboard.service';
 import { DashboardInfoComponent } from '../dashboard-info-dialog/dashboard-info.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'dashboard-table',
@@ -72,7 +73,8 @@ export class BaseTableComponent implements AfterViewInit {
     deleteEntity(entity: Entity): void {
 
         const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-            data: entity
+            data: entity,
+            scrollStrategy: new NoopScrollStrategy()
         });
 
         dialogRef.afterClosed().subscribe(confirmation => {
@@ -101,7 +103,8 @@ export class BaseTableComponent implements AfterViewInit {
     // with the posibility of editing it
     protected showInfo(entity: Entity, infoComponnent: any): void {
         const dialogRef = this.dialog.open(infoComponnent, {
-            data: entity
+            data: entity,
+            scrollStrategy: new NoopScrollStrategy()
         });
         dialogRef.afterClosed().subscribe(data => {
             // Ignore when the dialog was closed by canceling
