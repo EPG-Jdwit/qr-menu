@@ -166,7 +166,7 @@ public class SubcategoryService extends AbstractService {
     public Subcategory patchSubcategoryById(Long categoryId, Long subcategoryId, NewSubcategory newSubcategory) throws NotFoundException, AlreadyExistsException {
         // Check if the category exists, otherwise throw a NotFoundException
         CategoryEntity categoryEntity = parseOptional(categoryRepository.findById(categoryId));
-        SubcategoryEntity originalEntity = parseOptional(subcategoryRepository.findById(categoryId, subcategoryId));
+        SubcategoryEntity originalEntity = parseOptional(subcategoryRepository.findById(subcategoryId));
         SubcategoryEntity newEntity = subcategoryMapper.newJsonToEntity(newSubcategory);
         // Check if another subcategory (within the same category) with the same name already exists
         if( newEntity.getName() != null
@@ -175,6 +175,8 @@ public class SubcategoryService extends AbstractService {
             throw new AlreadyExistsException("Subcategory (within the category '" + categoryEntity.getName() +"') with the name '" + newEntity.getName() + "' already exists.");
         }
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
+        // Set the CategoryEntity because it could have been changed
+        originalEntity.setCategoryEntity(categoryEntity);
 
         addProductsToSubcategory(newSubcategory, originalEntity);
         subcategoryRepository.save(originalEntity);

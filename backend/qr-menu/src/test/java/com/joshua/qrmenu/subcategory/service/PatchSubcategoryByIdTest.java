@@ -51,7 +51,7 @@ public class PatchSubcategoryByIdTest {
     }
 
     @Test
-    public void updateWrongCategory() throws NotFoundException, InputException, AlreadyExistsException {
+    public void updateNonExistentCategory() throws NotFoundException, InputException, AlreadyExistsException {
         Long categoryId = setUpCategory();
 
         NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
@@ -114,6 +114,21 @@ public class PatchSubcategoryByIdTest {
     }
 
     @Test
+    public void canUpdateCategory() throws NotFoundException, InputException, AlreadyExistsException {
+        Long categoryId1 = setUpCategory();
+        Long categoryId2 = setUpCategory();
+
+        NewSubcategory newSubcategory = subcategoryMocker.generateNewSubcategory();
+        Subcategory subcategory = subcategoryService.createNewSubcategory(categoryId1, newSubcategory);
+
+        Subcategory updatedSubcategory = subcategoryService.patchSubcategoryById(categoryId2, subcategory.getSubcategoryId(), newSubcategory);
+        assertThat(updatedSubcategory.getSubcategoryId()).isEqualTo(subcategory.getSubcategoryId());
+        assertThat(subcategoryService.getSubcategoryById(categoryId2, updatedSubcategory.getSubcategoryId()).getCategoryId()).isEqualTo(categoryId2);
+        assertThrows(NotFoundException.class,
+                () -> subcategoryService.getSubcategoryById(categoryId1, subcategory.getSubcategoryId())
+        );}
+
+    @Test
     public void updateSubCategoryNameConflict() throws NotFoundException, InputException, AlreadyExistsException {
         Long categoryId = setUpCategory();
         NewSubcategory newSubcategory1 = subcategoryMocker.generateNewSubcategory();
@@ -127,7 +142,7 @@ public class PatchSubcategoryByIdTest {
     }
 
     @Test
-    public void updateSubCategoryNoNameConflict() throws NotFoundException, InputException, AlreadyExistsException {
+    public void updateSubCategoryDifferentCategoryNoNameConflict() throws NotFoundException, InputException, AlreadyExistsException {
         Long categoryId1 = setUpCategory();
         Long categoryId2 = setUpCategory();
         NewSubcategory newSubcategory1 = subcategoryMocker.generateNewSubcategory();

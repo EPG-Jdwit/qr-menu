@@ -279,8 +279,6 @@ public class SubcategoryIntegrationTest {
         assertThat(subcategoryList.containsAll(Arrays.asList(subcategory1, subcategory2))).isTrue();
     }
 
-    // Test patching a subcategory
-
     @Test
     @Order(40)
     public void patchSubcategoryByIdAllFields() throws Exception {
@@ -474,6 +472,41 @@ public class SubcategoryIntegrationTest {
         Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
         assertThat(result.getSubcategoryId()).isEqualTo(subcategory2.getSubcategoryId());
         assertThat(result.getName()).isNotEqualTo(subcategory2.getName());
+        subcategory2 = result;
+    }
+
+    @Test
+    @Order(55)
+    public void patchSubcategoryCategory() throws Exception {
+        NewSubcategory newSubcategory = subcategoryMocker.generateNullNewSubcategory();
+
+        MockHttpServletResponse response = mvc.perform(
+                        MockMvcRequestBuilders
+                                .patch("/categories/" + category2.getCategoryId() +
+                                        "/subcategories/" + subcategory2.getSubcategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(newSubcategory))
+                )
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        Subcategory result = JSON_PARSER.jsonMapToSubcategory(response.getContentAsString());
+        assertThat(result.getSubcategoryId()).isEqualTo(subcategory2.getSubcategoryId());
+        assertThat(result.getName()).isEqualTo(subcategory2.getName());
+        assertThat(result.getCategoryId()).isEqualTo(category2.getCategoryId());
+        mvc.perform(
+                MockMvcRequestBuilders
+                        .get("/categories/" + category1.getCategoryId() + "/subcategories/" + result.getSubcategoryId())
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isNotFound());
+        mvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/categories/" + category2.getCategoryId() +
+                                        "/subcategories/" + subcategory2.getSubcategoryId())
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+
         subcategory2 = result;
     }
 }
