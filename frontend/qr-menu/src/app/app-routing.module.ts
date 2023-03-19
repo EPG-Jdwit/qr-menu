@@ -13,6 +13,7 @@ import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashb
 import { ProductTableComponent } from './dashboard/product/product-table/product-table.component';
 import { CategoryTableComponent } from './dashboard/category/category-table/category-table.component';
 import { SubcategoryTableComponent } from './dashboard/subcategory/subcategory-table/subcategory-table.component';
+import { SuggestionTableComponent } from './dashboard/suggestion/suggestion-table/suggestion-table.component';
 
 const routes: Routes = [
   { path: 'dashboard', 
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'products', component: ProductTableComponent},
     { path: 'categories', component: CategoryTableComponent},
     { path: 'subcategories', component: SubcategoryTableComponent},
+    { path: 'suggestions', component: SuggestionTableComponent},
     { path: '**', component: DashboardOverviewComponent}
   ] },
   { 

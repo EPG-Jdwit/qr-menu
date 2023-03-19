@@ -46,6 +46,11 @@ import { EditSubcategoryViewComponent } from './subcategory/edit-subcategory-vie
 
 import { DeleteConfirmationComponent } from './shared/dashboard-table/delete-confirmation/delete-confirmation.component';
 import { SubcategorySubViewComponent } from './subcategory/subcategory-sub-view/subcategory-sub-view.component';
+import { SuggestionTableComponent } from './suggestion/suggestion-table/suggestion-table.component';
+import { EditSuggestionViewComponent } from './suggestion/edit-suggestion-view/edit-suggestion-view.component';
+import { NewSuggestionViewComponent } from './suggestion/new-suggestion-view/new-suggestion-view.component';
+import { SuggestionInfoViewComponent } from './suggestion/suggestion-info-view/suggestion-info-view.component';
+import { SuggestionSubViewComponent } from './suggestion/suggestion-sub-view/suggestion-sub-view.component';
 
 
 @NgModule({
@@ -72,7 +77,12 @@ import { SubcategorySubViewComponent } from './subcategory/subcategory-sub-view/
     NewSubcategoryViewComponent,
     EditSubcategoryViewComponent,
     SubcategorySubViewComponent,
-    DashboardDialogComponent
+    DashboardDialogComponent,
+    SuggestionTableComponent,
+    EditSuggestionViewComponent,
+    NewSuggestionViewComponent,
+    SuggestionInfoViewComponent,
+    SuggestionSubViewComponent
   ],
   imports: [
     CommonModule,

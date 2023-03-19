@@ -1,0 +1,33 @@
+<div id="dashboard-info-container">
+    <h1 mat-dialog-title id="dashboard-info-title">{{data.name}}</h1>
+    <div mat-dialog-content>
+        <div id="dashboard-info-id" class="dashboard-info-section">
+            <div id="dashboard-id-label" class="dashboard-info-label">
+                ID:
+            </div>
+            <div id="dashboard-id-value" class="dashboard-info-value">
+                {{data.id}}
+            </div>
+        </div>
+        <div id="category-info-url" class="dashboard-info-section">
+            <div id="category-url-label" class="dashboard-info-label">
+                URL:
+            </div>
+            <div id="category-url-value" class="dashboard-info-value">
+                {{data.url}}
+            </div>
+        </div>
+        <div id="category-info-description" class="dashboard-info-section">
+            <div id="category-description-label" class="dashboard-info-label">
+                Description:
+            </div>
+            <div id="category-description-value" class="dashboard-info-value">
+                {{data.description}}
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions id="dashboard-info-actions">
+        <button mat-button (click)="onNoClick()" color="accent">Close</button>
+        <button mat-button (click)="edit()" color="primary" cdkFocusInitial>Edit</button>
+    </div>
+</div>`

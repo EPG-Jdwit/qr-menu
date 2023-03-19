@@ -1,0 +1,13 @@
+<div class="sub-view-container" [formGroup]="entityForm">
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>URL</mat-label>
+        <textarea matInput formControlName="url"></textarea>
+        <mat-error *ngIf="url.invalid">{{getUrlErrorMessage()}}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-error *ngIf="description.invalid">{{getDescriptionErrorMessage()}}</mat-error>
+    </mat-form-field>
+</div>

@@ -12,6 +12,9 @@
     <div *ngIf="isType('Subcategory')">
         <app-subcategory-sub-view [categoryFormControl]="categoryFormControl" [productFormControl]="productFormControl" [entityForm]="entityForm"></app-subcategory-sub-view>
     </div>
+    <div *ngIf="isType('Suggestion')">
+        <app-suggestion-sub-view [entityForm]="entityForm"></app-suggestion-sub-view>
+    </div>
 
     <div mat-dialog-actions>
         <button mat-button (click)="close()" color="accent">Close</button>
