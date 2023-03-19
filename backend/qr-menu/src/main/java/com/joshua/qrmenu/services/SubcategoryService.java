@@ -176,9 +176,12 @@ public class SubcategoryService extends AbstractService {
         }
         ShallowCopy.copyFieldsExceptNull(newEntity, originalEntity);
         // Set the CategoryEntity because it could have been changed
-        originalEntity.setCategoryEntity(categoryEntity);
+        if (!originalEntity.getCategoryEntity().getCategoryId().equals(categoryId)) {
+            originalEntity.setCategoryEntity(categoryEntity);
+        }
 
         addProductsToSubcategory(newSubcategory, originalEntity);
+        System.out.println("save");
         subcategoryRepository.save(originalEntity);
         return subcategoryMapper.entityToJson(originalEntity);
     }

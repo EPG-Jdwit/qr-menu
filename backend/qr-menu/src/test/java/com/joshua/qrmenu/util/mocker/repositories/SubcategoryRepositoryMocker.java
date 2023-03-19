@@ -38,9 +38,18 @@ public class SubcategoryRepositoryMocker {
             if (subcategoryEntity.getSubcategoryId() == null) {
                 subcategoryEntity.setSubcategoryId(idCounter++);
             } else {
+                // Remove the subcategory of the old Category if it's been patched
+                Optional<SubcategoryEntity> optionalSubcategoryEntity = subcategoryRepository.findById(subcategoryEntity.getSubcategoryId());
+                if (optionalSubcategoryEntity.isPresent()) {
+                    // TODO: oldCategoryId is the new one??
+                    SubcategoryEntity oldEntity = optionalSubcategoryEntity.get();
+                    Long oldCategoryId = oldEntity.getCategoryEntity().getCategoryId();
+                    remove(subcategoryRepository, subcategoryEntity, oldCategoryId);
+                }
                 // Delete old value and replace with new
-                remove(subcategoryRepository, subcategoryEntity);
+//                remove(subcategoryRepository, subcategoryEntity, subcategoryEntity.getCategoryEntity().getCategoryId());
             }
+            System.out.println("adding");
             add(subcategoryRepository, subcategoryEntity);
             return subcategoryEntity;
         });
@@ -86,8 +95,7 @@ public class SubcategoryRepositoryMocker {
         when(subcategoryRepository.findAllOfCategory(categoryId, orderSort)).thenReturn(findAllOfCategory);
     }
 
-    public static void remove(SubcategoryRepository subcategoryRepository, SubcategoryEntity subcategoryEntity) {
-        Long categoryId = subcategoryEntity.getCategoryEntity().getCategoryId();
+    public static void remove(SubcategoryRepository subcategoryRepository, SubcategoryEntity subcategoryEntity, Long categoryId) {
         when(subcategoryRepository.existsById(subcategoryEntity.getSubcategoryId())).thenReturn(false);
         when(subcategoryRepository.findById(subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
         when(subcategoryRepository.findById(categoryId, subcategoryEntity.getSubcategoryId())).thenReturn(Optional.empty());
